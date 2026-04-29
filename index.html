@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UrbanChain Private Market — Haulage, Logistics & Distribution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@300;400;500;600&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a1118;
+    --bg-2:#0f1822;
+    --panel:#121d28;
+    --panel-2:#172333;
+    --line:#23344a;
+    --line-soft:#1b2a3c;
+    --ink:#e9efef;
+    --ink-soft:#a8b6c4;
+    --ink-dim:#6a7a8c;
+    --accent:#7cf2b0;        /* renewable signal */
+    --accent-deep:#34c47c;
+    --accent-glow:rgba(124,242,176,.18);
+    --grid:#f3a847;          /* grid amber */
+    --grid-soft:rgba(243,168,71,.18);
+    --spill:#7eb6ff;
+    --spill-soft:rgba(126,182,255,.16);
+    --warn:#ff9176;
+    --serif:'Fraunces', 'Times New Roman', serif;
+    --sans:'Inter Tight', system-ui, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(124,242,176,.05), transparent 60%),
+      radial-gradient(900px 500px at -10% 30%, rgba(126,182,255,.04), transparent 60%),
+      var(--bg);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.012) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.012) 1px, transparent 1px);
+    background-size:80px 80px;
+  }
+  ::selection{background:var(--accent);color:#06120c}
+
+  /* ─── brand banner ────────────────────────────── */
+  .brand-banner{
+    width:100%;display:block;line-height:0;
+    border-bottom:1px solid var(--line-soft);
+    background:#0d2780;
+  }
+  .brand-banner img{
+    width:100%;height:auto;display:block;
+    max-height:180px;object-fit:cover;object-position:center;
+  }
+  @media (max-width: 720px){
+    .brand-banner img{max-height:120px}
+  }
+
+  /* ─── layout ─────────────────────────────────────── */
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+  @media (max-width: 720px){ .wrap{padding:0 20px}}
+
+  /* ─── topbar ─────────────────────────────────────── */
+  .topbar{
+    position:sticky;top:0;z-index:30;
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    background:rgba(10,17,24,.72);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .topbar-inner{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 32px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-soft);
+  }
+  .brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .brand-mark{
+    width:24px;height:24px;display:block;
+    filter:drop-shadow(0 0 8px var(--accent-glow));
+  }
+  .topbar-right{display:flex;gap:24px;align-items:center}
+  .topbar-right span:not(:last-child)::after{content:"·";margin-left:24px;color:var(--ink-dim)}
+  @media (max-width: 720px){
+    .topbar-inner{padding:14px 20px;font-size:10px}
+    .topbar-right{display:none}
+  }
+
+  /* ─── hero ──────────────────────────────────────── */
+  .hero{padding:120px 0 80px;position:relative}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);padding:8px 14px;border:1px solid rgba(124,242,176,.3);
+    border-radius:999px;background:rgba(124,242,176,.04);margin-bottom:32px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  h1.display{
+    font-family:var(--serif);font-weight:400;font-style:normal;
+    font-size:clamp(48px, 8vw, 108px);line-height:.94;letter-spacing:-.03em;
+    color:var(--ink);max-width:14ch;
+  }
+  h1.display em{font-style:italic;color:var(--accent);font-weight:400}
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(18px,2vw,22px);line-height:1.5;
+    color:var(--ink-soft);max-width:62ch;margin-top:36px;font-weight:300;
+  }
+  .hero-meta{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;
+    margin-top:80px;padding-top:36px;border-top:1px solid var(--line-soft);
+  }
+  .meta-item .meta-k{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+  .meta-item .meta-v{font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:400}
+  .meta-item .meta-v .num{font-family:var(--mono);font-weight:500}
+
+  /* ─── section frame ─────────────────────────────── */
+  section{padding:90px 0;border-top:1px solid var(--line-soft);position:relative}
+  .section-head{display:flex;align-items:baseline;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .section-num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-dim);text-transform:uppercase}
+  .section-title{font-family:var(--serif);font-size:clamp(34px,5vw,56px);font-weight:400;letter-spacing:-.02em;line-height:1.05;color:var(--ink)}
+  .section-title em{font-style:italic;color:var(--accent)}
+  .section-lede{font-family:var(--serif);font-size:18px;color:var(--ink-soft);max-width:64ch;margin-top:18px;font-weight:300;line-height:1.55}
+
+  /* ─── flow diagram (Section 1) ──────────────────── */
+  .flow{
+    background:linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+    border:1px solid var(--line);border-radius:18px;padding:44px;position:relative;
+    overflow:hidden;
+  }
+  .flow-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+  .pill{
+    appearance:none;border:1px solid var(--line);background:var(--bg-2);color:var(--ink-soft);
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    padding:10px 18px;border-radius:999px;cursor:pointer;transition:all .18s ease;
+  }
+  .pill:hover{color:var(--ink);border-color:var(--ink-dim)}
+  .pill.active{background:var(--accent);color:#06120c;border-color:var(--accent);font-weight:500}
+  #flow-svg{width:100%;height:auto;display:block;max-height:520px}
+  .flow-caption{font-family:var(--serif);font-size:16px;color:var(--ink-soft);margin-top:24px;line-height:1.6;min-height:48px}
+  .flow-caption strong{color:var(--ink);font-weight:500;font-style:italic}
+
+  /* ─── price builder (Section 2) ─────────────────── */
+  .builder{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  @media (max-width: 920px){.builder{grid-template-columns:1fr}}
+  .builder-panel{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:32px;
+  }
+  .builder-panel h3{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);margin-bottom:6px}
+  .builder-panel .h-sub{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:24px}
+
+  .stack{display:flex;flex-direction:column;gap:1px;margin:24px 0}
+  .stack-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 18px;font-family:var(--mono);font-size:13px;
+    transition:transform .25s ease, background .25s ease;cursor:default;
+    border-left:3px solid transparent;
+  }
+  .stack-bar:hover{transform:translateX(4px)}
+  .stack-bar .lbl{color:var(--ink-soft);font-size:12px;letter-spacing:.05em}
+  .stack-bar .val{color:var(--ink);font-weight:500}
+  .sb-ncc{background:rgba(126,182,255,.10);border-left-color:var(--spill)}
+  .sb-pm{background:rgba(124,242,176,.12);border-left-color:var(--accent)}
+  .sb-fee{background:rgba(124,242,176,.06);border-left-color:var(--accent-deep)}
+  .sb-comm{background:rgba(243,168,71,.10);border-left-color:var(--grid)}
+  .sb-total{background:var(--bg-2);border-left-color:var(--ink);margin-top:6px;padding:18px;font-size:14px}
+  .sb-total .lbl{color:var(--ink);font-family:var(--serif);font-size:15px;font-style:italic;letter-spacing:0}
+  .sb-total .val{color:var(--accent);font-size:18px;font-weight:600}
+
+  .selector{margin-bottom:8px}
+  .selector label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);display:block;margin-bottom:8px}
+  .selector select{
+    width:100%;padding:14px 16px;background:var(--bg-2);border:1px solid var(--line);
+    color:var(--ink);font-family:var(--mono);font-size:13px;border-radius:8px;
+    appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%237cf2b0' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 16px center;
+    cursor:pointer;
+  }
+  .selector select:focus{outline:none;border-color:var(--accent)}
+
+  .toggle-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .tog{
+    flex:1;min-width:0;padding:12px;border:1px solid var(--line);background:var(--bg-2);
+    color:var(--ink-soft);font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    border-radius:8px;cursor:pointer;transition:all .18s ease;text-align:center;
+  }
+  .tog.on{background:rgba(124,242,176,.1);border-color:var(--accent);color:var(--accent)}
+  .tog small{display:block;margin-top:4px;color:var(--ink-dim);font-size:9px;letter-spacing:.1em}
+  .tog.on small{color:var(--accent-deep)}
+
+  .verdict{
+    margin-top:24px;padding:20px;border-radius:12px;
+    background:linear-gradient(135deg, rgba(124,242,176,.06), rgba(124,242,176,.02));
+    border:1px solid rgba(124,242,176,.2);
+  }
+  .verdict.worse{background:linear-gradient(135deg, rgba(243,168,71,.06), rgba(243,168,71,.02));border-color:rgba(243,168,71,.25)}
+  .verdict-k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px}
+  .verdict-v{font-family:var(--serif);font-size:24px;color:var(--ink)}
+  .verdict-v em{color:var(--accent);font-style:italic;font-weight:500}
+  .verdict.worse .verdict-v em{color:var(--grid)}
+
+  /* ─── deal table (Section 3) ───────────────────── */
+  .deal-tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:0}
+  .deal-tab{
+    background:none;border:none;color:var(--ink-soft);
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    padding:18px 24px;cursor:pointer;position:relative;transition:color .2s ease;
+  }
+  .deal-tab:hover{color:var(--ink)}
+  .deal-tab.active{color:var(--accent)}
+  .deal-tab.active::after{
+    content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);
+  }
+  .deal-tab .count{
+    margin-left:8px;font-size:10px;color:var(--ink-dim);
+    background:var(--bg-2);padding:2px 8px;border-radius:999px;
+  }
+  .deal-tab.active .count{color:var(--accent);background:rgba(124,242,176,.1)}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-top:none;border-radius:0 0 12px 12px;background:var(--panel)}
+  table.deal{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;min-width:760px}
+  table.deal thead{background:var(--bg-2)}
+  table.deal th{
+    text-align:left;padding:14px 16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-dim);font-weight:500;border-bottom:1px solid var(--line);
+  }
+  table.deal th.num,table.deal td.num{text-align:right;font-variant-numeric:tabular-nums}
+  table.deal td{padding:14px 16px;border-bottom:1px solid var(--line-soft);color:var(--ink-soft);transition:background .2s ease}
+  table.deal tr:hover td{background:rgba(124,242,176,.03)}
+  table.deal tr:last-child td{border-bottom:none}
+  table.deal td.site{color:var(--ink);font-family:var(--sans);font-weight:500;font-size:13px}
+  table.deal td.mpan{color:var(--ink-dim);font-size:11px}
+  table.deal td .delta{display:inline-block;margin-left:8px;font-size:10px;padding:1px 6px;border-radius:4px}
+  table.deal td .delta.pos{color:var(--accent);background:rgba(124,242,176,.1)}
+  table.deal td .delta.neg{color:var(--warn);background:rgba(255,145,118,.1)}
+  table.deal tfoot td{background:var(--bg-2);color:var(--ink);font-weight:500;border-top:1px solid var(--line);border-bottom:none;padding:16px}
+
+  /* ─── matching viz (Section 4) ─────────────────── */
+  .matching{
+    background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:44px;
+  }
+  #matching-svg{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em}
+  .legend-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:middle}
+
+  /* ─── P442 levy items ─────────────────────────── */
+  .p442-item{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg-2);
+    cursor:pointer;transition:all .18s ease;font-family:var(--mono);font-size:12px;
+  }
+  .p442-item:hover{border-color:var(--ink-dim)}
+  .p442-item.on{border-color:var(--accent);background:rgba(124,242,176,.06)}
+  .p442-item .lvy-name{color:var(--ink-soft);display:flex;align-items:center;gap:10px}
+  .p442-item.on .lvy-name{color:var(--ink)}
+  .p442-item .lvy-desc{color:var(--ink-dim);font-size:10px;letter-spacing:.04em;margin-left:10px}
+  .p442-item .lvy-rate{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+  .p442-item.on .lvy-rate{color:var(--accent)}
+  .p442-check{
+    width:14px;height:14px;border-radius:3px;border:1px solid var(--ink-dim);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s ease;
+  }
+  .p442-item.on .p442-check{background:var(--accent);border-color:var(--accent)}
+  .p442-item.on .p442-check::after{content:"✓";color:#06120c;font-size:10px;font-weight:700}
+
+  /* ─── spill tier (Section 5) ───────────────────── */
+  .spill-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:32px}
+  @media (max-width: 920px){.spill-grid{grid-template-columns:1fr}}
+  .spill-tier{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 22px;border:1px solid var(--line);border-radius:12px;background:var(--panel);
+    margin-bottom:10px;cursor:pointer;transition:all .2s ease;
+  }
+  .spill-tier:hover{border-color:var(--ink-dim);transform:translateX(4px)}
+  .spill-tier.sel{border-color:var(--accent);background:rgba(124,242,176,.04);box-shadow:0 0 0 1px var(--accent)}
+  .spill-tier .pct{font-family:var(--serif);font-size:32px;font-weight:500;color:var(--ink);font-style:italic}
+  .spill-tier .pct em{color:var(--accent);font-style:normal}
+  .spill-tier .desc{flex:1;margin-left:24px;font-family:var(--sans);font-size:13px;color:var(--ink-soft);line-height:1.5}
+  .spill-tier .rate{font-family:var(--mono);font-size:18px;color:var(--ink);text-align:right;font-weight:500}
+  .spill-tier .rate small{display:block;color:var(--ink-dim);font-size:10px;letter-spacing:.1em;margin-top:4px}
+
+  .rego-box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:28px}
+  .rego-box h4{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--ink);margin-bottom:14px;font-weight:500}
+  .rego-box p{font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;font-weight:300}
+  .rego-vis{display:flex;align-items:center;gap:6px;margin:20px 0 8px;height:38px}
+  .rego-cell{flex:1;border-radius:4px;transition:all .3s ease;position:relative}
+  .rego-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);display:flex;justify-content:space-between;text-transform:uppercase}
+
+  /* ─── footer ─────────────────────────────────── */
+  footer{padding:60px 0 40px;border-top:1px solid var(--line-soft);text-align:left}
+  footer .f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px}
+  footer h5{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px}
+  footer p{font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;font-weight:300}
+  footer .f-bot{margin-top:48px;padding-top:24px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+
+  /* ─── reveal anim ─────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
+  .reveal.in{opacity:1;transform:translateY(0)}
+
+  /* SVG keyframes */
+  @keyframes flow-pulse{
+    0%{stroke-dashoffset:0}
+    100%{stroke-dashoffset:-40}
+  }
+  .flow-line{animation:flow-pulse 1.4s linear infinite}
+
+</style>
+</head>
+<body>
+
+<div class="brand-banner">
+  <img src="URB753_Profile_Company_header.jpg" alt="UrbanChain" />
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="UrbanChain">
+        <!-- pentagon shield -->
+        <path d="M32 4 L56 16 L56 44 L32 60 L8 44 L8 16 Z"
+              fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round"/>
+        <!-- stylised C inside -->
+        <path d="M44 22 L28 22 L22 28 L22 36 L28 42 L44 42"
+              fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M40 28 L34 28 L32 30 L32 34 L34 36 L40 36"
+              fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/>
+      </svg>
+      <span>UrbanChain · eChain</span>
+    </div>
+    <div class="topbar-right">
+      <span>Private Market</span>
+      <span>Sleeved PPA</span>
+      <span>Haulage, Logistics &amp; Distribution · 2027–2029</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ════════════════ HERO ════════════════ -->
+  <section class="hero" style="border-top:none;padding-top:88px">
+    <h1 class="display">A peer-to-peer market<br/>for <em>renewable</em> electrons.</h1>
+    <p class="hero-sub">UrbanChain's private market sits between renewable generators and large consumers — matching kilowatt-hour for kilowatt-hour, in real time, on a half-hourly basis. This is how the contract for a UK haulage, logistics and distribution company was assembled: six demand sites, three generation assets, two contract years, and a price built from the ground up.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-k">Counterparty</div><div class="meta-v">Haulage, Logistics &amp; Distribution Co.</div></div>
+      <div class="meta-item"><div class="meta-k">Term</div><div class="meta-v">1 Apr 2027 → 31 Mar 2029</div></div>
+      <div class="meta-item"><div class="meta-k">Contract Volume</div><div class="meta-v"><span class="num">13.54</span> GWh</div></div>
+      <div class="meta-item"><div class="meta-k">Generator PM Rate</div><div class="meta-v"><span class="num">8.0</span>p<span style="color:var(--ink-dim);font-family:var(--mono);font-size:14px"> /kWh</span></div></div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §1 · MECHANICS ════════════════ -->
+  <section>
+    <div class="section-head">
+      <span class="section-num">§1 · Mechanics</span>
+    </div>
+    <h2 class="section-title">How the <em>private market</em> moves an electron.</h2>
+    <p class="section-lede">Every half-hour, the platform attempts to match each kWh of consumption with a kWh of generation from a nominated asset. What's matched flows through the private market at a fixed rate. What isn't gets backstopped — by the grid for shortfalls, by the spill curve for surpluses.</p>
+
+    <div class="flow" style="margin-top:40px">
+      <div class="flow-controls">
+        <button class="pill active" data-mode="match">Matched</button>
+        <button class="pill" data-mode="short">Shortfall</button>
+        <button class="pill" data-mode="surplus">Surplus</button>
+      </div>
+      <svg id="flow-svg" viewBox="0 0 1100 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gen-grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#7cf2b0"/><stop offset="1" stop-color="#34c47c"/>
+          </linearGradient>
+          <linearGradient id="dem-grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#172333"/><stop offset="1" stop-color="#1b2a3c"/>
+          </linearGradient>
+          <linearGradient id="grid-grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#f3a847"/><stop offset="1" stop-color="#d68328"/>
+          </linearGradient>
+          <linearGradient id="spill-grad" x1="0" x2="1">
+            <stop offset="0" stop-color="#7eb6ff"/><stop offset="1" stop-color="#5d8fd8"/>
+          </linearGradient>
+          <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r=".7" fill="#23344a"/>
+          </pattern>
+        </defs>
+
+        <!-- background hint -->
+        <rect x="0" y="0" width="1100" height="380" fill="url(#dots)" opacity=".4"/>
+
+        <!-- platform spine -->
+        <rect x="430" y="60" width="240" height="260" rx="14" fill="none" stroke="#23344a" stroke-dasharray="4 4"/>
+        <text x="550" y="46" fill="#a8b6c4" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">UC PLATFORM</text>
+        <circle cx="550" cy="190" r="42" fill="none" stroke="#7cf2b0" stroke-width="1.2" opacity=".4"/>
+        <circle cx="550" cy="190" r="28" fill="#0f1822" stroke="#7cf2b0" stroke-width="1.5"/>
+        <text x="550" y="195" fill="#7cf2b0" font-family="Fraunces" font-style="italic" font-size="18" text-anchor="middle">eChain</text>
+
+        <!-- generators (left) -->
+        <g id="gen-group">
+          <rect x="40" y="90" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
+          <text x="60" y="115" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Rotton Row</text>
+          <text x="60" y="135" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.16M kWh</text>
+
+          <rect x="40" y="160" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
+          <text x="60" y="185" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Ollerton Road</text>
+          <text x="60" y="205" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.60M kWh</text>
+
+          <rect x="40" y="230" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
+          <text x="60" y="255" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Rainsbutt Farm</text>
+          <text x="60" y="275" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.50M kWh</text>
+        </g>
+
+        <!-- demand (right) -->
+        <g id="dem-group">
+          <rect x="880" y="74" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
+          <text x="900" y="92" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Alcan / Sutton</text>
+          <text x="900" y="108" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">393,694 kWh</text>
+
+          <rect x="880" y="124" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
+          <text x="900" y="142" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Tuxford Import</text>
+          <text x="900" y="158" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">829,509 kWh</text>
+
+          <rect x="880" y="174" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
+          <text x="900" y="192" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Salford LL Supply</text>
+          <text x="900" y="208" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">867,249 kWh</text>
+
+          <rect x="880" y="224" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
+          <text x="900" y="242" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Davy Import</text>
+          <text x="900" y="258" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">76,596 kWh</text>
+
+          <rect x="880" y="274" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
+          <text x="900" y="292" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Rainsbutt Imp · +1</text>
+          <text x="900" y="308" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">858,708 kWh</text>
+        </g>
+
+        <text x="130" y="64" fill="#7cf2b0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">GENERATION</text>
+        <text x="970" y="64" fill="#a8b6c4" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">CONSUMPTION</text>
+
+        <!-- supply lines (gen → platform) -->
+        <g id="supply-lines" stroke-width="1.6" fill="none" opacity=".55">
+          <path d="M220 120 Q 320 120, 430 170" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M220 190 L 430 190" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M220 260 Q 320 260, 430 210" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+        </g>
+
+        <!-- match lines (platform → demand) -->
+        <g id="match-lines" stroke-width="1.6" fill="none" opacity=".55">
+          <path d="M670 165 Q 760 100, 880 96" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M670 180 Q 760 140, 880 146" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M670 195 L 880 196" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M670 210 Q 760 240, 880 246" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+          <path d="M670 225 Q 760 280, 880 296" stroke="#7cf2b0" class="flow-line" stroke-dasharray="6 6"/>
+        </g>
+
+        <!-- grid backstop (top) - hidden by default -->
+        <g id="grid-node" opacity="0">
+          <rect x="430" y="-10" width="240" height="44" rx="8" fill="url(#grid-grad)" opacity=".18" stroke="#f3a847"/>
+          <text x="550" y="14" fill="#f3a847" font-family="JetBrains Mono" font-size="10" text-anchor="middle" letter-spacing="2">UC ALT. GENERATOR</text>
+          <text x="550" y="27" fill="#a8b6c4" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1.5">re-matched · green claim intact</text>
+          <path d="M550 34 L 550 60" stroke="#f3a847" stroke-width="1.6" stroke-dasharray="4 4" class="flow-line"/>
+        </g>
+
+        <!-- spill node (bottom) - hidden by default -->
+        <g id="spill-node" opacity="0">
+          <rect x="430" y="346" width="240" height="44" rx="8" fill="url(#spill-grad)" opacity=".18" stroke="#7eb6ff"/>
+          <text x="550" y="372" fill="#7eb6ff" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">UC SPILL CURVE</text>
+          <path d="M550 320 L 550 346" stroke="#7eb6ff" stroke-width="1.6" stroke-dasharray="4 4" class="flow-line"/>
+        </g>
+      </svg>
+      <div class="flow-caption" id="flow-caption">
+        <strong>Matched flow:</strong> generation and consumption land in the same half-hour. The kWh flows through the private market at the contractual rate — generator receives the PM rate, consumer pays PM rate plus non-commodity charges.
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §2 · PRICE BUILD-UP ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§2 · Price construction</span></div>
+    <h2 class="section-title">A price <em>built</em> from its parts.</h2>
+    <p class="section-lede">The private market import rate is the sum of two things: the generator-set PM rate, and the non-commodity charges (the regulated pass-through floor — network costs, levies, balancing, distribution). Pick a site to see how it stacks up against the equivalent grid price.</p>
+
+    <div class="builder" style="margin-top:48px">
+
+      <div class="builder-panel">
+        <h3>Build a site rate</h3>
+        <div class="h-sub">Site-by-site decomposition</div>
+
+        <div class="selector">
+          <label>Demand site</label>
+          <select id="site-pick"></select>
+        </div>
+
+        <div class="toggle-row">
+          <button class="tog on" id="tog-fee">Platform fee<small>+0.4 p/kWh</small></button>
+          <button class="tog" id="tog-comm">TPI commission<small>+0.29 p/kWh</small></button>
+        </div>
+
+        <div class="stack" id="price-stack"></div>
+
+        <div class="verdict" id="verdict"></div>
+      </div>
+
+      <div class="builder-panel" style="background:linear-gradient(180deg, var(--panel) 0%, rgba(15,24,34,.6) 100%)">
+        <h3>What each layer is</h3>
+        <div class="h-sub">Reading the stack</div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:8px">
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--spill);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">Non-Commodity Charges</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Pass-through costs — DUoS, TNUoS, BSUoS, RO, FiT, CfD, distribution losses. Site-specific because they depend on metering profile, voltage, and region. <em style="color:var(--ink)">Floor</em> below which no rate can sit.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--accent);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">Generator PM Rate</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Set by the generator on the platform. For this deal: <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">8.0p/kWh</em> across all three assets, fixed for year one and indicative thereafter.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--accent-deep);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">UC Platform Fee</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">UrbanChain's flat <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.4p/kWh</em> for matching, settlement, and metered allocation — already baked into the rates above.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--grid);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">TPI Commission · Lumina</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Where a third-party intermediary brokered the deal — here Lumina at <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.29p/kWh</em>. Added to the headline rate so the customer sees an all-in number.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════ §3 · DEAL TABLE ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§3 · Deal anatomy</span></div>
+    <h2 class="section-title">The full <em>contract</em> ledger.</h2>
+    <p class="section-lede">Six demand sites on the import side, three generation assets on the export side. The numbers below are the lifted figures from the 27 January 2026 quote — MPAN, rate, and forecast volume per site, per year.</p>
+
+    <div style="margin-top:48px">
+      <div class="deal-tabs">
+        <button class="deal-tab active" data-target="import">Import sites <span class="count">6</span></button>
+        <button class="deal-tab" data-target="export">Export sites <span class="count">3</span></button>
+      </div>
+
+      <div class="table-wrap" id="tab-import">
+        <table class="deal">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>MPAN</th>
+              <th class="num">NCC</th>
+              <th class="num">PM Rate</th>
+              <th class="num">Grid Rate</th>
+              <th class="num">PM Volume</th>
+              <th class="num">Grid Volume</th>
+              <th class="num">EAC</th>
+            </tr>
+          </thead>
+          <tbody id="import-body"></tbody>
+          <tfoot id="import-foot"></tfoot>
+        </table>
+      </div>
+
+      <div class="table-wrap" id="tab-export" style="display:none">
+        <table class="deal">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>MPAN</th>
+              <th class="num">PM Rate</th>
+              <th class="num">Spill 0%</th>
+              <th class="num">Spill 66%</th>
+              <th class="num">Spill 85%</th>
+              <th class="num">Spill 100%</th>
+              <th class="num">PM Volume</th>
+              <th class="num">Spill Volume</th>
+              <th class="num">EAG</th>
+            </tr>
+          </thead>
+          <tbody id="export-body"></tbody>
+          <tfoot id="export-foot"></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §4 · MATCHING ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§4 · The match</span></div>
+    <h2 class="section-title">Generation <em>meets</em> consumption.</h2>
+    <p class="section-lede">Across the year-one forecast, the private market matches <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of generation against <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of consumption — exactly. The remaining <span style="color:var(--accent);font-family:var(--mono)">1.47 GWh</span> of demand isn't a fallback to brown grid power: UrbanChain re-matches it within the ecosystem against another UC generator with available spillage — the consumer pays the published grid rate, but the green claim survives.</p>
+
+    <div class="matching" style="margin-top:48px">
+      <svg id="matching-svg" viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bar-gen" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#7cf2b0" stop-opacity=".9"/><stop offset="1" stop-color="#34c47c" stop-opacity=".7"/>
+          </linearGradient>
+          <linearGradient id="bar-spill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#7eb6ff" stop-opacity=".8"/><stop offset="1" stop-color="#5d8fd8" stop-opacity=".5"/>
+          </linearGradient>
+          <linearGradient id="bar-dem" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#172333"/><stop offset="1" stop-color="#0f1822"/>
+          </linearGradient>
+          <linearGradient id="bar-grid" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#f3a847" stop-opacity=".8"/><stop offset="1" stop-color="#d68328" stop-opacity=".5"/>
+          </linearGradient>
+        </defs>
+
+        <!-- title labels -->
+        <text x="220" y="28" fill="#7cf2b0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">SUPPLY · 3.75 GWh</text>
+        <text x="880" y="28" fill="#a8b6c4" font-family="JetBrains Mono" font-size="11" text-anchor="middle" letter-spacing="2">DEMAND · 3.03 GWh</text>
+
+        <!-- LEFT STACK (supply) -->
+        <!-- private market matched portion at top (~41% of generation) -->
+        <rect id="bar-pm-l" x="120" y="60" width="200" height="115" fill="url(#bar-gen)" stroke="#7cf2b0" stroke-width="1"/>
+        <text x="220" y="100" text-anchor="middle" fill="#06120c" font-family="Fraunces" font-style="italic" font-size="22">Matched</text>
+        <text x="220" y="124" text-anchor="middle" fill="#06120c" font-family="JetBrains Mono" font-size="13">1,554,553 kWh</text>
+        <text x="220" y="146" text-anchor="middle" fill="#0a3a1f" font-family="JetBrains Mono" font-size="11">41.5% of supply</text>
+
+        <!-- spill portion below (~59% of generation) -->
+        <rect id="bar-sp-l" x="120" y="175" width="200" height="163" fill="url(#bar-spill)" stroke="#7eb6ff" stroke-width="1"/>
+        <text x="220" y="225" text-anchor="middle" fill="#06120c" font-family="Fraunces" font-style="italic" font-size="22">Spill</text>
+        <text x="220" y="248" text-anchor="middle" fill="#06120c" font-family="JetBrains Mono" font-size="13">2,191,705 kWh</text>
+        <text x="220" y="268" text-anchor="middle" fill="#0a2540" font-family="JetBrains Mono" font-size="11">58.5% of supply</text>
+        <text x="220" y="296" text-anchor="middle" fill="#06120c" font-family="Fraunces" font-style="italic" font-size="13">→ flows out at spill tier rate</text>
+
+        <!-- RIGHT STACK (demand) — scaled by SAME yardstick so the 'matched' portion is visually identical -->
+        <!-- matched at top (volume is same as left → same height: 115px) -->
+        <rect id="bar-pm-r" x="780" y="60" width="200" height="115" fill="url(#bar-gen)" stroke="#7cf2b0" stroke-width="1"/>
+        <text x="880" y="100" text-anchor="middle" fill="#06120c" font-family="Fraunces" font-style="italic" font-size="22">Matched</text>
+        <text x="880" y="124" text-anchor="middle" fill="#06120c" font-family="JetBrains Mono" font-size="13">1,554,553 kWh</text>
+        <text x="880" y="146" text-anchor="middle" fill="#0a3a1f" font-family="JetBrains Mono" font-size="11">51.4% of demand</text>
+
+        <!-- ecosystem re-match below (1.47M kWh on same scale = 109px) -->
+        <rect id="bar-gr-r" x="780" y="175" width="200" height="109" fill="url(#bar-grid)" stroke="#f3a847" stroke-width="1"/>
+        <text x="880" y="210" text-anchor="middle" fill="#06120c" font-family="Fraunces" font-style="italic" font-size="20">Re-matched</text>
+        <text x="880" y="232" text-anchor="middle" fill="#06120c" font-family="JetBrains Mono" font-size="13">1,471,205 kWh</text>
+        <text x="880" y="252" text-anchor="middle" fill="#3d2410" font-family="JetBrains Mono" font-size="10">48.6% · paid at grid rate</text>
+        <text x="880" y="270" text-anchor="middle" fill="#3d2410" font-family="JetBrains Mono" font-size="10">green claim intact</text>
+
+        <!-- bridging arrow: matched (perfectly horizontal — they're equal!) -->
+        <path d="M320 117 L 780 117" fill="none" stroke="#7cf2b0" stroke-width="2.5" stroke-dasharray="8 4" opacity=".7"/>
+        <text x="550" y="108" text-anchor="middle" fill="#7cf2b0" font-family="Fraunces" font-style="italic" font-size="20">peer-to-peer match</text>
+        <text x="550" y="138" text-anchor="middle" fill="#a8b6c4" font-family="JetBrains Mono" font-size="11" letter-spacing="1">half-hourly settlement · 1 : 1</text>
+
+        <!-- arrow: spill out (left side, lower) -->
+        <path d="M320 256 Q 380 256, 380 320 L 380 340" fill="none" stroke="#7eb6ff" stroke-width="1.8" stroke-dasharray="4 4" opacity=".6"/>
+        <text x="395" y="346" fill="#7eb6ff" font-family="JetBrains Mono" font-size="10" letter-spacing="1">→ spill curve / SSP</text>
+
+        <!-- arrow: ecosystem re-match in (right side, lower) -->
+        <path d="M780 230 Q 720 230, 720 320 L 720 340" fill="none" stroke="#f3a847" stroke-width="1.8" stroke-dasharray="4 4" opacity=".6"/>
+        <text x="600" y="346" fill="#f3a847" font-family="JetBrains Mono" font-size="10" letter-spacing="1">UC ecosystem re-match ←</text>
+
+        <!-- frame ticks -->
+        <line x1="100" y1="60" x2="100" y2="338" stroke="#23344a" stroke-width="1"/>
+        <line x1="1000" y1="60" x2="1000" y2="338" stroke="#23344a" stroke-width="1"/>
+        <text x="92" y="68" fill="#6a7a8c" font-family="JetBrains Mono" font-size="9" text-anchor="end">3.75</text>
+        <text x="92" y="342" fill="#6a7a8c" font-family="JetBrains Mono" font-size="9" text-anchor="end">0</text>
+        <text x="1008" y="68" fill="#6a7a8c" font-family="JetBrains Mono" font-size="9">3.03</text>
+        <text x="1008" y="342" fill="#6a7a8c" font-family="JetBrains Mono" font-size="9">0</text>
+      </svg>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#7cf2b0"></span>Matched · paid at PM rate</span>
+        <span><span class="legend-dot" style="background:#7eb6ff"></span>Generator spill · routed to UC Spill product</span>
+        <span><span class="legend-dot" style="background:#f3a847"></span>Re-matched within ecosystem · paid at grid rate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §5 · SPILL TIERS ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§5 · Spill mechanics</span></div>
+    <h2 class="section-title">When generation <em>exceeds</em> demand.</h2>
+    <p class="section-lede">Generators don't always find a private market match. The 2.19 GWh of unmatched output gets routed through a UC Spill product the generator chooses up front — each tier is a <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">guaranteed</em> percentage of that volume that will be paid at the tier rate. Anything UrbanChain matches to other consumers <em style="color:var(--ink);font-style:italic">above</em> that floor is also paid at the tier rate. Anything still unmatched after that flows to System Sell Price.</p>
+
+    <div class="spill-grid" style="margin-top:48px">
+      <div>
+        <div class="spill-tier sel" data-tier="0">
+          <div class="pct"><em>0%</em></div>
+          <div class="desc"><strong style="color:var(--ink)">No volume guarantee.</strong> The generator earns the highest tier rate, but only on whatever UC actually matches in-ecosystem. Everything else hits SSP.</div>
+          <div class="rate" id="r-0">—</div>
+        </div>
+        <div class="spill-tier" data-tier="66">
+          <div class="pct"><em>66%</em></div>
+          <div class="desc">UC <strong style="color:var(--ink)">guarantees two-thirds</strong> of spill volume at this rate. Anything matched above 66% is also paid at this rate; the residual goes to SSP.</div>
+          <div class="rate" id="r-66">—</div>
+        </div>
+        <div class="spill-tier" data-tier="85">
+          <div class="pct"><em>85%</em></div>
+          <div class="desc">UC <strong style="color:var(--ink)">guarantees 85%</strong> of spill volume at the tier rate. Higher floor, lower rate.</div>
+          <div class="rate" id="r-85">—</div>
+        </div>
+        <div class="spill-tier" data-tier="100">
+          <div class="pct"><em>100%</em></div>
+          <div class="desc"><strong style="color:var(--ink)">Full volume guarantee.</strong> Every kWh of spill is paid at the tier rate — no SSP exposure, but the rate is the lowest of the four.</div>
+          <div class="rate" id="r-100">—</div>
+        </div>
+
+        <!-- Per-generator breakdown for selected tier -->
+        <div style="margin-top:24px;padding:20px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px">
+            Selected tier · per generator
+          </div>
+          <div id="gen-breakdown" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px"></div>
+        </div>
+      </div>
+
+      <div class="rego-box">
+        <h4>How a 100% spill volume is allocated</h4>
+        <p>The tier sets a guaranteed floor. UrbanChain pays the tier rate on at least that share of spill volume, and continues paying the tier rate on anything matched in-ecosystem above it. Only the leftover — the volume UC could neither guarantee nor match — settles at System Sell Price.</p>
+
+        <!-- waterfall vis -->
+        <div id="waterfall" style="margin:24px 0 8px"></div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);text-transform:uppercase;margin-top:8px">
+          <span>0% of spill volume</span>
+          <span>100%</span>
+        </div>
+
+        <!-- legend -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.04em">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--accent);flex-shrink:0"></span>
+            <span><strong style="color:var(--ink);font-weight:500">Guaranteed</strong> · paid at tier rate, regardless of match</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--accent);opacity:.45;flex-shrink:0"></span>
+            <span><strong style="color:var(--ink);font-weight:500">Matched upside</strong> · further matches at tier rate</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="width:12px;height:12px;border-radius:3px;background:var(--spill);opacity:.5;flex-shrink:0"></span>
+            <span><strong style="color:var(--ink);font-weight:500">SSP residual</strong> · whatever's left, at System Sell Price</span>
+          </div>
+        </div>
+
+        <p style="margin-top:22px;font-size:14px"><em style="color:var(--accent);font-family:var(--mono);font-style:normal">Why three rate columns differ:</em> tier rates are negotiated per generator. Each asset has its own connection, balancing position, and forecast quality. Rainsbutt sits below the others because its wind profile is harder to balance.</p>
+
+        <p style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase">Spill applies only to <em style="color:var(--ink-soft);font-style:normal;text-transform:none">unmatched</em> output — the matched volume is always settled at the 8.0p PM rate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §6 · GENERATOR STACK ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§6 · Generator economics</span></div>
+    <h2 class="section-title">What the <em>generator</em> earns, all-in.</h2>
+    <p class="section-lede">The headline 8.0p PM rate is only part of the story. UrbanChain offers two further revenue layers that sit on top: a REGO purchase at the prevailing market rate (currently <span style="color:var(--accent);font-family:var(--mono)">~0.1p/kWh</span>, but tradable and rate-dependent) across all generated volume — a standing offer not taken in this quote — and a revenue share on the P442 license-exempt supply benefit, applied to <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">all volume matched in the UC ecosystem</em> (PM matched plus spill that gets re-matched). The full P442 cost stack is around <span style="color:var(--accent);font-family:var(--mono)">6.19p/kWh</span>; for this contract we offered the generator <span style="color:var(--accent);font-family:var(--mono)">30%</span> of the components they qualified for — earning them roughly <span style="color:var(--accent);font-family:var(--mono)">1.4–1.8p/kWh</span> on eligible volume.</p>
+
+    <div class="builder" style="margin-top:48px">
+
+      <div class="builder-panel">
+        <h3>Generator total revenue stack</h3>
+        <div class="h-sub">Per kWh of matched volume · indicative</div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px">
+          <div class="toggle-row" style="margin:0">
+            <button class="tog on" id="tog-pm" disabled style="cursor:default;opacity:.85">PM rate<small>locked · 8.0p</small></button>
+          </div>
+
+          <!-- REGO row: toggle + editable price -->
+          <div style="display:flex;align-items:stretch;gap:8px">
+            <button class="tog" id="tog-rego" style="flex:2">REGO purchase<small id="rego-status">off</small></button>
+            <div style="flex:1;display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--line);background:var(--bg-2);border-radius:8px">
+              <input id="rego-price" type="number" step="0.01" min="0" max="2" value="0.10"
+                     style="width:100%;background:transparent;border:none;outline:none;color:var(--ink);font-family:var(--mono);font-size:14px;text-align:right;font-weight:500">
+              <span style="font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em">p/kWh</span>
+            </div>
+          </div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.06em;margin-top:-4px;padding-left:2px">
+            Market-dependent · current spot ≈ 0.10 p/kWh
+          </div>
+
+          <div style="margin-top:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <label style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)">P442 share to generator</label>
+              <span id="p442-share-label" style="font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500">30%</span>
+            </div>
+            <input id="p442-share" type="range" min="0" max="100" step="5" value="30" style="width:100%;accent-color:var(--accent);height:6px">
+            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--ink-dim);margin-top:4px;letter-spacing:.1em">
+              <span>0%</span><span>50%</span><span>100%</span>
+            </div>
+          </div>
+
+          <div style="margin-top:14px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+              <label style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)">P442 components — toggle qualifying levies</label>
+              <span id="p442-stack-label" style="font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500">6.19 p/kWh</span>
+            </div>
+            <div id="p442-items" style="display:flex;flex-direction:column;gap:6px"></div>
+          </div>
+        </div>
+
+        <!-- spill tier indicator — reflects §5 selection -->
+        <div id="tier-indicator" style="margin-top:18px;padding:12px 16px;border:1px dashed var(--line);border-radius:8px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">
+            Spill tier · linked to §5
+          </div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--ink)">
+            <span id="tier-name">0%</span> · <span id="tier-rate">7.55–7.95p</span>/kWh per gen
+          </div>
+        </div>
+
+        <div class="stack" id="gen-stack" style="margin-top:18px"></div>
+
+        <div class="verdict" id="gen-verdict"></div>
+      </div>
+
+      <div class="builder-panel" style="background:linear-gradient(180deg, var(--panel) 0%, rgba(15,24,34,.6) 100%)">
+        <h3>What each layer is</h3>
+        <div class="h-sub">Generator-side revenue components</div>
+
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:8px">
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--accent);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">PM Rate</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">The contractual rate the generator earns on every kWh matched in real time. <em style="color:var(--ink);font-family:var(--mono);font-style:normal">8.0p</em> for all three assets in this deal. The platform fee (0.4p) and any TPI commission are already included in the consumer rate, not deducted from this.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--spill);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">REGO Purchase · UC standing offer</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">UC buys REGOs at the prevailing market rate — currently around <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.10p/kWh</em>, but tradable and rate-dependent — across <em style="color:var(--accent);font-style:normal">all generated volume</em> (matched and spilled). The certificate moves to UC's book; the generator gets a small but reliable uplift. <em style="color:var(--ink);font-style:italic">Not taken in this quote.</em></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px">
+            <div style="width:3px;background:var(--grid);flex-shrink:0;border-radius:2px"></div>
+            <div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">P442 Revenue Share</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">P442 is the Ofgem framework that exempts <em style="color:var(--ink);font-style:italic">sleeved</em> volumes from a stack of policy levies — FiT, RO, CfD, Capacity Market, and NRAB — worth around <em style="color:var(--ink);font-family:var(--mono);font-style:normal">6.19p/kWh</em> at full eligibility. UC captures that exemption on every kWh matched within the ecosystem and shares a slice with the generator. Here: <em style="color:var(--accent);font-family:var(--mono);font-style:normal">30%</em>, earning the generator <em style="color:var(--accent);font-family:var(--mono);font-style:normal">1.4–1.8p/kWh</em> on eligible volume depending on which components they qualify for.</div>
+              <div style="margin-top:10px;padding:10px 12px;background:rgba(243,168,71,.06);border:1px solid rgba(243,168,71,.2);border-radius:6px;font-family:var(--mono);font-size:10px;color:var(--ink-soft);line-height:1.55;letter-spacing:.02em">
+                <strong style="color:var(--grid);font-weight:500">Eligibility:</strong> P442 is available to generators with installed capacity up to <strong style="color:var(--ink);font-weight:500">5 MW</strong>. Larger generators can still access P442 if they qualify as a license-exempt supply, but the benefit is capped at 5 MW of capacity.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding:16px;background:var(--bg-2);border:1px solid var(--line);border-radius:8px">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">A note on volume</div>
+          <p style="font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0">REGO revenue applies to every kWh generated. P442 share applies to all volume matched in the UC ecosystem — both PM matched and spill that UC re-matches against other consumers. Only volume that settles at SSP (genuinely unmatched) is excluded.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- full-width annual revenue summary -->
+    <div style="margin-top:32px;background:linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);border:1px solid var(--line);border-radius:18px;padding:36px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:24px">
+        <div>
+          <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink);margin-bottom:4px">Annual generator revenue · all three assets</h3>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Year-one forecast · 1.55 GWh matched + 2.19 GWh spill</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">Total / yr</div>
+          <div id="rev-total" style="font-family:var(--serif);font-size:38px;font-style:italic;color:var(--accent);font-weight:500">£—</div>
+        </div>
+      </div>
+
+      <div id="rev-breakdown" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"></div>
+
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em;line-height:1.7">
+        Potential spill revenue uses each generator's fixed tier rate × their spill volume, summed. The figure assumes UC matches enough demand for the entire spill volume to clear at tier rate (the guarantee floor is honoured regardless; matched-upside fills the rest). Anything UC fails to match would settle at SSP and reduce the figure accordingly.
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ §7 · CONSUMER COST ════════════════ -->
+  <section>
+    <div class="section-head"><span class="section-num">§7 · Consumer cost</span></div>
+    <h2 class="section-title">What the <em>consumer</em> pays, all-in.</h2>
+    <p class="section-lede">The other side of the ledger. Each demand site pays the private market rate on its matched volume, the grid rate on its re-matched volume, and a standing charge that's heavily TNUoS-driven on these HH-metered sites. Across all six sites for year one, that comes to <span style="color:var(--accent);font-family:var(--mono)">£882k</span> — within <span style="color:var(--accent);font-family:var(--mono)">0.47%</span> of a pure grid-only contract, with the standing charge alone accounting for roughly <span style="color:var(--accent);font-family:var(--mono)">36%</span> of the total bill before a single kWh is consumed.</p>
+
+    <!-- TOTALS HEADLINE -->
+    <div style="margin-top:48px;background:linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);border:1px solid var(--line);border-radius:18px;padding:36px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:24px;margin-bottom:28px">
+        <div>
+          <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink);margin-bottom:4px">Annual consumer cost · all six sites</h3>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Year-one forecast · 3.03 GWh consumption</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">Total / yr</div>
+          <div id="cons-total" style="font-family:var(--serif);font-size:38px;font-style:italic;color:var(--accent);font-weight:500">£—</div>
+        </div>
+      </div>
+
+      <div id="cons-breakdown" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"></div>
+
+      <!-- Counterfactual -->
+      <div style="margin-top:24px;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;padding:20px 24px;background:var(--bg-2);border:1px solid var(--line-soft);border-radius:12px;flex-wrap:wrap">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">UC private market</div>
+          <div id="cons-uc" style="font-family:var(--serif);font-size:22px;color:var(--accent);font-style:italic">£—</div>
+        </div>
+        <div style="font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-dim);text-transform:uppercase;text-align:center">vs</div>
+        <div style="text-align:right">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">Grid-only counterfactual</div>
+          <div id="cons-grid-only" style="font-family:var(--serif);font-size:22px;color:var(--ink);font-style:italic">£—</div>
+        </div>
+      </div>
+      <div id="cons-delta" style="text-align:center;margin-top:14px;font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:.04em"></div>
+    </div>
+
+    <!-- PER-SITE BARS -->
+    <div style="margin-top:32px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:36px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+        <div>
+          <h3 style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);margin-bottom:4px">Per-site cost breakdown</h3>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Hover bars for detail</div>
+        </div>
+        <div class="legend" style="margin-top:0">
+          <span><span class="legend-dot" style="background:var(--accent)"></span>PM rate × matched volume</span>
+          <span><span class="legend-dot" style="background:var(--grid)"></span>Grid rate × re-matched volume</span>
+          <span><span class="legend-dot" style="background:var(--spill)"></span>Standing charge</span>
+        </div>
+      </div>
+
+      <div id="cons-bars" style="display:flex;flex-direction:column;gap:18px;margin-top:18px"></div>
+    </div>
+
+    <div style="margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em;line-height:1.7;padding:0 8px">
+      Standing charges (p/day × 365) are heavily inflated by TNUoS demand residuals on HH-metered industrial sites — at Alcan and the three Tuxford MPANs, this lands at ~£70k/yr per site regardless of consumption. Tuxford Bus Park is the clearest illustration: 2 MWh of actual consumption, £71k of all-in cost, with the standing charge accounting for &gt;99% of that bill. Salford's much lower SC reflects a landlord-supply ratecard. Capacity charges (p/kVA/day) are quoted but excluded here — the calculation requires authorised supply capacity per MPAN, which sits outside this quote.
+    </div>
+  </section>
+
+  <!-- ════════════════ FOOTER ════════════════ -->
+  <footer>
+    <div class="f-grid">
+      <div>
+        <h5>Product</h5>
+        <p>UrbanChain eChain · Private Market &amp; Sleeved PPA platform for UK renewable energy.</p>
+      </div>
+      <div>
+        <h5>Quote reference</h5>
+        <p>Haulage, Logistics &amp; Distribution Co. · 27 January 2026 · 24-month term · DD payment · Credit passed.</p>
+      </div>
+      <div>
+        <h5>Disclosures</h5>
+        <p>All rates exclusive of VAT. PM prices fixed Y1, indicative thereafter. Volumes are forecast — actual settlement varies with consumption and generation.</p>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>UrbanChain Ltd</span>
+      <span>Document built for explanatory use · not a contract</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ═════════════ DATA ═════════════ */
+const importSites = [
+  { name:'Alcan / Sutton',          mpan:'1100039600646', ncc:10.27789, pm:18.27789, grid:18.18, sc:19308.76, cap:9.43, pmVol:217274.25, gridVol:176419.76, eac:393694.01 },
+  { name:'Tuxford Import',          mpan:'1100039635240', ncc:10.13309, pm:18.13309, grid:18.05, sc:19308.76, cap:9.43, pmVol:269164.77, gridVol:560344.54, eac:829509.31 },
+  { name:'Tuxford Bus Park Import', mpan:'1100039635259', ncc:9.69651,  pm:17.69651, grid:17.62, sc:19308.76, cap:9.43, pmVol:538.18,    gridVol:1471.83,   eac:2010.01 },
+  { name:"Salford Landlord's Supply",mpan:'1600000102802',ncc:13.38125, pm:21.38125, grid:21.53, sc:605.81,   cap:0,    pmVol:503788.83, gridVol:363460.47, eac:867249.30 },
+  { name:'Davy Import',             mpan:'2336587932010', ncc:9.96560,  pm:17.96560, grid:17.69, sc:21555.16, cap:4.16, pmVol:52422.65,  gridVol:24173.45,  eac:76596.10 },
+  { name:'Rainsbutt Farm Wind Turbine (Import)', mpan:'2900000029335', ncc:9.23183, pm:17.23183, grid:16.39, sc:6326.11, cap:4.16, pmVol:511363.85, gridVol:345334.75, eac:856698.60 },
+];
+const exportSites = [
+  { name:'Rotton Row',     mpan:'1160001460438', pm:8.0, s0:7.90, s66:7.10, s85:6.75, s100:6.40, pmVol:140485.93, spillVol:508223.89, eag:648709.82 },
+  { name:'Ollerton Road',  mpan:'2394000128957', pm:8.0, s0:7.95, s66:7.15, s85:6.80, s100:6.45, pmVol:747308.07, spillVol:849316.93, eag:1596625.00 },
+  { name:'Rainsbutt Farm', mpan:'2900000029326', pm:8.0, s0:7.55, s66:6.75, s85:6.40, s100:6.05, pmVol:666758.53, spillVol:834164.48, eag:1500923.01 },
+];
+
+const PLATFORM_FEE = 0.4;
+const COMMISSION   = 0.29;
+const GEN_PM       = 8.0;
+
+/* ═════════════ §1 · FLOW MODES ═════════════ */
+const flowCaptions = {
+  match:`<strong>Matched flow:</strong> generation and consumption land in the same half-hour. The kWh flows through the private market at the contractual rate — generator receives the PM rate, consumer pays PM rate plus non-commodity charges.`,
+  short:`<strong>Shortfall:</strong> consumption exceeds the original generator's available output. UrbanChain re-matches the gap against another UC generator with spare spillage capacity in the same half-hour — the green claim stays intact, the consumer pays the published grid rate, and the alternative generator earns their tier rate on volume that would otherwise have settled at SSP.`,
+  surplus:`<strong>Surplus:</strong> generation has no demand to match in real time. The unmatched volume flows into a UC Spill product the generator picks up front — guaranteeing payment at the tier rate on a chosen share of spill volume, with anything UC matches above that floor paid at the same rate.`,
+};
+document.querySelectorAll('.pill').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const m=b.dataset.mode;
+    document.getElementById('flow-caption').innerHTML = flowCaptions[m];
+    const grid = document.getElementById('grid-node');
+    const spill = document.getElementById('spill-node');
+    const matchLines = document.getElementById('match-lines');
+    const supplyLines = document.getElementById('supply-lines');
+    if(m==='match'){ grid.style.opacity=0; spill.style.opacity=0; matchLines.style.opacity=.55; supplyLines.style.opacity=.55; }
+    else if(m==='short'){ grid.style.opacity=1; spill.style.opacity=0; matchLines.style.opacity=.55; supplyLines.style.opacity=.25; }
+    else { grid.style.opacity=0; spill.style.opacity=1; matchLines.style.opacity=.2; supplyLines.style.opacity=.55; }
+  });
+});
+
+/* ═════════════ §2 · PRICE STACK ═════════════ */
+const sitePick = document.getElementById('site-pick');
+importSites.forEach((s,i)=>{
+  const opt=document.createElement('option');
+  opt.value=i; opt.textContent=s.name;
+  sitePick.appendChild(opt);
+});
+
+const togFee = document.getElementById('tog-fee');
+const togComm = document.getElementById('tog-comm');
+let feeOn = true; let commOn = false;
+togFee.addEventListener('click',()=>{ feeOn=!feeOn; togFee.classList.toggle('on',feeOn); renderStack(); });
+togComm.addEventListener('click',()=>{ commOn=!commOn; togComm.classList.toggle('on',commOn); renderStack(); });
+sitePick.addEventListener('change', renderStack);
+
+function fmt(n,dp=2){ return n.toLocaleString('en-GB',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+
+function renderStack(){
+  const s = importSites[+sitePick.value];
+  // The PM rate stored already includes the 0.4p platform fee.
+  // Stack components — to make the fee visually distinct, we split the 8.0 generator PM into "generator (7.6p)" + "platform (0.4p)" if fee is on.
+  const ncc = s.ncc;
+  const genCore = feeOn ? GEN_PM - PLATFORM_FEE : GEN_PM;
+  const fee = feeOn ? PLATFORM_FEE : 0;
+  const comm = commOn ? COMMISSION : 0;
+  const total = ncc + genCore + fee + comm;
+  const grid = s.grid;
+
+  const stack = document.getElementById('price-stack');
+  stack.innerHTML = '';
+  const addBar = (cls,lbl,val)=>{
+    const d = document.createElement('div');
+    d.className = `stack-bar ${cls}`;
+    d.innerHTML = `<span class="lbl">${lbl}</span><span class="val">${fmt(val)}p</span>`;
+    stack.appendChild(d);
+  };
+  addBar('sb-ncc','Non-Commodity Charges (NCC)', ncc);
+  addBar('sb-pm','Generator PM Rate'+(feeOn?' (net)':''), genCore);
+  if(feeOn) addBar('sb-fee','UC Platform Fee', fee);
+  if(commOn) addBar('sb-comm','TPI Commission · Lumina', comm);
+  const t = document.createElement('div');
+  t.className = 'stack-bar sb-total';
+  t.innerHTML = `<span class="lbl">All-in Private Market Rate</span><span class="val">${fmt(total)}p / kWh</span>`;
+  stack.appendChild(t);
+
+  // verdict
+  const delta = total - grid;
+  const v = document.getElementById('verdict');
+  v.classList.toggle('worse', delta>0);
+  const dirWord = delta < 0 ? 'cheaper' : 'higher';
+  v.innerHTML = `
+    <div class="verdict-k">vs Grid Rate (${fmt(grid)}p/kWh)</div>
+    <div class="verdict-v">Private market is <em>${fmt(Math.abs(delta))}p ${dirWord}</em> per kWh</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:10px;letter-spacing:.04em">
+      On forecast PM volume of ${fmt(s.pmVol,0)} kWh: ${delta<0?'saving':'extra cost'} of £${fmt(Math.abs(delta) * s.pmVol / 100, 0)} / year
+    </div>`;
+}
+renderStack();
+
+/* ═════════════ §3 · DEAL TABLES ═════════════ */
+const ib = document.getElementById('import-body');
+let tot = {pmVol:0, gridVol:0, eac:0};
+importSites.forEach(s=>{
+  const tr = document.createElement('tr');
+  const delta = s.pm - s.grid;
+  const dCls = delta < 0 ? 'pos' : 'neg';
+  const dStr = (delta<0?'−':'+')+fmt(Math.abs(delta));
+  tr.innerHTML = `
+    <td class="site">${s.name}</td>
+    <td class="mpan">${s.mpan}</td>
+    <td class="num">${fmt(s.ncc,3)}</td>
+    <td class="num">${fmt(s.pm,3)} <span class="delta ${dCls}">${dStr}</span></td>
+    <td class="num">${fmt(s.grid)}</td>
+    <td class="num">${fmt(s.pmVol,0)}</td>
+    <td class="num">${fmt(s.gridVol,0)}</td>
+    <td class="num">${fmt(s.eac,0)}</td>
+  `;
+  ib.appendChild(tr);
+  tot.pmVol += s.pmVol; tot.gridVol += s.gridVol; tot.eac += s.eac;
+});
+document.getElementById('import-foot').innerHTML = `
+  <tr>
+    <td colspan="5">Total · 6 sites</td>
+    <td class="num">${fmt(tot.pmVol,0)}</td>
+    <td class="num">${fmt(tot.gridVol,0)}</td>
+    <td class="num">${fmt(tot.eac,0)}</td>
+  </tr>`;
+
+const eb = document.getElementById('export-body');
+let etot = {pmVol:0, spillVol:0, eag:0};
+exportSites.forEach(s=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td class="site">${s.name}</td>
+    <td class="mpan">${s.mpan}</td>
+    <td class="num">${fmt(s.pm,2)}</td>
+    <td class="num">${fmt(s.s0,2)}</td>
+    <td class="num">${fmt(s.s66,2)}</td>
+    <td class="num">${fmt(s.s85,2)}</td>
+    <td class="num">${fmt(s.s100,2)}</td>
+    <td class="num">${fmt(s.pmVol,0)}</td>
+    <td class="num">${fmt(s.spillVol,0)}</td>
+    <td class="num">${fmt(s.eag,0)}</td>
+  `;
+  eb.appendChild(tr);
+  etot.pmVol += s.pmVol; etot.spillVol += s.spillVol; etot.eag += s.eag;
+});
+document.getElementById('export-foot').innerHTML = `
+  <tr>
+    <td colspan="7">Total · 3 generators</td>
+    <td class="num">${fmt(etot.pmVol,0)}</td>
+    <td class="num">${fmt(etot.spillVol,0)}</td>
+    <td class="num">${fmt(etot.eag,0)}</td>
+  </tr>`;
+
+document.querySelectorAll('.deal-tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.deal-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('tab-import').style.display = t.dataset.target==='import'?'block':'none';
+    document.getElementById('tab-export').style.display = t.dataset.target==='export'?'block':'none';
+  });
+});
+
+/* ═════════════ §5 · SPILL TIERS ═════════════ */
+function fmtP(n){ return n.toFixed(2)+'p'; }
+
+// Show average rate label on each tier card
+const tierKeys = {0:'s0', 66:'s66', 85:'s85', 100:'s100'};
+Object.entries(tierKeys).forEach(([t,k])=>{
+  const avg = exportSites.reduce((a,s)=>a+s[k],0) / exportSites.length;
+  const lo = Math.min(...exportSites.map(s=>s[k]));
+  const hi = Math.max(...exportSites.map(s=>s[k]));
+  document.getElementById('r-'+t).innerHTML = `${fmtP(avg)}<small>avg · range ${fmtP(lo)}–${fmtP(hi)}</small>`;
+});
+
+function buildWaterfall(pct){
+  const wrap = document.getElementById('waterfall');
+  // Three layers across 100% width:
+  //  - guaranteed at tier rate (pct%)
+  //  - illustrative ecosystem-matched upside (~ half of the remainder, shown as paid-at-tier with lighter fill)
+  //  - SSP residual
+  const guaranteed = pct;
+  const remainder = 100 - pct;
+  const upside = remainder * 0.5; // illustrative — reality varies by demand pool
+  const ssp = remainder - upside;
+  wrap.innerHTML = `
+    <div style="display:flex;height:46px;border-radius:8px;overflow:hidden;border:1px solid var(--line)">
+      <div style="width:${guaranteed}%;background:linear-gradient(180deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center;transition:width .5s ease">
+        ${guaranteed >= 18 ? `<span style="font-family:var(--mono);font-size:11px;color:#06120c;font-weight:600;letter-spacing:.04em">${guaranteed}% GUARANTEED</span>` : ''}
+      </div>
+      <div style="width:${upside}%;background:repeating-linear-gradient(135deg, rgba(124,242,176,.4) 0 6px, rgba(124,242,176,.2) 6px 12px);display:flex;align-items:center;justify-content:center;transition:width .5s ease">
+        ${upside >= 14 ? `<span style="font-family:var(--mono);font-size:10px;color:var(--ink);font-weight:500;letter-spacing:.04em">UPSIDE</span>` : ''}
+      </div>
+      <div style="width:${ssp}%;background:linear-gradient(180deg,rgba(126,182,255,.45),rgba(126,182,255,.25));display:flex;align-items:center;justify-content:center;transition:width .5s ease">
+        ${ssp >= 12 ? `<span style="font-family:var(--mono);font-size:10px;color:var(--spill);font-weight:500;letter-spacing:.04em">SSP</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderGenBreakdown(tier){
+  const k = tierKeys[tier];
+  const wrap = document.getElementById('gen-breakdown');
+  wrap.innerHTML = '';
+  exportSites.forEach(s=>{
+    const d = document.createElement('div');
+    d.style.cssText = 'padding:14px;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;text-align:center';
+    // Guaranteed revenue floor = tier rate × spill volume × tier %
+    const guaranteed = s[k] * s.spillVol * (tier/100) / 100; // £/yr
+    const caption = tier === 0
+      ? `rate-only · 0% guaranteed`
+      : `£${(guaranteed/1000).toFixed(1)}k floor / yr`;
+    d.innerHTML = `
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:8px">${s.name}</div>
+      <div style="font-family:var(--serif);font-size:26px;color:var(--accent);font-weight:500;font-style:italic">${fmtP(s[k])}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-soft);margin-top:6px">${caption}</div>
+    `;
+    wrap.appendChild(d);
+  });
+}
+
+renderGenBreakdown(0);
+buildWaterfall(0);
+
+// Currently-selected spill tier — read by §6
+let currentTier = 0;
+
+document.querySelectorAll('.spill-tier').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.spill-tier').forEach(x=>x.classList.remove('sel'));
+    el.classList.add('sel');
+    const t = +el.dataset.tier;
+    currentTier = t;
+    buildWaterfall(t);
+    renderGenBreakdown(t);
+    if(typeof renderGenStack === 'function') renderGenStack(); // ripple to §6
+  });
+});
+
+/* ═════════════ §6 · GENERATOR STACK ═════════════ */
+const togRego = document.getElementById('tog-rego');
+const regoPriceInput = document.getElementById('rego-price');
+const regoStatus = document.getElementById('rego-status');
+const p442Share = document.getElementById('p442-share');
+const p442ShareLbl = document.getElementById('p442-share-label');
+const p442StackLbl = document.getElementById('p442-stack-label');
+const p442ItemsWrap = document.getElementById('p442-items');
+
+let regoOn = false;
+
+function updateRegoStatus(){
+  const price = parseFloat(regoPriceInput.value) || 0;
+  regoStatus.textContent = regoOn ? `+${price.toFixed(2)} p/kWh` : 'off';
+}
+
+// Itemised P442 levy stack — values in p/kWh
+const P442_LEVIES = [
+  { id:'fit',  name:'FiT',  desc:'Feed-in Tariff levy',           rate:0.80, on:true },
+  { id:'ro',   name:'RO',   desc:'Renewables Obligation',         rate:3.28, on:true },
+  { id:'cfd',  name:'CfD',  desc:'Contracts for Difference',      rate:0.73, on:true },
+  { id:'cm',   name:'CM',   desc:'Capacity Market',               rate:1.05, on:true },
+  { id:'nrab', name:'NRAB', desc:'Nuclear Regulated Asset Base',  rate:0.33, on:true },
+];
+
+function renderP442Items(){
+  p442ItemsWrap.innerHTML = '';
+  P442_LEVIES.forEach(l=>{
+    const d = document.createElement('div');
+    d.className = 'p442-item' + (l.on ? ' on' : '');
+    d.innerHTML = `
+      <div class="lvy-name">
+        <span class="p442-check"></span>
+        <strong>${l.name}</strong>
+        <span class="lvy-desc">${l.desc}</span>
+      </div>
+      <span class="lvy-rate">${l.rate.toFixed(2)}p</span>
+    `;
+    d.addEventListener('click', ()=>{
+      l.on = !l.on;
+      renderP442Items();
+      renderGenStack();
+    });
+    p442ItemsWrap.appendChild(d);
+  });
+}
+
+function getP442StackValue(){
+  return P442_LEVIES.filter(l=>l.on).reduce((a,l)=>a+l.rate, 0);
+}
+
+togRego.addEventListener('click',()=>{
+  regoOn=!regoOn;
+  togRego.classList.toggle('on',regoOn);
+  updateRegoStatus();
+  renderGenStack();
+});
+regoPriceInput.addEventListener('input', ()=>{
+  // Auto-enable REGO when user edits the price (intent signal)
+  if(!regoOn){ regoOn = true; togRego.classList.add('on'); }
+  updateRegoStatus();
+  renderGenStack();
+});
+
+p442Share.addEventListener('input', ()=>{ p442ShareLbl.textContent = p442Share.value+'%'; renderGenStack(); });
+
+const PM_FEE_INCLUDED = GEN_PM; // 8.0p — generator earns full PM rate; platform fee is on top of consumer rate
+
+function renderGenStack(){
+  const pm = PM_FEE_INCLUDED;
+  const regoRate = parseFloat(regoPriceInput.value) || 0;
+  const rego = regoOn ? regoRate : 0;
+  const sharePct = +p442Share.value;
+  const stackVal = getP442StackValue();
+  const p442Earned = stackVal * sharePct / 100;
+
+  // Spill tier rates — fixed per generator (no averaging)
+  const tierKey = tierKeys[currentTier];
+  const totalSpillVol = exportSites.reduce((a,s)=>a+s.spillVol, 0);
+  const spillRates = exportSites.map(s=>s[tierKey]);
+  const minRate = Math.min(...spillRates);
+  const maxRate = Math.max(...spillRates);
+  const rateRangeStr = minRate === maxRate ? `${minRate.toFixed(2)}p` : `${minRate.toFixed(2)}–${maxRate.toFixed(2)}p`;
+
+  const total = pm + rego + p442Earned; // matched-volume per-kWh stack
+
+  // update labels
+  p442StackLbl.textContent = stackVal.toFixed(2)+' p/kWh';
+  document.getElementById('tier-name').textContent = currentTier + '%';
+  document.getElementById('tier-rate').textContent = rateRangeStr;
+
+  // ─── per-kWh stack (matched volume) ───
+  const stack = document.getElementById('gen-stack');
+  stack.innerHTML = '';
+  const addBar = (cls,lbl,val,note='')=>{
+    const d = document.createElement('div');
+    d.className = `stack-bar ${cls}`;
+    d.innerHTML = `<span class="lbl">${lbl}${note?` <span style="color:var(--ink-dim);font-size:10px;letter-spacing:.06em">· ${note}</span>`:''}</span><span class="val">${fmt(val)}p</span>`;
+    stack.appendChild(d);
+  };
+  addBar('sb-pm','PM rate (matched volume)', pm, 'all generators');
+  if(regoOn) addBar('sb-ncc','REGO purchase', rego, 'all volume · market rate');
+  const activeLevies = P442_LEVIES.filter(l=>l.on).map(l=>l.name).join('+') || 'none';
+  addBar('sb-comm', `P442 share · ${sharePct}% × ${stackVal.toFixed(2)}p`, p442Earned, `${activeLevies} · ecosystem-matched`);
+  const t = document.createElement('div');
+  t.className = 'stack-bar sb-total';
+  t.innerHTML = `<span class="lbl">All-in matched-volume rate</span><span class="val">${fmt(total)}p / kWh</span>`;
+  stack.appendChild(t);
+
+  // verdict — uplift vs PM-only baseline
+  const baseline = PM_FEE_INCLUDED;
+  const uplift = total - baseline;
+  const v = document.getElementById('gen-verdict');
+  v.classList.remove('worse');
+  v.innerHTML = `
+    <div class="verdict-k">vs PM rate only (${fmt(baseline)}p/kWh)</div>
+    <div class="verdict-v">Generator earns <em>${fmt(Math.abs(uplift))}p more</em> per matched kWh</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--ink-dim);margin-top:10px;letter-spacing:.04em">
+      Matched-volume uplift across 1.55 GWh / yr: +£${fmt(uplift * 1554552.53 / 100, 0)}
+    </div>`;
+
+  // ─── annual revenue breakdown (full-width panel) ───
+  // PM revenue: matched volume × PM rate (per generator, summed)
+  const totalMatchedVol = exportSites.reduce((a,s)=>a+s.pmVol, 0); // 1,554,552.53
+  const totalGenVol = totalMatchedVol + totalSpillVol; // 3,746,257.83 (full EAG)
+
+  const pmRev    = totalMatchedVol * pm / 100;
+  const spillRev = exportSites.reduce((a,s)=> a + s.spillVol * s[tierKey], 0) / 100;
+  const regoRev  = regoOn ? totalGenVol * rego / 100 : 0;
+  // P442 applies to all volume matched in the UC ecosystem — PM matched + spill (assumes UC matches all spill volume)
+  const p442EligibleVol = totalMatchedVol + totalSpillVol;
+  const p442Rev  = p442EligibleVol * p442Earned / 100;
+  const totalRev = pmRev + spillRev + regoRev + p442Rev;
+
+  document.getElementById('rev-total').textContent = '£' + fmt(totalRev, 0);
+
+  const breakdown = document.getElementById('rev-breakdown');
+  breakdown.innerHTML = '';
+  const addCard = (label, sub, value, accent)=>{
+    const d = document.createElement('div');
+    d.style.cssText = `padding:18px 20px;background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;border-left:3px solid ${accent}`;
+    d.innerHTML = `
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">${label}</div>
+      <div style="font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;font-style:italic;margin-bottom:6px">£${fmt(value, 0)}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.04em;line-height:1.5">${sub}</div>
+    `;
+    breakdown.appendChild(d);
+  };
+  addCard('Private Market revenue',
+          `${fmt(totalMatchedVol/1000,0)} MWh × ${fmt(pm)}p`,
+          pmRev, 'var(--accent)');
+  // Per-generator spill breakdown for the subtitle
+  const spillSub = exportSites.map(s=>`${s.name.split(' ')[0]} ${fmt(s.spillVol/1000,0)} MWh × ${s[tierKey].toFixed(2)}p`).join(' · ');
+  addCard(`Potential spill revenue · ${currentTier}% tier`,
+          spillSub,
+          spillRev, 'var(--spill)');
+  if(regoOn) addCard('REGO revenue',
+          `${fmt(totalGenVol/1000,0)} MWh × ${fmt(rego)}p`,
+          regoRev, '#5d8fd8');
+  addCard('P442 revenue share',
+          `${fmt(p442EligibleVol/1000,0)} MWh ecosystem-matched × ${fmt(p442Earned)}p (${sharePct}% × ${stackVal.toFixed(2)}p)`,
+          p442Rev, 'var(--grid)');
+}
+updateRegoStatus();
+renderP442Items();
+renderGenStack();
+
+/* ═════════════ §7 · CONSUMER COST ═════════════ */
+// Standing charges in source data are p/day (TNUoS demand residual is genuinely high on HH sites).
+// Convert: p/day × 365 ÷ 100 = £/year.
+function renderConsumerCost(){
+  let totalPM = 0, totalGrid = 0, totalSC = 0, totalGridOnly = 0;
+  const perSite = importSites.map(s=>{
+    const pmCost   = s.pmVol  * s.pm   / 100;
+    const gridCost = s.gridVol * s.grid / 100;
+    const sc       = s.sc * 365 / 100;                // p/day → £/year
+    const allIn    = pmCost + gridCost + sc;
+    const gridOnly = (s.pmVol + s.gridVol) * s.grid / 100 + sc;
+    totalPM += pmCost; totalGrid += gridCost; totalSC += sc; totalGridOnly += gridOnly;
+    return { ...s, pmCost, gridCost, sc, allIn, gridOnly };
+  });
+  const totalAll = totalPM + totalGrid + totalSC;
+  const delta    = totalAll - totalGridOnly; // positive = premium over grid-only
+
+  // headline
+  document.getElementById('cons-total').textContent = '£' + fmt(totalAll, 0);
+
+  // breakdown cards
+  const wrap = document.getElementById('cons-breakdown');
+  wrap.innerHTML = '';
+  const addCard = (label, sub, value, accent)=>{
+    const d = document.createElement('div');
+    d.style.cssText = `padding:18px 20px;background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;border-left:3px solid ${accent}`;
+    d.innerHTML = `
+      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">${label}</div>
+      <div style="font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;font-style:italic;margin-bottom:6px">£${fmt(value, 0)}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.04em;line-height:1.5">${sub}</div>`;
+    wrap.appendChild(d);
+  };
+  const totalMatched = importSites.reduce((a,s)=>a+s.pmVol,0);
+  const totalGridVol = importSites.reduce((a,s)=>a+s.gridVol,0);
+  addCard('PM rate cost (to UC)',  `${fmt(totalMatched/1000,0)} MWh matched`, totalPM, 'var(--accent)');
+  addCard('Grid rate cost (to UC)',`${fmt(totalGridVol/1000,0)} MWh re-matched in ecosystem`, totalGrid, 'var(--grid)');
+  addCard('Standing charges',          '6 sites · annual fixed fees', totalSC, 'var(--spill)');
+
+  // counterfactual
+  document.getElementById('cons-uc').textContent       = '£' + fmt(totalAll, 0);
+  document.getElementById('cons-grid-only').textContent= '£' + fmt(totalGridOnly, 0);
+  const dEl = document.getElementById('cons-delta');
+  const sign = delta >= 0 ? 'premium' : 'saving';
+  const cls  = delta >= 0 ? 'var(--grid)' : 'var(--accent)';
+  dEl.innerHTML = `Net <span style="color:${cls};font-weight:500">${sign} of £${fmt(Math.abs(delta), 0)}</span> for full green-claim coverage on the ${fmt(totalMatched/1000,0)} MWh matched portion (${(Math.abs(delta)/totalGridOnly*100).toFixed(2)}% vs grid-only)`;
+
+  // per-site bars
+  const barsWrap = document.getElementById('cons-bars');
+  barsWrap.innerHTML = '';
+  const maxAllIn = Math.max(...perSite.map(s=>s.allIn));
+  perSite.forEach(s=>{
+    const widthPct = (s.allIn / maxAllIn) * 100;
+    const pmW   = s.pmCost / s.allIn * 100;
+    const gridW = s.gridCost / s.allIn * 100;
+    const scW   = s.sc / s.allIn * 100;
+    const row = document.createElement('div');
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+        <div style="font-family:var(--sans);font-size:13px;color:var(--ink);font-weight:500">${s.name}</div>
+        <div style="font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500">£${fmt(s.allIn,0)}<span style="color:var(--ink-dim);font-size:10px;margin-left:6px;letter-spacing:.04em">/ yr</span></div>
+      </div>
+      <div style="display:flex;height:32px;border-radius:6px;overflow:hidden;width:${widthPct}%;min-width:160px;border:1px solid var(--line-soft)">
+        <div style="width:${pmW}%;background:linear-gradient(180deg,var(--accent),var(--accent-deep));display:flex;align-items:center;justify-content:center" title="PM: £${fmt(s.pmCost,0)} (${fmt(s.pmVol/1000,1)} MWh × ${fmt(s.pm)}p)">
+          ${pmW > 14 ? `<span style="font-family:var(--mono);font-size:10px;color:#06120c;font-weight:600">£${fmt(s.pmCost,0)}</span>` : ''}
+        </div>
+        <div style="width:${gridW}%;background:linear-gradient(180deg,var(--grid),#d68328);display:flex;align-items:center;justify-content:center" title="Grid: £${fmt(s.gridCost,0)} (${fmt(s.gridVol/1000,1)} MWh × ${fmt(s.grid)}p)">
+          ${gridW > 14 ? `<span style="font-family:var(--mono);font-size:10px;color:#3d2410;font-weight:600">£${fmt(s.gridCost,0)}</span>` : ''}
+        </div>
+        <div style="width:${scW}%;background:linear-gradient(180deg,var(--spill),#5d8fd8);display:flex;align-items:center;justify-content:center" title="Standing: £${fmt(s.sc,0)}/yr">
+          ${scW > 14 ? `<span style="font-family:var(--mono);font-size:10px;color:#06120c;font-weight:600">£${fmt(s.sc,0)}</span>` : ''}
+        </div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:6px;font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.04em">
+        <span>PM ${fmt(s.pmVol/1000,1)} MWh @ ${fmt(s.pm)}p</span>
+        <span>Grid ${fmt(s.gridVol/1000,1)} MWh @ ${fmt(s.grid)}p</span>
+        <span>SC £${fmt(s.sc,0)}</span>
+      </div>
+    `;
+    barsWrap.appendChild(row);
+  });
+}
+renderConsumerCost();
+
+/* ═════════════ reveal on scroll ═════════════ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.1});
+document.querySelectorAll('section').forEach(s=>{ s.classList.add('reveal'); io.observe(s); });
+
+</script>
+</body>
+</html>
