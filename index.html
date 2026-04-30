@@ -88,12 +88,107 @@
   @media (max-width: 720px){
     .brand-mark{height:24px}
   }
-  .topbar-right{display:flex;gap:24px;align-items:center}
-  .topbar-right span:not(:last-child)::after{content:"·";margin-left:24px;color:var(--ink-dim)}
-  @media (max-width: 720px){
-    .topbar-inner{padding:14px 20px;font-size:10px}
-    .topbar-right{display:none}
+  .topbar-right{display:flex;gap:0;align-items:stretch;height:100%}
+  /* main menu items in the topbar */
+  .nav-item{
+    position:relative;display:flex;align-items:center;
+    padding:18px 18px;cursor:pointer;
+    color:var(--ink-soft);transition:color .18s ease,background .18s ease;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    border-left:1px solid transparent;border-right:1px solid transparent;
   }
+  .nav-item:hover{color:var(--ink);background:rgba(124,242,176,.04)}
+  .nav-item.active{color:var(--accent)}
+  .nav-item .caret{
+    display:inline-block;margin-left:8px;width:6px;height:6px;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+    transform:rotate(45deg) translateY(-2px);opacity:.55;transition:transform .18s ease;
+  }
+  .nav-item.open .caret{transform:rotate(225deg) translateY(0);opacity:1}
+
+  /* dropdown panel */
+  .nav-dropdown{
+    position:absolute;top:100%;right:0;min-width:280px;
+    background:rgba(13,21,30,.96);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--line);border-top:none;
+    border-radius:0 0 10px 10px;
+    box-shadow:0 14px 40px rgba(0,0,0,.45);
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease, transform .16s ease, visibility 0s linear .16s;
+    z-index:40;padding:6px;
+  }
+  .nav-item:hover .nav-dropdown,
+  .nav-item.open .nav-dropdown{
+    opacity:1;visibility:visible;transform:translateY(0);
+    transition:opacity .16s ease, transform .16s ease, visibility 0s;
+  }
+  .nav-dropdown a{
+    display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    padding:11px 16px;border-radius:6px;
+    text-decoration:none;color:var(--ink-soft);
+    font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    transition:background .14s ease, color .14s ease;
+  }
+  .nav-dropdown a:hover{background:rgba(124,242,176,.07);color:var(--ink)}
+  .nav-dropdown a.current{color:var(--accent)}
+  .nav-dropdown a .nav-num{
+    font-size:9px;color:var(--ink-dim);letter-spacing:.14em;flex-shrink:0;
+  }
+  .nav-dropdown a:hover .nav-num{color:var(--ink-soft)}
+  .nav-dropdown a.current .nav-num{color:var(--accent);opacity:.8}
+  .nav-dropdown .nav-divider{
+    height:1px;background:var(--line-soft);margin:4px 8px;
+  }
+  .nav-dropdown .nav-stub{
+    padding:14px 16px;color:var(--ink-dim);
+    font-family:var(--serif);font-style:italic;font-size:13px;
+    letter-spacing:0;text-transform:none;line-height:1.5;
+  }
+
+  @media (max-width: 720px){
+    .topbar-inner{padding:14px 20px;font-size:10px;gap:0}
+    .nav-item{padding:14px 12px;font-size:10px;letter-spacing:.1em}
+    .nav-dropdown{min-width:240px;right:auto;left:0}
+  }
+
+  /* ─── section nav (tabs) ─────────────────────────── */
+  .section-nav{
+    position:sticky;top:64px;z-index:25;
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    background:rgba(10,17,24,.78);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .section-nav-inner{
+    max-width:1280px;margin:0 auto;padding:0 32px;
+    display:flex;gap:4px;align-items:stretch;
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .section-nav-inner::-webkit-scrollbar{display:none}
+  .section-tab{
+    appearance:none;background:transparent;border:none;cursor:pointer;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-dim);padding:18px 16px 16px;
+    border-bottom:2px solid transparent;
+    transition:color .18s ease, border-color .18s ease;
+    white-space:nowrap;flex-shrink:0;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .section-tab:hover{color:var(--ink-soft)}
+  .section-tab .stab-num{color:var(--ink-dim);font-size:10px;opacity:.7;transition:color .18s ease}
+  .section-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .section-tab.active .stab-num{color:var(--accent);opacity:1}
+  @media (max-width: 720px){
+    .section-nav{top:50px}
+    .section-nav-inner{padding:0 20px}
+    .section-tab{padding:14px 12px 12px;font-size:10px;letter-spacing:.1em}
+  }
+
+  /* hide non-active sections */
+  [data-tab]{display:none}
+  [data-tab].tab-active{display:block}
 
   /* ─── hero ──────────────────────────────────────── */
   .hero{padding:120px 0 80px;position:relative}
@@ -255,25 +350,47 @@
   .legend{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em}
   .legend-dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:middle}
 
-  /* ─── P442 levy items ─────────────────────────── */
-  .p442-item{
+  /* ─── geographic flow map (§4) ─────────────────── */
+  .geo-card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .geo-svg{display:block;width:100%;height:auto;background:linear-gradient(180deg,#0c1623 0%,#0a1118 100%)}
+  .geo-inset{
+    background:var(--panel);border:1px solid var(--line);border-top:none;
+    padding:14px 18px;display:flex;align-items:center;gap:18px;
+  }
+  .geo-inset svg{display:block;height:96px;width:auto}
+  .geo-inset .inset-lbl{
+    font-family:var(--mono);font-size:9px;color:var(--ink-dim);
+    letter-spacing:.18em;text-transform:uppercase;line-height:1.6;
+  }
+  .geo-inset .inset-lbl strong{color:var(--ink-soft);font-weight:500}
+  .geo-legend{
+    display:flex;gap:24px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+    padding:14px 22px;border-top:1px solid var(--line);background:var(--bg-2);
+  }
+  .geo-legend .swatch{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+  .site-marker{cursor:pointer}
+  .flow-line{transition:stroke-opacity .2s ease}
+  .geo-svg.has-focus .flow-line{stroke-opacity:.04 !important}
+  .geo-svg.has-focus .flow-line.is-related{stroke-opacity:.85 !important; stroke-width:3 !important}
+  .geo-svg.has-focus .site-marker{opacity:.28}
+  .geo-svg.has-focus .site-marker.is-related{opacity:1}
+  .site-label{pointer-events:none}
+
+  /* ─── P442 levy breakdown (static) ────────────── */
+  .p442-row{
     display:flex;align-items:center;justify-content:space-between;
-    padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--bg-2);
-    cursor:pointer;transition:all .18s ease;font-family:var(--mono);font-size:12px;
+    padding:9px 14px;border:1px solid var(--line-soft);border-radius:6px;background:var(--bg-2);
+    font-family:var(--mono);font-size:12px;color:var(--ink-soft);
   }
-  .p442-item:hover{border-color:var(--ink-dim)}
-  .p442-item.on{border-color:var(--accent);background:rgba(124,242,176,.06)}
-  .p442-item .lvy-name{color:var(--ink-soft);display:flex;align-items:center;gap:10px}
-  .p442-item.on .lvy-name{color:var(--ink)}
-  .p442-item .lvy-desc{color:var(--ink-dim);font-size:10px;letter-spacing:.04em;margin-left:10px}
-  .p442-item .lvy-rate{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
-  .p442-item.on .lvy-rate{color:var(--accent)}
-  .p442-check{
-    width:14px;height:14px;border-radius:3px;border:1px solid var(--ink-dim);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s ease;
+  .p442-row strong{color:var(--ink);font-weight:500;margin-right:10px}
+  .p442-row .lvy-desc{color:var(--ink-dim);font-size:10px;letter-spacing:.04em}
+  .p442-row .lvy-rate{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+  .p442-row.p442-total{
+    border-color:rgba(124,242,176,.25);background:rgba(124,242,176,.05);
+    margin-top:4px;
   }
-  .p442-item.on .p442-check{background:var(--accent);border-color:var(--accent)}
-  .p442-item.on .p442-check::after{content:"✓";color:#06120c;font-size:10px;font-weight:700}
+  .p442-row.p442-total strong, .p442-row.p442-total .lvy-rate{color:var(--accent)}
 
   /* ─── spill tier (Section 5) ───────────────────── */
   .spill-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:32px}
@@ -297,6 +414,131 @@
   .rego-vis{display:flex;align-items:center;gap:6px;margin:20px 0 8px;height:38px}
   .rego-cell{flex:1;border-radius:4px;transition:all .3s ease;position:relative}
   .rego-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);display:flex;justify-content:space-between;text-transform:uppercase}
+
+  /* ─── contact / growth team page ──────────────── */
+  .gt-section{padding-top:48px}
+  .gt-section .section-head{margin-bottom:20px}
+
+  /* group block — minimal vertical chrome */
+  .gt-group{margin-bottom:36px}
+  .gt-group-head{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:12px;
+  }
+  .gt-group-num{
+    font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--ink-dim);
+    text-transform:uppercase;
+  }
+  .gt-group-name{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    color:var(--accent);font-weight:500;text-transform:uppercase;margin:0;
+  }
+  .gt-group-rule{
+    flex:1;height:1px;background:var(--line-soft);margin-left:6px;
+  }
+
+  /* grid — auto-fit means cards stretch to fill row, not leave gaps */
+  .gt-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  }
+  /* cap to max 4 cols at large widths so cards don't get over-wide on big monitors */
+  @media (min-width: 1200px){
+    .gt-grid{grid-template-columns:repeat(4, minmax(0,1fr))}
+    /* groups with only 2 people: keep cards a sensible width, not ultra-wide */
+    .gt-grid[data-count="2"]{grid-template-columns:repeat(2, minmax(0,1fr))}
+    .gt-grid[data-count="3"]{grid-template-columns:repeat(3, minmax(0,1fr))}
+  }
+
+  /* compact card */
+  .gt-card{
+    background:var(--panel);padding:18px 16px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:background .18s ease;min-height:0;
+  }
+  .gt-card:hover{background:#172332}
+  .gt-card.is-leader{
+    background:linear-gradient(180deg, rgba(124,242,176,.06) 0%, var(--panel) 60%);
+  }
+  .gt-card.is-leader::before{
+    content:"";display:block;height:2px;width:32px;background:var(--accent);
+    border-radius:1px;margin-bottom:2px;
+  }
+  .gt-card-top{display:flex;gap:12px;align-items:center}
+  .gt-photo{
+    width:44px;height:44px;border-radius:50%;flex-shrink:0;
+    background:#1a2738;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);overflow:hidden;
+  }
+  .gt-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .gt-photo .gt-initials{
+    font-family:var(--serif);font-size:14px;font-weight:500;color:var(--ink-soft);
+    font-style:italic;letter-spacing:.02em;
+  }
+  .gt-card.is-leader .gt-photo{
+    width:52px;height:52px;border-color:rgba(124,242,176,.4);
+  }
+  .gt-card.is-leader .gt-photo .gt-initials{font-size:16px;color:var(--accent)}
+
+  .gt-id{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .gt-name{
+    font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:500;
+    line-height:1.2;
+  }
+  .gt-card.is-leader .gt-name{font-size:16px}
+  .gt-role{
+    font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-dim);line-height:1.35;
+  }
+  .gt-card.is-leader .gt-role{color:var(--accent)}
+  .gt-blurb{
+    font-family:var(--serif);font-size:12px;color:var(--ink-soft);
+    line-height:1.5;font-weight:300;margin:0;
+  }
+  .gt-li{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-dim);text-decoration:none;
+    margin-top:auto;padding-top:6px;
+    transition:color .15s ease;
+  }
+  .gt-li:hover{color:var(--accent)}
+  .gt-li .gt-arrow{transition:transform .15s ease;display:inline-block}
+  .gt-li:hover .gt-arrow{transform:translateX(2px)}
+
+  /* contact footer block — slimmer */
+  .gt-contact-block{
+    margin-top:48px;padding:32px 36px;
+    background:linear-gradient(135deg, rgba(124,242,176,.06) 0%, var(--panel) 100%);
+    border:1px solid var(--line);border-radius:12px;
+    display:grid;grid-template-columns:1.2fr 1fr;gap:36px;align-items:center;
+  }
+  @media (max-width: 720px){.gt-contact-block{grid-template-columns:1fr;padding:24px;gap:20px}}
+  .gt-cb-eyebrow{
+    font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:10px;
+  }
+  .gt-cb-headline{
+    font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:500;
+    line-height:1.25;margin:0 0 8px;
+  }
+  .gt-cb-headline em{color:var(--accent);font-style:italic}
+  .gt-cb-sub{
+    font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+    line-height:1.55;font-weight:300;margin:0;
+  }
+  .gt-cb-details{display:flex;flex-direction:column;gap:14px}
+  .gt-cb-row{display:flex;flex-direction:column;gap:3px}
+  .gt-cb-label{
+    font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .gt-cb-value{
+    font-family:var(--mono);font-size:12px;color:var(--ink);text-decoration:none;
+  }
+  .gt-cb-value:hover{color:var(--accent)}
+  .gt-cb-value.email{font-size:15px;color:var(--accent);font-weight:500}
 
   /* ─── footer ─────────────────────────────────── */
   footer{padding:60px 0 40px;border-top:1px solid var(--line-soft);text-align:left}
@@ -331,17 +573,60 @@
       <span style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">eChain</span>
     </div>
     <div class="topbar-right">
-      <span>Private Market</span>
-      <span>Sleeved PPA</span>
-      <span>Haulage, Logistics &amp; Distribution · 2027–2029</span>
+      <div class="nav-item" data-menu="pm" tabindex="0">
+        Private Market
+        <span class="caret"></span>
+        <div class="nav-dropdown">
+          <a href="#" data-target="overview"><span>Overview</span><span class="nav-num">00</span></a>
+          <div class="nav-divider"></div>
+          <a href="#" data-target="mechanics"><span>Mechanics</span><span class="nav-num">§1</span></a>
+          <a href="#" data-target="price"><span>Price construction</span><span class="nav-num">§2</span></a>
+          <a href="#" data-target="deal"><span>Deal anatomy</span><span class="nav-num">§3</span></a>
+          <a href="#" data-target="match"><span>The match</span><span class="nav-num">§4</span></a>
+          <a href="#" data-target="spill"><span>Spill mechanics</span><span class="nav-num">§5</span></a>
+          <a href="#" data-target="generator"><span>Generator stack</span><span class="nav-num">§6</span></a>
+          <a href="#" data-target="consumer"><span>Consumer cost</span><span class="nav-num">§7</span></a>
+        </div>
+      </div>
+      <div class="nav-item" data-menu="export" tabindex="0">
+        Export
+        <span class="caret"></span>
+        <div class="nav-dropdown">
+          <div class="nav-stub">Pure Export — the generator product. Page in progress; sub-navigation will appear here once published.</div>
+        </div>
+      </div>
+      <div class="nav-item" data-menu="import" tabindex="0">
+        Import
+        <span class="caret"></span>
+        <div class="nav-dropdown">
+          <div class="nav-stub">Pure Import — the consumer product. Page in progress; sub-navigation will appear here once published.</div>
+        </div>
+      </div>
+      <div class="nav-item nav-item-link" data-menu="contact" tabindex="0" data-target="contact">
+        Contact
+      </div>
     </div>
   </div>
 </header>
 
+<!-- ════════════════ SECTION NAV ════════════════ -->
+<nav class="section-nav" aria-label="Section navigation">
+  <div class="section-nav-inner" role="tablist">
+    <button class="section-tab active" role="tab" data-target="overview"><span class="stab-num">00</span>Overview</button>
+    <button class="section-tab" role="tab" data-target="mechanics"><span class="stab-num">§1</span>Mechanics</button>
+    <button class="section-tab" role="tab" data-target="price"><span class="stab-num">§2</span>Price</button>
+    <button class="section-tab" role="tab" data-target="deal"><span class="stab-num">§3</span>Deal</button>
+    <button class="section-tab" role="tab" data-target="match"><span class="stab-num">§4</span>Match</button>
+    <button class="section-tab" role="tab" data-target="spill"><span class="stab-num">§5</span>Spill</button>
+    <button class="section-tab" role="tab" data-target="generator"><span class="stab-num">§6</span>Generator</button>
+    <button class="section-tab" role="tab" data-target="consumer"><span class="stab-num">§7</span>Consumer</button>
+  </div>
+</nav>
+
 <div class="wrap">
 
   <!-- ════════════════ HERO ════════════════ -->
-  <section class="hero" style="border-top:none;padding-top:88px">
+  <section class="hero tab-active" data-tab="overview" style="border-top:none;padding-top:88px">
     <h1 class="display">A peer-to-peer market<br/>for <em>renewable</em> electrons.</h1>
     <p class="hero-sub">UrbanChain's private market sits between renewable generators and large consumers — matching kilowatt-hour for kilowatt-hour, in real time, on a half-hourly basis. This is how the contract for a UK haulage, logistics and distribution company was assembled: six demand sites, three generation assets, two contract years, and a price built from the ground up.</p>
     <div class="hero-meta">
@@ -353,7 +638,7 @@
   </section>
 
   <!-- ════════════════ §1 · MECHANICS ════════════════ -->
-  <section>
+  <section data-tab="mechanics">
     <div class="section-head">
       <span class="section-num">§1 · Mechanics</span>
     </div>
@@ -399,38 +684,38 @@
         <!-- generators (left) -->
         <g id="gen-group">
           <rect x="40" y="90" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
-          <text x="60" y="115" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Rotton Row</text>
+          <text x="60" y="115" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Generator 1</text>
           <text x="60" y="135" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.16M kWh</text>
 
           <rect x="40" y="160" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
-          <text x="60" y="185" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Ollerton Road</text>
+          <text x="60" y="185" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Generator 2</text>
           <text x="60" y="205" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.60M kWh</text>
 
           <rect x="40" y="230" width="180" height="60" rx="10" fill="url(#gen-grad)" opacity=".18" stroke="#7cf2b0"/>
-          <text x="60" y="255" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Rainsbutt Farm</text>
+          <text x="60" y="255" fill="#e9efef" font-family="Inter Tight" font-size="13" font-weight="500">Generator 3</text>
           <text x="60" y="275" fill="#a8b6c4" font-family="JetBrains Mono" font-size="10">Generator · 1.50M kWh</text>
         </g>
 
         <!-- demand (right) -->
         <g id="dem-group">
           <rect x="880" y="74" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
-          <text x="900" y="92" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Alcan / Sutton</text>
+          <text x="900" y="92" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Consumer 1</text>
           <text x="900" y="108" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">393,694 kWh</text>
 
           <rect x="880" y="124" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
-          <text x="900" y="142" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Tuxford Import</text>
+          <text x="900" y="142" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Consumer 2</text>
           <text x="900" y="158" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">829,509 kWh</text>
 
           <rect x="880" y="174" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
-          <text x="900" y="192" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Salford LL Supply</text>
+          <text x="900" y="192" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Consumer 4</text>
           <text x="900" y="208" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">867,249 kWh</text>
 
           <rect x="880" y="224" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
-          <text x="900" y="242" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Davy Import</text>
+          <text x="900" y="242" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Consumer 5</text>
           <text x="900" y="258" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">76,596 kWh</text>
 
           <rect x="880" y="274" width="180" height="44" rx="8" fill="#172333" stroke="#23344a"/>
-          <text x="900" y="292" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Rainsbutt Imp · +1</text>
+          <text x="900" y="292" fill="#e9efef" font-family="Inter Tight" font-size="12" font-weight="500">Consumer 6 · + 1</text>
           <text x="900" y="308" fill="#6a7a8c" font-family="JetBrains Mono" font-size="10">858,708 kWh</text>
         </g>
 
@@ -472,10 +757,76 @@
         <strong>Matched flow:</strong> generation and consumption land in the same half-hour. The kWh flows through the private market at the contractual rate — generator receives the PM rate, consumer pays PM rate plus non-commodity charges.
       </div>
     </div>
+
+    <!-- ════ Contractual vs physical flow ════ -->
+    <div style="margin-top:80px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px">
+        <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink)">Two flows, not one</h3>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Settlement layer · Physical layer</span>
+      </div>
+      <p style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);max-width:74ch;line-height:1.6;font-weight:300;margin-bottom:32px">
+        The diagram above shows the <em style="color:var(--ink);font-style:italic">contractual</em> flow — the matching ledger. There's also a <em style="color:var(--ink);font-style:italic">physical</em> flow, and the two are deliberately decoupled. Electrons leave a generator and travel through whichever section of the local distribution network has the lowest impedance — often metres, rarely the whole country. The private market sits on top, attributing kWh to specific consumers for accounting and settlement purposes. <em style="color:var(--accent);font-style:italic">A perfectly matched contract doesn't mean a generator's electrons reached its counterparty's site.</em>
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+        <!-- LEFT: contractual layer -->
+        <div style="background:var(--panel);padding:28px 30px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px">Contractual layer · what UC settles</div>
+          <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+            <!-- Generator -->
+            <circle cx="50" cy="80" r="20" fill="#7cf2b0" opacity=".18"/>
+            <circle cx="50" cy="80" r="11" fill="#7cf2b0" stroke="#0a1118" stroke-width="1.5"/>
+            <text x="50" y="125" fill="#7cf2b0" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">GENERATOR</text>
+            <!-- Consumer -->
+            <circle cx="310" cy="80" r="20" fill="#a8b6c4" opacity=".18"/>
+            <circle cx="310" cy="80" r="11" fill="#a8b6c4" stroke="#0a1118" stroke-width="1.5"/>
+            <text x="310" y="125" fill="#cdd5de" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">CONSUMER</text>
+            <!-- Direct contractual line -->
+            <path d="M65,80 L295,80" stroke="#7cf2b0" stroke-width="2" stroke-dasharray="6 4" fill="none" opacity=".75"/>
+            <text x="180" y="68" fill="#7cf2b0" font-family="Fraunces" font-style="italic" font-size="14" text-anchor="middle">1 kWh · matched</text>
+            <text x="180" y="98" fill="#a8b6c4" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">half-hourly settlement · 1 : 1</text>
+          </svg>
+          <p style="font-family:var(--serif);font-size:13px;color:var(--ink-dim);line-height:1.55;font-weight:300;margin-top:14px">
+            A direct one-to-one accounting relationship. Generator earns the PM rate, consumer pays it. The kWh appears on both sides of the ledger in the same half-hour.
+          </p>
+        </div>
+        <!-- RIGHT: physical layer -->
+        <div style="background:var(--panel);padding:28px 30px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px">Physical layer · what the grid does</div>
+          <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+            <!-- Generator -->
+            <circle cx="50" cy="80" r="20" fill="#7cf2b0" opacity=".18"/>
+            <circle cx="50" cy="80" r="11" fill="#7cf2b0" stroke="#0a1118" stroke-width="1.5"/>
+            <text x="50" y="125" fill="#7cf2b0" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">GENERATOR</text>
+            <!-- Consumer -->
+            <circle cx="310" cy="80" r="20" fill="#a8b6c4" opacity=".18"/>
+            <circle cx="310" cy="80" r="11" fill="#a8b6c4" stroke="#0a1118" stroke-width="1.5"/>
+            <text x="310" y="125" fill="#cdd5de" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">CONSUMER</text>
+            <!-- Grid bus in the middle -->
+            <rect x="155" y="65" width="50" height="30" rx="4" fill="#172333" stroke="#f3a847" stroke-width="1"/>
+            <text x="180" y="84" fill="#f3a847" font-family="JetBrains Mono" font-size="9" text-anchor="middle" letter-spacing="1">GRID</text>
+            <!-- electrons leaving generator (might go anywhere) -->
+            <path d="M65,80 Q 100,40 155,75" stroke="#7cf2b0" stroke-width="1.6" stroke-dasharray="3 3" fill="none" opacity=".6"/>
+            <path d="M65,80 Q 100,120 155,85" stroke="#7cf2b0" stroke-width="1.6" stroke-dasharray="3 3" fill="none" opacity=".6"/>
+            <!-- electrons arriving consumer (might come from anywhere) -->
+            <path d="M205,75 Q 260,40 295,80" stroke="#7eb6ff" stroke-width="1.6" stroke-dasharray="3 3" fill="none" opacity=".6"/>
+            <path d="M205,85 Q 260,120 295,80" stroke="#7eb6ff" stroke-width="1.6" stroke-dasharray="3 3" fill="none" opacity=".6"/>
+            <!-- arrows -->
+            <text x="115" y="35" fill="#7cf2b0" font-family="JetBrains Mono" font-size="8" opacity=".7">→ injected</text>
+            <text x="245" y="35" fill="#7eb6ff" font-family="JetBrains Mono" font-size="8" opacity=".7">→ drawn</text>
+          </svg>
+          <p style="font-family:var(--serif);font-size:13px;color:var(--ink-dim);line-height:1.55;font-weight:300;margin-top:14px">
+            Electrons leave the generator into the local DNO network. Some travel a few metres to a neighbour, some to the nearest grid substation. The consumer draws from whatever's closest — the matching engine never determines this.
+          </p>
+        </div>
+      </div>
+      <p style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--ink-dim);margin-top:18px;line-height:1.55">
+        This is why the §4 geographic map shows arcs across hundreds of kilometres — those are <span style="color:var(--accent)">contractual</span> arcs, not physical wires. UC settles every half-hour against the metered injection and withdrawal at each MPAN; the laws of physics handle the routing.
+      </p>
+    </div>
   </section>
 
   <!-- ════════════════ §2 · PRICE BUILD-UP ════════════════ -->
-  <section>
+  <section data-tab="price">
     <div class="section-head"><span class="section-num">§2 · Price construction</span></div>
     <h2 class="section-title">A price <em>built</em> from its parts.</h2>
     <p class="section-lede">The private market import rate is the sum of two things: the generator-set PM rate, and the non-commodity charges (the regulated pass-through floor — network costs, levies, balancing, distribution). Pick a site to see how it stacks up against the equivalent grid price.</p>
@@ -493,7 +844,7 @@
 
         <div class="toggle-row">
           <button class="tog on" id="tog-fee">Platform fee<small>+0.4 p/kWh</small></button>
-          <button class="tog" id="tog-comm">TPI commission<small>+0.29 p/kWh</small></button>
+          <button class="tog" id="tog-comm">TPI / Broker commission<small>+0.29 p/kWh</small></button>
         </div>
 
         <div class="stack" id="price-stack"></div>
@@ -530,8 +881,8 @@
           <div style="display:flex;gap:14px">
             <div style="width:3px;background:var(--grid);flex-shrink:0;border-radius:2px"></div>
             <div>
-              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">TPI Commission · Lumina</div>
-              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Where a third-party intermediary brokered the deal — here Lumina at <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.29p/kWh</em>. Added to the headline rate so the customer sees an all-in number.</div>
+              <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">TPI / Broker Commission</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Where a third-party intermediary or broker arranged the deal — here at <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.29p/kWh</em>. Added to the headline rate so the customer sees an all-in number.</div>
             </div>
           </div>
         </div>
@@ -541,10 +892,10 @@
   </section>
 
   <!-- ════════════════ §3 · DEAL TABLE ════════════════ -->
-  <section>
+  <section data-tab="deal">
     <div class="section-head"><span class="section-num">§3 · Deal anatomy</span></div>
     <h2 class="section-title">The full <em>contract</em> ledger.</h2>
-    <p class="section-lede">Six demand sites on the import side, three generation assets on the export side. The numbers below are the lifted figures from the 27 January 2026 quote — MPAN, rate, and forecast volume per site, per year.</p>
+    <p class="section-lede">Six demand sites on the import side, three generation assets on the export side. The numbers below are the lifted figures from the 27 January 2026 quote — rate and forecast volume per site, per year.</p>
 
     <div style="margin-top:48px">
       <div class="deal-tabs">
@@ -557,7 +908,6 @@
           <thead>
             <tr>
               <th>Site</th>
-              <th>MPAN</th>
               <th class="num">NCC</th>
               <th class="num">PM Rate</th>
               <th class="num">Grid Rate</th>
@@ -576,7 +926,6 @@
           <thead>
             <tr>
               <th>Site</th>
-              <th>MPAN</th>
               <th class="num">PM Rate</th>
               <th class="num">Spill 0%</th>
               <th class="num">Spill 66%</th>
@@ -595,7 +944,7 @@
   </section>
 
   <!-- ════════════════ §4 · MATCHING ════════════════ -->
-  <section>
+  <section data-tab="match">
     <div class="section-head"><span class="section-num">§4 · The match</span></div>
     <h2 class="section-title">Generation <em>meets</em> consumption.</h2>
     <p class="section-lede">Across the year-one forecast, the private market matches <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of generation against <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of consumption — exactly. The remaining <span style="color:var(--accent);font-family:var(--mono)">1.47 GWh</span> of demand isn't a fallback to brown grid power: UrbanChain re-matches it within the ecosystem against another UC generator with available spillage — the consumer pays the published grid rate, but the green claim survives.</p>
@@ -676,10 +1025,136 @@
         <span><span class="legend-dot" style="background:#f3a847"></span>Re-matched within ecosystem · paid at grid rate</span>
       </div>
     </div>
+
+    <!-- ════ geographic flow map ════ -->
+    <div style="margin-top:72px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px">
+        <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink)">Geographic flow · matched volumes</h3>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">East Midlands · Yorkshire · N Lincs · Manchester</span>
+      </div>
+      <p style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);max-width:74ch;line-height:1.6;font-weight:300;margin-bottom:24px">
+        The contractual matching between <em style="color:#7cf2b0;font-style:italic">generators</em> and <em style="color:var(--ink);font-style:italic">consumers</em> is settled half-hour by half-hour, but the electrons themselves flow through the local distribution network — there's no dedicated wire from a generator to a far-away consumer. Line thickness shows the matched volume that would flow on each generator → consumer pair, allocated pro-rata at every half-hour. <span style="color:var(--ink)">Click any site to isolate its flows.</span>
+      </p>
+      <div class="geo-card">
+        <svg id="geo-map" class="geo-svg" viewBox="0 0 700 286" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet"></svg>
+        <div class="geo-legend">
+          <span><span class="swatch" style="background:#7cf2b0"></span>Generator (export, AE) · sized by output</span>
+          <span><span class="swatch" style="background:#a8b6c4"></span>Consumer (import, AI) · sized by demand</span>
+          <span><span class="swatch" style="background:#7cf2b0;opacity:.6"></span>Flow line · width ∝ matched kWh</span>
+        </div>
+        <div class="geo-inset">
+          <svg id="geo-inset" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="inset-lbl">
+            <strong>UK context</strong><br>
+            All 9 sites cluster across<br>
+            the East Midlands, Yorkshire,<br>
+            N Lincolnshire and Manchester
+          </div>
+        </div>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-top:14px">
+        ○ co-located sites slightly offset for visibility &nbsp;·&nbsp; click a site to isolate its flows &nbsp;·&nbsp; click empty area to reset
+      </p>
+    </div>
+
+    <!-- monthly matching chart from actual half-hourly data -->
+    <div style="margin-top:72px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:18px">
+        <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink)">Half-hourly ledger · monthly roll-up</h3>
+        <span style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Mar 2025 → Apr 2026 · 9 meters · 20,348 half-hours</span>
+      </div>
+      <p style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);max-width:74ch;line-height:1.6;font-weight:300;margin-bottom:24px">
+        Rolled up from the actual half-hourly meter data — half-hourly export readings from the three <em style="color:#7cf2b0;font-style:italic">generator</em> sites (Active Export, AE) on one side, and half-hourly import readings from the six <em style="color:var(--ink);font-style:italic">consumer</em> sites (Active Import, AI) on the other. The green base of each paired bar is identical — that's the volume the private market actually moves at the contractual rate.
+      </p>
+
+      <!-- site-key panel: shows which meters feed each side of the chart -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:32px">
+
+        <!-- GENERATORS (supply) -->
+        <div style="background:var(--panel);padding:20px 24px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+            <div>
+              <span style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#7cf2b0">Generators · Supply side</span>
+              <div style="font-family:var(--serif);font-size:17px;color:var(--ink);font-weight:500;margin-top:4px">3 export meters (AE)</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:#7cf2b0;text-align:right">
+              <div style="font-size:18px">4,669 <span style="font-size:11px;color:var(--ink-dim)">MWh</span></div>
+              <div style="font-size:9px;letter-spacing:.1em;color:var(--ink-dim);margin-top:2px">PERIOD TOTAL</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Generator 2</span></div>
+              <div style="color:#7cf2b0">1,979,403<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Generator 3</span></div>
+              <div style="color:#7cf2b0">1,886,913<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Generator 1</span></div>
+              <div style="color:#7cf2b0">802,210<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONSUMERS (demand) -->
+        <div style="background:var(--panel);padding:20px 24px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+            <div>
+              <span style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)">Consumers · Demand side</span>
+              <div style="font-family:var(--serif);font-size:17px;color:var(--ink);font-weight:500;margin-top:4px">6 import meters (AI)</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:11px;color:var(--ink);text-align:right">
+              <div style="font-size:18px">3,490 <span style="font-size:11px;color:var(--ink-dim)">MWh</span></div>
+              <div style="font-size:9px;letter-spacing:.1em;color:var(--ink-dim);margin-top:2px">PERIOD TOTAL</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 5</span></div>
+              <div style="color:var(--ink)">1,054,290<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 1</span></div>
+              <div style="color:var(--ink)">963,808<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 2</span></div>
+              <div style="color:var(--ink)">951,948<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 3</span></div>
+              <div style="color:var(--ink)">428,788<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 4</span></div>
+              <div style="color:var(--ink)">88,840<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;padding:8px 0;border-top:1px solid var(--line-soft)">
+              <div><span style="color:var(--ink)">Consumer 6</span></div>
+              <div style="color:var(--ink)">2,068<span style="color:var(--ink-dim);font-size:10px;margin-left:4px">kWh</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="matching">
+        <svg id="match-chart" viewBox="0 0 1100 460" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto"></svg>
+        <div class="legend" style="margin-top:18px">
+          <span><span class="legend-dot" style="background:#7cf2b0"></span>Matched · half-hourly P2P</span>
+          <span><span class="legend-dot" style="background:#f3a847"></span>Shortfall · re-matched within ecosystem</span>
+          <span><span class="legend-dot" style="background:#7eb6ff"></span>Surplus · routed to UC Spill product</span>
+        </div>
+      </div>
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-top:18px">
+        <span style="color:var(--ink-soft)">○</span> partial month — fewer than 28 days of data &nbsp;·&nbsp; period total: <span style="color:#7cf2b0">4,669 MWh from generators</span> · <span style="color:var(--ink)">3,490 MWh from consumers</span> · <span style="color:#7cf2b0">1,884 MWh matched (54.0%)</span>
+      </p>
+    </div>
   </section>
 
   <!-- ════════════════ §5 · SPILL TIERS ════════════════ -->
-  <section>
+  <section data-tab="spill">
     <div class="section-head"><span class="section-num">§5 · Spill mechanics</span></div>
     <h2 class="section-title">When generation <em>exceeds</em> demand.</h2>
     <p class="section-lede">Generators don't always find a private market match. The 2.19 GWh of unmatched output gets routed through a UC Spill product the generator chooses up front — each tier is a <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">guaranteed</em> percentage of that volume that will be paid at the tier rate. Anything UrbanChain matches to other consumers <em style="color:var(--ink);font-style:italic">above</em> that floor is also paid at the tier rate. Anything still unmatched after that flows to System Sell Price.</p>
@@ -743,7 +1218,7 @@
           </div>
         </div>
 
-        <p style="margin-top:22px;font-size:14px"><em style="color:var(--accent);font-family:var(--mono);font-style:normal">Why three rate columns differ:</em> tier rates are negotiated per generator. Each asset has its own connection, balancing position, and forecast quality. Rainsbutt sits below the others because its wind profile is harder to balance.</p>
+        <p style="margin-top:22px;font-size:14px"><em style="color:var(--accent);font-family:var(--mono);font-style:normal">Why three rate columns differ:</em> tier rates are negotiated per generator. Each asset has its own connection, balancing position, and forecast quality. Generator 3 sits below the others because its wind profile is harder to balance.</p>
 
         <p style="margin-top:14px;font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase">Spill applies only to <em style="color:var(--ink-soft);font-style:normal;text-transform:none">unmatched</em> output — the matched volume is always settled at the 8.0p PM rate.</p>
       </div>
@@ -751,7 +1226,7 @@
   </section>
 
   <!-- ════════════════ §6 · GENERATOR STACK ════════════════ -->
-  <section>
+  <section data-tab="generator">
     <div class="section-head"><span class="section-num">§6 · Generator economics</span></div>
     <h2 class="section-title">What the <em>generator</em> earns, all-in.</h2>
     <p class="section-lede">The headline 8.0p PM rate is only part of the story. UrbanChain offers two further revenue layers that sit on top: a REGO purchase at the prevailing market rate (currently <span style="color:var(--accent);font-family:var(--mono)">~0.1p/kWh</span>, but tradable and rate-dependent) across all generated volume — a standing offer not taken in this quote — and a revenue share on the P442 license-exempt supply benefit, applied to <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">all volume matched in the UC ecosystem</em> (PM matched plus spill that gets re-matched). The full P442 cost stack is around <span style="color:var(--accent);font-family:var(--mono)">6.19p/kWh</span>; for this contract we offered the generator <span style="color:var(--accent);font-family:var(--mono)">30%</span> of the components they qualified for — earning them roughly <span style="color:var(--accent);font-family:var(--mono)">1.4–1.8p/kWh</span> on eligible volume.</p>
@@ -793,10 +1268,17 @@
 
           <div style="margin-top:14px">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-              <label style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)">P442 components — toggle qualifying levies</label>
-              <span id="p442-stack-label" style="font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500">6.19 p/kWh</span>
+              <label style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim)">P442 cost stack breakdown</label>
+              <span style="font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500">6.19 p/kWh</span>
             </div>
-            <div id="p442-items" style="display:flex;flex-direction:column;gap:6px"></div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div class="p442-row"><span><strong>FiT</strong> <span class="lvy-desc">Feed-in Tariff levy</span></span><span class="lvy-rate">0.80p</span></div>
+              <div class="p442-row"><span><strong>RO</strong> <span class="lvy-desc">Renewables Obligation</span></span><span class="lvy-rate">3.28p</span></div>
+              <div class="p442-row"><span><strong>CfD</strong> <span class="lvy-desc">Contracts for Difference</span></span><span class="lvy-rate">0.73p</span></div>
+              <div class="p442-row"><span><strong>CM</strong> <span class="lvy-desc">Capacity Market</span></span><span class="lvy-rate">1.05p</span></div>
+              <div class="p442-row"><span><strong>NRAB</strong> <span class="lvy-desc">Nuclear Regulated Asset Base</span></span><span class="lvy-rate">0.33p</span></div>
+              <div class="p442-row p442-total"><span><strong>Total stack</strong></span><span class="lvy-rate">6.19p</span></div>
+            </div>
           </div>
         </div>
 
@@ -824,7 +1306,7 @@
             <div style="width:3px;background:var(--accent);flex-shrink:0;border-radius:2px"></div>
             <div>
               <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">PM Rate</div>
-              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">The contractual rate the generator earns on every kWh matched in real time. <em style="color:var(--ink);font-family:var(--mono);font-style:normal">8.0p</em> for all three assets in this deal. The platform fee (0.4p) and any TPI commission are already included in the consumer rate, not deducted from this.</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">The contractual rate the generator earns on every kWh matched in real time. <em style="color:var(--ink);font-family:var(--mono);font-style:normal">8.0p</em> for all three assets in this deal. The platform fee (0.4p) and any TPI / broker commission are already included in the consumer rate, not deducted from this.</div>
             </div>
           </div>
           <div style="display:flex;gap:14px">
@@ -877,7 +1359,7 @@
   </section>
 
   <!-- ════════════════ §7 · CONSUMER COST ════════════════ -->
-  <section>
+  <section data-tab="consumer">
     <div class="section-head"><span class="section-num">§7 · Consumer cost</span></div>
     <h2 class="section-title">What the <em>consumer</em> pays, all-in.</h2>
     <p class="section-lede">The other side of the ledger. Each demand site pays the private market rate on its matched volume, the grid rate on its re-matched volume, and a standing charge that's heavily TNUoS-driven on these HH-metered sites. Across all six sites for year one, that comes to <span style="color:var(--accent);font-family:var(--mono)">£882k</span> — within <span style="color:var(--accent);font-family:var(--mono)">0.47%</span> of a pure grid-only contract, with the standing charge alone accounting for roughly <span style="color:var(--accent);font-family:var(--mono)">36%</span> of the total bill before a single kWh is consumed.</p>
@@ -928,9 +1410,223 @@
 
       <div id="cons-bars" style="display:flex;flex-direction:column;gap:18px;margin-top:18px"></div>
     </div>
+  </section>
 
-    <div style="margin-top:22px;font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em;line-height:1.7;padding:0 8px">
-      Standing charges (p/day × 365) are heavily inflated by TNUoS demand residuals on HH-metered industrial sites — at Alcan and the three Tuxford MPANs, this lands at ~£70k/yr per site regardless of consumption. Tuxford Bus Park is the clearest illustration: 2 MWh of actual consumption, £71k of all-in cost, with the standing charge accounting for &gt;99% of that bill. Salford's much lower SC reflects a landlord-supply ratecard. Capacity charges (p/kVA/day) are quoted but excluded here — the calculation requires authorised supply capacity per MPAN, which sits outside this quote.
+  
+  <!-- ════════════════ CONTACT · GROWTH TEAM ════════════════ -->
+  <section data-tab="contact" class="gt-section">
+    <div class="section-head"><span class="section-num">Contact · Growth Team</span></div>
+    <h2 class="section-title">The people who <em>run</em> the market.</h2>
+    <p class="section-lede">UrbanChain's commercial growth function — split across leadership, partnerships, indirect channels, origination and portfolio optimisation. One inbox routes to the right person: <a href="mailto:sales@urbanchain.co.uk" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(124,242,176,.3)">sales@urbanchain.co.uk</a>.</p>
+
+    <div class="gt-group">
+      <div class="gt-group-head">
+        <span class="gt-group-num">00</span>
+        <h3 class="gt-group-name">Leadership</h3>
+        <span class="gt-group-rule"></span>
+      </div>
+      <div class="gt-grid" data-count="2">
+        <div class="gt-card is-leader">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Charlie Parry" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">CP</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Charlie Parry</div>
+              <div class="gt-role">Chief Growth Officer</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Owns UrbanChain's growth engine — commercial strategy, revenue growth, capital partnerships and market development across all channels.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/charlie-parry-40852b29/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card is-leader">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,UklGRnodAABXRUJQVlA4IG4dAAAQWQCdASqgAKAAPnEqkEYkoiGhNHp9UJAOCWYAuzkAOjI+h8DzcuRe5H55Gg5G83HoD/a/bN85v+Z6zf7R6hPPl8yf7fesf/0vWp/dP2d9wj9IfS89oD0Hv2D9Nz9vfhz/uP+9/5f/H9ovBj+Cf5vwR8cXy39p89DF/1rainzr8geivRXvf+Rf0L7BfuHzXPne0Htt6BHup9/81f6nzT+yXsAeWn/H8GH0f2Av0d6NP136FfrH2D/2M9On2g+lEsmyxmq1EnbPx2p+50/Nx0hJ6MVuYITx9xoiBKKM/dtnxI/mJRCGL6uFc32fyKMt2ujobchMWNz7//oqB7U7q8XW7zEdgKDivuEhr0LETi9xrBLWnRabr295ZnyU1+I2iCsXU8VpXW/+wqZwjT5aVvAnY6/+BhWeTYvViMm0KWEdgbYi5RuJIp4bXUgXC+XGxR1cLY+gUQI5SW7IcV7ie3kQ92Zr+lUrtu5A2bQKQ8rbU1cIH3LlxIQqh7HjSqE/5QrJy1O/t399zQLo3JMWVRMxvG39gGFIub82UsMPOp1gdOaVxEkMvWM4NIYTVr2CQ8i3afcDyShjm/Bp4QUOLGswc4v9zwFRoVc0RhjYObRn5KK0r9VgMMjWgK8uzbFuGBiU375/+5/+TcQtFlvbQxi4pn84NyLzA4RKRieBdywjiAb5bgzeCDrak8q3qSF4q88D2StNeFLFo66U83AkYWwR6vwZTgzneAmSmDVxteM9e1itlYA4Egf/F8vHD8Whckd93Ra8v5B+JE/U4wiw/wwmaLceOPkWK33b9/+ZwSw5ATVkNql+RnFwoktV/ZHiytnHmpkviwm4bBNzGomwqcNc5Y6D/OLle33nI/vrE6T5eLjwxR2XFRlrpwmaFzDB5MCoBkbAybo65GIOhMqxG0YsXZE/MHF/w+hEamFqQOyY+shrOgLcE4cdHfenMxdIgcQAAP7ilDKfCPcl8np+20aK7S9fGWDqw6aXLru2caBQdgZPFCjeYq8hfgmwZi/SUoZ99bVrK3Nz/1/TfWxee1ZkFkhUoaHjOZ1t7GYdiARw6tyAjPiMasMkztsdOx/MImTo6QrvVgfkn8DJqLCugJkM+ON0tvPbZ0kn8I8vAxd11tp22SFaU4/YbS6jiX9AeHCve2n1fn9v4O8PD8Fe2X9QKULhgkYDLWKD7wAWE8XyYAVw0NGbEczC6raZyqVDHK9ZTp+MsuPKtlpQtqrQSzLN/XiG2+CoF8greVpw/7YudvZwZ+O3TfvuytE3MH8u5dG3Cvlb3zrVRcAJtmM5R0hweFwg67RJvD8apwqP9vZlwNwDKplZQOEXeRL8FhG/5Y/K2R4/vMXZ8s6xKkLI0NkLl+ozkFYZOffeB6235Z7Comy6RbOguu9UpcdncVJXERUVK/HbT4BISIGAUznM3J+2KfxRiQIvkrwHTXZX6jA7jmm/TyVBunRLARd8Hg+qVIqZrkWOYrzWliMJyzXaTv/bR+vt/KFf846CdPcQt1uxgn7WOVnxnVW3XXKxxekfMfPWFrslgY/QuNT/oJyvQoHeirTnoGWSPYsRsj+prfrZOWDjm2Atl0U4FxJu9dRqtjq0ff4BKu8Q+rkdUvCNjYvCmb5JS7SckJTbTP9turcYdzwlYS2Tl/yJtMCjoXCmVFzDgVCcfVa9xeBWzpVGOfnB14ki8ePGMEWjPRgiwIBjU+sBznlJs7v1+iKSkVF+VWHZ1yijZj8YCC5bpSRmh522mq0yrahEGzcicEloC94DjxGTtR/7lrv3kIBpe4EgfETv91yJIRFD72CF+4q2QzTd07VM2+tuH8+d64Wmapw5dGXj9fusDdxaqmMVvCo1XHWU7d04/RK4CipAzylEyeeXk1cbbzKmqCMb5/d3+zZLV2NPmnTJ4Q3+NE6yly2c0/4bQLfX62Aespy5v7zni6oGo1sb2P/3vu8kfJm+U4SU+L9SQC640bAuouSyFP0N2l3tOE/4dIVfzTdNMQu/iKyHJ+yHXO/n9Oz8rzwD0RrbLssPbZ6cTzRbs6U7ssDFVb7fH+yXIaDQ1koiZnx5ZtBcZAZTHVQPE1okKLfqlsVCnylJLBCcpNcSnpl+nXUHyUL/EFmgrw8Z0OZ/Qg7BknI21WZfPqLTIiGuyylz0iMWyOSPC0c+e/FmpCR6kv0qkYCLI2b17D57eJBACUuKKfzUFLkq1ijIP/yrNEwSCqEbzePqvvTs8PTn3Ieh210ETqVoMhBwZQng2ORdbBdgtBLlwxV1UmZqeDD1em/4aij4y24VAHhmG+bVWLVaz9yDKsRRECu9VzMpa689BcuRLILCia4FPq8Tjr8dbRESYfyVQOd5CrR7gP8g3l/hT1L5CQzwvRnIX6ifeJ/c51B5lB/BQ02gzdvm3jLmoSiBhQME6Nd8QG/kokGK1MdQz/Ii8yxE2q4ac8KFSjjIQuDseYe+3d5Z//1QnDMKaH/3g1jO8rfYIDT2xOITlZkPNjWeKE2YmhXdAGofiJOi1QlCMcIxaVuPtkTsvwuti6HrW/IQ8E/nMEtBvJwdmcAaZs0is8EPjoKh/XDMZb3t3WdbuwJaIjSFjxf5RMRgm3LatedC6L/JpC/r0q/aQbL+6mFl/iP8sw5dAfsn3hs1EnhrNeizAnTMk1mLY2SLbMeW+1Td0QVf0N+vDB9kTOs+Cr/9vowFOHlUttMkZSx3IjrNk89GYpquV9rrnfxUZ4miGmlC9UiH6xcpzQ2LLx+nuKBPTkwwuEitOHcMAIjK68Y6AdoUHtqfUr6aYWi9eRSS0JlkwB4NROHrH1p9nwwzuco7XJ8DW9I0bdNXdm8MCScpp+TNK13gBjz8B2vVspoM/6fTbzuxhpeR2eNx4fuAZwE5vpB/zf3t6rkJfiDzw3mkK2Hl4CIDl51grC+/sjHFcpUxOvvlpvgs5q63kx1bdncD7YisLLdJ72JwfJfGd7aS0NCce3y5B8tKscTPjMf80iG8MLel4VesCiuJfEOx7rH0cpWV3OG5lc3ykF45xBipV7+PSN55+c2RowGjq01+oj89I6ocAEpAB3TyPIKdcJO+HW0eya3P5gSAfml8m1svAe8lYvIqpk7Fqe9OCFAKByNxYTbxb87EYnZZXgqychCoYSGvqfeN/QWbDblrG801Og11YhWk5HsnE91wSZsTXU9GeNRIQ4xzJkWOk7mMtmYxMne6P2Rfh6bmdms8w1ACihF8mMO8Bj7qYSfOZfqa7tOnmDcqgxKy/hlST8iZCQkoiSyMCkTHBOFBRqjXJDaoaUmyYTLMrzwxv90flPqsZ73eaA0uxIuxuuHCP3LQuMTrwVy3g9JAzXnUloFnJh+Ym9dnuubxNx0mxfWROnZqJLX+KJMoQxgzQIlwSptCiDLxDH/ir16iKE9UhYitszIegc3rmiTs1DpbV6DHWiNhw9cDfThHrAxQ5i3h9xtcRh/RUiTjjM0ai92dOW9pdxAPRkPayCumBq63YRyTPn+4D5BbkYXOMsdV374H8eTy2z6VJ3eb0PR4HyCQICSZzQa757JWgadGgfLGCuFj07xRxgNSKGJsTbJiw7gVZUA9UB2/xAXrEH5cwBAXDo97fMqyZyZV9TVn94x1SLWoPW8bedtafMh4juHW9Pl9UjGVqHiAStfDd2dOT7/ApaXHSdSs374V+lNSCct2oInDvuk29zqZWfzKF2i/cju9OjpXA2znlR6jxeIroWganSpZtN+KACDhX+au0eGbO3AN4q0aQinWCndj37jkx2fPZXA88Tf7nVSOrVU/8KGBjZItyICpdsDr9bVW9OSMZyas2ykjlKeW0G59DApXPReC50/3CntJs6ZbcvfN4vh6sZSVN+renFLGhePTNIHW9UBChJv0YDvwPxTWziC/l77WGcgUKQRWhY0aWoJyErt3JIccKqqO50W5pm8Etm6OFFF9JxHNGyy5+dnSDxgVN1CP9vT3b3GR7FWxEeyuttylAUbP7trYKvAm0WOEDgxzNpB97/Aqh1aYGYyKon98Dxs0TwCyZOi6Ll6qYMCkvwDFw9dSHpkc8nmmtfO4p3Q9s3b0358kuaghiQ+fpZfaPbxs8SYgVx8RhJcsQxh9a/xlvg9EhMqmPCi5vT7QqBOT5YrK/t86GdpsZ6X9JNVJOe7DC9VGAq/xML7QqNaknGDxw8p8Fe87uTyWzmNjQHuNQIXwc0dYLtbuv1S5gCAsr/NaK5/6pJhmXYnrBg0OMDfQmJ2dbZ5YMH4OpEKR4zYuopxrKsHAq3NllQfn9pPS279LVWqT62kACh+G6LaKzUkSjkBnIyDR+ymMz1Gi4htAV0Ty+/ARPvcpE+CpT3OxVaPv9ZLIuaq37B7O15xxZEdPjepKzNOnVMIWRQ2L9cCxHx8sJaMMj6LwRARvXLDsRyhORnV3CvWi+cN5zMUhpQ+ycYHcj7DEHAbT/bNM/Z84+uzgp/CkYnHO9tYc9d6ITnSPjKBS28MLp/bUXlQnyJafe3NQeg4maz8920jqmaudqmIiHjNAE24roKrzh9eaLZYnxtye6hYYZ8GAlXhOscQgS5NZUZH+CtEyxMsc9GRoF3MLui6Tw3Cg9QQ1hZ+g/PTGDq2df3zuP4czB92faBH97iYUO0twosihjyYgZGJi+DHKgp6A5Ptj4/bia0o3EGZqx9jviEDJXkX1PB/vLMZa9UqW278OYlduRVqOK8TY6D9v3f2AuM+NZqxZ3Ip08wlVd9D2tUQWk+Ie5ui8/zZWmI51hqF9dD672hodHI9qzn2Nk/Vt3UnpGYT+rbX9ZgeGoyzbR2O3FbEQRMfFV3FcjjCr6H3opwAvMDRWEaaOfjpzW0yWESlAmLa0KoYU6M3Y0welgP1Swr71GI5fFPzYVQRS3iGwpIYmW/kyerfNWgfvuGrEu3i9g4/CG41rTpWeTENSwb3RYs9qM3f35iMvVFrg40uSborJt2lxAZIaR0HTIuS9A3EdsaS5bqMxxiTggdM2nZ4d3SuP/FvVUBFQF1qHy7S5ZzUl+SsqwyOH7iWwqB+JP1pS05DfaI8Wy6guCDF9DJ/nYD+iuX3KrHEEQoWi6J9cskV46s8YoAKOGUD3NaU1bTCF/NJgLGB777ejDWAlNJ+Vc0SovuwIHRE00FD/D4qfdsynPB7t0L2UycX6wcIiFK+D0azIBskv0dUr3ewjHFFdT/q6y9QqCOz6aF50Ug4AjOefVRUnaXkeTimMw/0fVuqXl+Vowp5T3kXPPqTC8SacIif27YYW/PDWICaWAReHcCALGOLu9AwwCnk2RrP8aluQcuEUu2TnYKa4iw9baqx8LyoZSU353bS4YHwAvb0DOUDoK7vB/DiKi3rqkLJOESP5jtqBm/o9EHtx3uXUWU90+U8iMqWKWLzlZafsrbjo43E5anDbCWWnsixAfR5LXt9+tuu85G6NqgYcXPjHuPBcf6ptrEIMPTd2w0/HQnLBZm1H83rBocXCHTC4U0H+ATbMWwbMLhzTyMo9lBf6kPPLegP44mprEWv+QAEgJSeLp4jrG9jGfSmflyFdUzGag7KcYPJauGo+dkrwpqMr9AEP9WqgFyBbVvIt5jVeVxe7FPo/mJOIYTgy7nP/pNJzCJM5BE7EkWlKAPQYRTRNNFuITFcqONZDcBMsk6+lhoPkCmT8zKMmgB7MTC6yB3HfR4xkxzvp3LZ9nmnkrBPxx6GTgBy4h4kpdEuf+AClgql9/fwTu9xS7Y7nxJaEeV+Jb1gn04Plo/eJkwo9Nmm9ndUX7rn2u9MREW2Z6O/huXAJAynvpDr5FNfacIfBpwaHcrAK6pSvieeXAg9b+o133o+RSPRx0gyKK8Oh3euXpQnATYU0+RU89WJ6evPXYXj5MHQzJk7sUYTTaZ2u6E/qYqGZC4EdnImi8qgVkJ3ye4eRCGPVeimCc7Q19hRcOfkmDBOcDxo6nakZtbXvgTfwrQyIL6kpQ68jtl/MWxwFNGBN3oDnGuwmjusNZZ+zzsOayRNVtlDU5woppfcBC0NU7TehSrf+Vm3KyaagESrWci1KGOexBJI4BGZvJWkGKVF/WyJ9LuUho6olHkyhRVJHCFklddodIXV865M06QXLJbDpOzLP2JAmMsZ4LxHvSu9MN5fhTAdPgd1Bc+wqYIlOoexoR7n5pKb7dqtyve1y3EDLKYjvIVZ+ASrolsE+KGzPWa4GrTJpK6/YCyWpBywsucIrftc4h8IUu+Pr04/as46GC6BhPxe48OjGMA/6qLmEEP5sPFqwfWwdJRhy05wFMSx0gXtnrKMd1tRj0Fti4tewtdXmFk3Qf/w2JCIP6e20RGQdhXCXyeZH8rnYwuJZ/RjZHV4ae0Hle0WFJEIs92niml1OKG6Q99px7G/l0RzvMx7Yp4Y0hJYWCL7wXvqX1hxtFL6o4Yk6KflG1xFk8biGUkb1lmsmEtbr8345BTQHBDSZTQtcC1wIN1HvsBQtVFttqf1v6nZgS/okZ4FdK2XuAIHEamtwPTBg6EVz9wCiJZIYjj/W+8FhgGO+h8RknaeQnsmuOawRzrlQhm+ViTr5DwX65ImeUYXUoOE3ZRaxDIVcmy8HbFQI/Ve9DeynoAqSNvcE34wpTPrDQV5j3z79CLlLuZT+IcbLNWKkcE8CTENoZA82T5gvqS9uCB3sCTkULs2AWzW+gdQNwR0rzsgSOwG+TD/3zykL5UYCJgrbJdZGZmDla/AK7cAQ0P4K4Sht4224hpghXzqy/l4+SaDPzj8x6PBS6uH0CRmFPobjVgNG5sHLCUMtSp7s/uE1HqrDDvG3sjiMTb9CddJiKlL481BoMx5i5WSeWuGXxFwXcToRpSjukH1NFceAaLYDvAQH6ZvRar2NfpAv8O42p2dwjCFy9lslidFTM2DEvgN7GS5bHz9wmyEh6AJPxch6G5YEclnbrx267G0F3PpUjbK4zx76+MZW4QXeV3JAAGGufLavGQPAcgdHy/SCO08rvicsTc/kYc9PTqbAH8iCTBUFzJhPqYKFEz4mAbpz4ymZqOS8LQrLXUl/50bszeKqYV9booHMhQFksQJnX77sInUwXTVg2h1PcfUEAajofMZWvkx8wiSZjEEhCnQ/anemzs2xLi6TZmvqCTThQE8Po6AvaBjA5rsZsUibUHbqQ8iknR0fRW+U+S7yKgdXxRWWKeDYiAK2VJlciVv82dgP8ckInNOXInqhxuKnfm4j5l9OETPkJ02yui2uNQ50qcw/QqVpwtbkCsMkVaHWdkn9UrBhXwsYaP82f6RdDXTIVw1DDLVjhNRPIS8ADCjJ4xcxsebv84lt0gr/dSs18iHiZ4deC2pDsXcPtPQl+S1rIApWBlaa34/1CwIoA93Fyx8B4ugxGBxv2hi8v5slUVPWf6hQ71W1abSvlIyQrs64lQnAg06speqbO7X1m83FMCUuZ1cFYvh4NYKXPBGaM98ut2Y05HwSFl11ZX6419xhVG7tOKwJQGNYU5zQubABghW++rK2uA7ahNuA2K4MxFxZ207lVIH8SSfL20mhAcmqN7xKksuafhOjEsHz3F8UiojlmS9LmIGIyGbb3KRznKULbrAJEtANc6kmBmgniiikrJpXZ5WHwNHYhpMJHTkdUR324iT6M+z4TzDfciTMJGXzG0yN2XEfuqH3fPZF7AWXvIOASjGmuT0fXKdAPqKTer8eQdCFDfXyzskbZgNv4pwhD80UYx/7PfTl+P/CNXSd4Jxjj0QfVbHeZB+Mis3lIWT40fLiByf3wNGhl0NeroaSP62iTguwaKT8eQxoD7gwRg/OXJjm+Q4V1A+xaCELy5qTiOl+UaLdwtmKis2ptChtIv0Lyd1/TI3EtVVOSoMiNg/3nmabxSQmqi680tMGc9FGxi46vjuEn/c+vmHFfOOc8RRac9cCmxCHIOhWoi1BFtc3oethLk+HsFhRacz7AzLOseMhTODrrfPkvPvPfy2LrG9F1658NRgqQaCZ6z9TPx0lGgzhGiuZm7jOgUoxWeExdLGzlzOIZc1BTRt/wt6xAj0xZycrgM0zXONVMzX6S2oSGFDkZh5Vdga2RbUbaA19oT4av6QBx7AW7inswLnTnXa4VsgBlFt6jPuWVx6r/dUejwu/MsD4FMhz2xdPtzMvm7knWhFxTQs8/p+MoLXrH0xya/xRBCPh/kFCxcDIzFvaX+XZF6Im6cBpmkxgN6nvpRxI35wZzFHmFcSI6noRPpeQ2OZbiKOCeUJd9XyZdRrOJ4O97q+TGfKEtJn6fz95zzHptoFG05Ua3fzLDAmIQwc3xBVOW+No7G0vKEN3MpYOoKZYKag/VdcSkR6dwfdIVGut9UzlcKhjELkWHoRzgAlir4kJIefaC6A/gKMgJrDaSSXAB1QkVk6WnGgF3rXWOmSWwjQauuUTcvlPeNZPjjNRdEQTBH1uCdCDk3I52B0r0fv4S1VuapmSrrFPWQdz1xccj0pzGu+Z18dLWTWb/jCqN6cwWMr5OPLzthKwV6RIrTw25D+deL29enUAeZInbjNf1VENZ17fjFWVRmATPnpmAfLieRVFeQHSvajRTDKIPa+6PmfWVkH+0ANXymst5McfIgM1FVxuLxzBCfbQFaQcaqEI1cwBqq0Ra5ZSDO2iMnaBwgkirCm43PWapiUzPlp5aJI8X7Bon3j4OLyZIuVRoJpitpZvL9KvBjexAnI3bMhF9055V4Cp3U85cxSWbiuK8w4z3dGgZbPmS7fWUnEOyOJGrBtQCGUDpiegJW2njmPuTKiYd+BXl0Pnj+XVNYRdCrtqTBapAzMqstedKXxXpfXNCbMPudXgYUeKFtBQNPNKel5KssiYXfUxYG5xpRMvNZvO1pXTqh/405bc5bjhjglrlSHU08iXDmzevM90sdPsHBhXvXvSFuaowUTyxSoexa5M4r+MYRiIrN9Ua9/SEDjFDiU4h4pptZJiQzqmxZrDbsoZTJrNXVjlbk+QZRw7nYvvP5bP8nV/Gq6pdmsTKkvMBJuTQCIJi67cLwB+qD4FF3JDWmbsvExUqPyVGxBfy6M9DYo1joa6+VVxuG4eYj4LUlzB327anqZfGoPcpRv61rqI5wTfLt7ANXFOMWFS0Uz1JpHY2UQF9T8tGXWUcBkp0MvN9Z1DJE7TzrPFbg1LIczhuskQQMZAQH7Dj4z5YcfZ4TDwWJRUPlPwLFhQ5Y20LHK5kTWhDJ30UITq8n1CkXOZNYFKaCcB5qZi9WJUTfXIu5WlQle9n/UnFFIN6HUH3c7T/JAhu48KLqGc6BYI4vik/snOAkEXO73EWBJPGJdlSigzRTNxQoBQTtJD7v82t/+F11/oX8vyd9UaDtkmONbNQ0WYPj5hU4oiOPFrZDjNGpgDkiSo+RITS/PC3/xWvpVXSxqbp1UllyAF0mIbBHodLnuOZ5zFEWEFa5fetitlhTF0uzN8UaJ2zoOmyusfsVyr5eaWzWqMqlOktPqpRYtLpP1crC4JeGBzFIh0AT2x22SiGzfRuKctjilyWFM8WwB2QTeqg8GN4E3vmICDmB1WPV2Bcs70U5XhjJ2MlvTZG7V+q1+uPzdmOIjauIs37LAQClikHDJ34YDOflZ0klgK3ywhbqROXjkaXzjOVmn6l16owiqFrQ+aFbWlpqORkJ28v0/aHm4i78w6u4Rfse3c6vKp2pQGDRuP9IaXLf+67gQsRmdNFnALih1txO7MJbPsoobtrSNM8n81hDUXaobPwtdWh8UH3mDzlO3PGQi4rkjqSMJpFL7YU/OZsloYri1qrYFKMNXi1LuKhmwLO/cCCHZPqxXESdLEONS1DufhmEmtxsz9JsezQHUjGLPlV1i6ODvwer2xzRhXCCj9iXHMQ8dV8q5ndFVjbezswKv3AujMxR+zXplrQC8WqfRUd2ugwMJlp2NS67/6z40baWi2+zmpuZDt7FbwLVewmIMTZcAvflgp88jlyb/KmNJlSMgwA5tAJ1E62VV9hCvc4ZYJZ2+rZue/+xrZ2S6bm8Dk+wvkqdWXJviumz7xP2+JfR6GgKCXvf+D8+MmGMsr4xAk9OJnHfQEbXo7AAAA" alt="Dr Mo Hajhashem" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">MH</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Dr Mo Hajhashem</div>
+              <div class="gt-role">Co-Founder & CCO</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Serial entrepreneur — founded 5 businesses. Leads commercial strategy and international expansion including the India trade mission.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/mohajhashem/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="gt-group">
+      <div class="gt-group-head">
+        <span class="gt-group-num">01</span>
+        <h3 class="gt-group-name">Partnerships & Channel</h3>
+        <span class="gt-group-rule"></span>
+      </div>
+      <div class="gt-grid" data-count="2">
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Greg Thomas" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">GT</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Greg Thomas</div>
+              <div class="gt-role">Partnership Growth Manager</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Supports the live commercial pipeline and grows the partner ecosystem across installers, infrastructure developers, consultants and public frameworks.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/greg-thomas-9a559b106/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Sarah Espir" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">SE</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Sarah Espir</div>
+              <div class="gt-role">Partnership Account Executive</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Partner activation, account management and commercial delivery. Converts partnership frameworks into contracted volume.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/sarah-espir-345951103/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="gt-group">
+      <div class="gt-group-head">
+        <span class="gt-group-num">02</span>
+        <h3 class="gt-group-name">TPI Ecosystem</h3>
+        <span class="gt-group-rule"></span>
+      </div>
+      <div class="gt-grid" data-count="2">
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Nick Evans" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">NE</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Nick Evans</div>
+              <div class="gt-role">Indirect Sales</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Broker network development and TPI account management. Builds the indirect channel that drives repeatable mid-market volume.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/nick-evans-70a9374b/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Val Horrocks" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">VH</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Val Horrocks</div>
+              <div class="gt-role">Indirect Sales</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Broker network development and TPI account management. Builds the indirect channel that drives repeatable mid-market volume.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/val-horrocks-968776316/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="gt-group">
+      <div class="gt-group-head">
+        <span class="gt-group-num">03</span>
+        <h3 class="gt-group-name">Origination</h3>
+        <span class="gt-group-rule"></span>
+      </div>
+      <div class="gt-grid" data-count="3">
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Tyler Gingell" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">TG</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Tyler Gingell</div>
+              <div class="gt-role">Senior Lead Originator</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Sources and structures generation-side deals across all renewable asset classes — large-scale infrastructure, small generators and private markets.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/tyler-gingell-39919a189/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Basim Thayyil" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">BT</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Basim Thayyil</div>
+              <div class="gt-role">Senior Growth Originator</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Growth origination and pipeline development. Builds commercial relationships with generators, exchanges and asset owners.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/basim-basheer-thayyil-a0a76726/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Tam Ibrahim" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">TI</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Tam Ibrahim</div>
+              <div class="gt-role">Energy Dealer</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Origination across both sides of the market — sourcing generation deals and structuring offtake agreements with consumers. Backed by hands-on energy trading and live PPA pricing across the portfolio.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/tamim-ibrahim-a439a5108/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="gt-group">
+      <div class="gt-group-head">
+        <span class="gt-group-num">04</span>
+        <h3 class="gt-group-name">UrbanChain Optimisation</h3>
+        <span class="gt-group-rule"></span>
+      </div>
+      <div class="gt-grid" data-count="3">
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="Garry Pickering" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">GP</span></div>
+            <div class="gt-id">
+              <div class="gt-name">Garry Pickering</div>
+              <div class="gt-role">Portfolio Optimisation Director</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Ensures strong commercial outcomes for all market participants — generators and consumers — through optimised trading and risk management.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/garry-pickering-32bb78b3/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,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" alt="James Boswell" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">JB</span></div>
+            <div class="gt-id">
+              <div class="gt-name">James Boswell</div>
+              <div class="gt-role">Head of UK Portfolio</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Manages the UK portfolio across generation and consumption sides — balancing flow, optimising matching and ensuring counterparty performance.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/james-boswell-70666923/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+        <div class="gt-card">
+          <div class="gt-card-top">
+            <div class="gt-photo"><img src="data:image/webp;base64,UklGRqQJAABXRUJQVlA4IJgJAADQMQCdASqgAKAAPnk0lkkkoqIsp3C8IZAPCWMIkCYbdzv+7Xy1r/3WZC1tP0p/2/ePLfXz7jcXH7Yy+eX/qTGnjNRDrafVEEBQ6z/pb8yL7frhSs/2zJ6WYaRUnzlKhwE0d0w3XNCDYM7RnHVMDCvwySSm289h7ItFNiP58/7BXd4gQGTqMePkp+qiWSa6l84KzINC8YyUsrHw4d2GDyjuFTV4x1ZOXnVKSmICWVnlrSvcHHlWhH29uuK3yVYT49v2j5fRFyPi6F2q+eW1MxSe69kM2xwDc75GoobR6b8Lk2hw7Od6sz7jwRjVkmGk0icbUZ2cwKuKHnUVBL04As045ZZjXhIuMfE4gi0a28YsQTkmQS8EXy4b+mgxXiQ7AMBIvhygBvjYl/s6ntUiISt1xnUY66/QEEGsSLvDEA72ICqM1sZsswtZOAqWkKeF0J0xwTBAaAKyukAafoFqo4NijAzIWLeb/2OIpg74t4m7ZzHTv4QFO+RHYzjVjDVt//a0anELNeuJJrQjDETC/9N92WFjeOIKAAD+7DX26W4GLwB/RfE1h9Eedr+qFZbaB+FXtgwCyvK7TTP2zarMtVLodeMe/PDQx5PSLhQWpKhppzMxjHlNbUkyWvXIsViZisp2zmZ/iPGSnG7BASnf0QT9SahGJIxW+crG++Rro/8TzJ8fuigJlt0X0PEpKoB+71lAl1hDixayQkaAzgacteQZEfHcayoM5GFGEoP8JBR+yp0P2mknTisRtuMX4Ju5SWvMMzAnB2ZbrNXDnOs9ml/DWSsJzwwFnfUgKXVGhDTiL+8YJlkpJuqqSmVqH+7QP17e0Zis6QGXrzj7inVdrgFDghsaNQHR29o9N6RUbDphy16gzruvW7C87X7JAa5iqi7oYvyziqAPdH/cWzBMDkYAd/UiBLUDYRujmwGfX6iE/FRFJuLgl8YuARIXx/0qV+5UkdDHjVkAwtdFNER69UvqJ2ITQgPadcCs6fZxSNwqbWHMF0tCJOsHpNMdtQB8yqqVAr7BCTkiiKFupF6uS+QSFoI7AKapnCRz3zql68fpeiHtvpUK19ykE6RL2ggeaANHCxV+qDHmOF48AzNB2s50jby66l4Gdgj9PUATkB2LWvP1tiiu52bJTCBzjDamCbEt6MjeQidwf2+AMH+7llwauXnCCieX05VPZgCiHOZ6Vv7DmQEs39jn92Mic0Nlq9Ui8pwyY5RM8aTk2rODxadYRoGu0FrEonGu1YVBvfqD4vckGEEJA1M6ykVyUWOcXMtPxvvNxpM9c2503P9mnp/bQVut+vYCWYxLvqNn5o7cNzDNhIAcXtj4Vrol7IbmwaYWM+O34PuffwhnpWtIy3Hw0xTEC+Ft0Xy1Iwtz7Q4HaYBwkraFBd5hGCosu89Ddvy0x0wZH0CSsAe2nSOuqgIe12HmRdUt1yTz4ebonYyzlImW18hWPcvWkJ2Ls3IuEqe3bEVbHyHrxokYh0+9t4IIrIBeFfC2qR0kb95v1XT5j0T7khIamolM8Rv2607hjm+1AmBe+OeZQ1afVFmPSgXZJHIHMFTilo/KldlUcbgjH9v24nYGeF5gG9O75ptBlZJ9ZCW0MFt/Dgwda7Tv7vLReY85LJemQsHdF2g6Y+6bTxPTbw17TaJm+ELi+twwLWFGe//760+22srY/+uSCA/BNfioQdQW8tzAEAzybDlqw4oL9b4laCXypePuY05CsZgbuDYoPFuU118dx2XTEYwE2wqfm9QrdOdNMeGFAv33LBI9V3AJT0jOf2XVAyYXYFFuxGPchmBAFXDvEb18ye0+agzVfP0u0vC8Q169RLAACKEBWKavv/B6CeyG+aJtMT9asOXYHaA0MZCHH7zttNNXkpIsiVfjl69wSWRRvXTW4ilmZ7rUQIV3WDD56WpmrJSO5HlsyLfYhj+ujhvkiIaF7MyDrJ+Po6a2e2Ts6I1gPpCoCRACaYZXzN1BxEu3UxKwTymgv1o0pFZbw5bDTLbGsk7UWQF6eKTBxwIVEwMlHX++4KY5ul0kT7os6jfrnOCi4GdN3l5GEz9k2sJjWKABrxXtgLKx9QV8uwIEX/kohqIwZz7CIUzhTKYJi8x+Y8sO0kwVvSET+GXyRPUnvz2cR2tAhuPJzf5/ZTSa6gBgOxTFpqg2JtK8hCCqeqDkz9fy5AlcVDOIbkkAgHsu0tonPuitt8ajFVsT+kjGX8itWpfklxt/k+sNapnIb2ABH3PsAWQNxZUAdHAzdzWFSNUx3zeBwEvW/siP0/RultHKD2QV1g8wK0Q2iza05oscBMAceu2Z3+ZouDs73aS0OjV+3wVEnf3jJDh3JZZTTXOTGnJV0uu5MLQOXbcX/ewH00rFZJA7eVAP2tNJwjw1XAm7Bkm7wDtzQk270ry6z7KSfldeO7uwaKA0YFi6UFXf8HUm5qgC8alAUBdqSgwuzwzuohwDaKwCsb8Gci7wmnqSTXaJjL/5T1pwwOZptMjvDdWj7XNklstwwn7WNscvXEdiNlI5MCt2kRq5sZuy6nTsvHjUmhtWz8DMcTwk8DP7DLEQKGWop537fU9ePIBW0yuprHehqAFdc/K/dAhjzZ3GSvbR1WlNvjFLGFT0m1MGlSo+Ese+HTvvSEkHaDENftoTtSfsZwmgI9zPJqXkV9fyApKZP8zZIv1xegL2MYvfetb/ev2R4wuGhgV6k66rc/lCdkScAEGiwagYgZyvMmjE3Zc0iZrk1kFdcthz2RnHV3ywzR8bY5E0NWyF8AwR/EPJnhN3U/ZTjNkilgDD16rusHB0l1xJTEqVhU6CaFgof8xPuw4ZAsau1QeJyZNQ796n/Fk1TfsbyYwMxWTRVzj1NL3pdRct54WfGjSndBTQTnc+UDyKBvVKlpIE/yd2Fu95thmdv5IjtBsjcO86+24jAyqtLapHlrSHAAMYzxTHS+m4QP0uPotP/IQwD9vOqhtEdV/URO7HPbRYQRGzTUmEVCxR1Jeadxg4ZoQFQtSpmp2BaRymHW2rf/lbSZ2Ec+wohIhoN9rJYsrB7gMXw+SvbuxpoPqMGhxoo2gboYOqYHJ+UuAK9Kih+HuAGU8EsAMvUoZdWOtAiFpjfmy12ooJwOwrk7C55P7+Y5uG/VKHsnGGOh0G0j0JUMgU3WmukdLnR/7SAe0m2/drTjeOhXaPwJo6qY2BwuonXC0PSBOgr0wBdshzOEraxWUHvDBSNmqmJtbB3DOiMDKEHJo2a5Dp+oL6Qq7UmOzSVgm8frZwvcXcyZHlsC0AAA==" alt="James Dorsey" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" /><span class="gt-initials" style="display:none">JD</span></div>
+            <div class="gt-id">
+              <div class="gt-name">James Dorsey</div>
+              <div class="gt-role">Head of Structuring & Pricing</div>
+            </div>
+          </div>
+          <p class="gt-blurb">Designs deal structures and prices the curve. Ensures every contract clears at fair value while preserving platform margin.</p>
+          <a class="gt-li" href="https://www.linkedin.com/in/james-dorsey-31a683174/" target="_blank" rel="noopener">LinkedIn <span class="gt-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact footer block -->
+    <div class="gt-contact-block">
+      <div>
+        <div class="gt-cb-eyebrow">One inbox · right person responds</div>
+        <h3 class="gt-cb-headline">Reach the <em>growth team</em></h3>
+        <p class="gt-cb-sub">Whether you're a renewable generator, corporate buyer, TPI partner or investor — one inbox routes to whoever owns the conversation.</p>
+      </div>
+      <div class="gt-cb-details">
+        <div class="gt-cb-row">
+          <div class="gt-cb-label">Email</div>
+          <a class="gt-cb-value email" href="mailto:sales@urbanchain.co.uk">sales@urbanchain.co.uk</a>
+        </div>
+        <div class="gt-cb-row">
+          <div class="gt-cb-label">Head office</div>
+          <span class="gt-cb-value">BASE, Manchester Science Park</span>
+          <span class="gt-cb-value" style="color:var(--ink-soft)">Greenheys Lane, Manchester M15 6LR</span>
+        </div>
+        <div class="gt-cb-row">
+          <div class="gt-cb-label">Phone</div>
+          <a class="gt-cb-value" href="tel:+441612432840">0161 243 2840</a>
+        </div>
+        <div class="gt-cb-row">
+          <div class="gt-cb-label">Follow</div>
+          <a class="gt-cb-value" href="https://www.linkedin.com/company/urbanchain" target="_blank" rel="noopener">LinkedIn — UrbanChain →</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -961,17 +1657,17 @@
 <script>
 /* ═════════════ DATA ═════════════ */
 const importSites = [
-  { name:'Alcan / Sutton',          mpan:'1100039600646', ncc:10.27789, pm:18.27789, grid:18.18, sc:19308.76, cap:9.43, pmVol:217274.25, gridVol:176419.76, eac:393694.01 },
-  { name:'Tuxford Import',          mpan:'1100039635240', ncc:10.13309, pm:18.13309, grid:18.05, sc:19308.76, cap:9.43, pmVol:269164.77, gridVol:560344.54, eac:829509.31 },
-  { name:'Tuxford Bus Park Import', mpan:'1100039635259', ncc:9.69651,  pm:17.69651, grid:17.62, sc:19308.76, cap:9.43, pmVol:538.18,    gridVol:1471.83,   eac:2010.01 },
-  { name:"Salford Landlord's Supply",mpan:'1600000102802',ncc:13.38125, pm:21.38125, grid:21.53, sc:605.81,   cap:0,    pmVol:503788.83, gridVol:363460.47, eac:867249.30 },
-  { name:'Davy Import',             mpan:'2336587932010', ncc:9.96560,  pm:17.96560, grid:17.69, sc:21555.16, cap:4.16, pmVol:52422.65,  gridVol:24173.45,  eac:76596.10 },
-  { name:'Rainsbutt Farm Wind Turbine (Import)', mpan:'2900000029335', ncc:9.23183, pm:17.23183, grid:16.39, sc:6326.11, cap:4.16, pmVol:511363.85, gridVol:345334.75, eac:856698.60 },
+  { name:'Consumer 1',          mpan:'1100039600646', ncc:10.27789, pm:18.27789, grid:18.18, sc:19308.76, cap:9.43, pmVol:217274.25, gridVol:176419.76, eac:393694.01 },
+  { name:'Consumer 2',          mpan:'1100039635240', ncc:10.13309, pm:18.13309, grid:18.05, sc:19308.76, cap:9.43, pmVol:269164.77, gridVol:560344.54, eac:829509.31 },
+  { name:'Consumer 3', mpan:'1100039635259', ncc:9.69651,  pm:17.69651, grid:17.62, sc:19308.76, cap:9.43, pmVol:538.18,    gridVol:1471.83,   eac:2010.01 },
+  { name:"Consumer 4",mpan:'1600000102802',ncc:13.38125, pm:21.38125, grid:21.53, sc:605.81,   cap:0,    pmVol:503788.83, gridVol:363460.47, eac:867249.30 },
+  { name:'Consumer 5',             mpan:'2336587932010', ncc:9.96560,  pm:17.96560, grid:17.69, sc:21555.16, cap:4.16, pmVol:52422.65,  gridVol:24173.45,  eac:76596.10 },
+  { name:'Consumer 6', mpan:'2900000029335', ncc:9.23183, pm:17.23183, grid:16.39, sc:6326.11, cap:4.16, pmVol:511363.85, gridVol:345334.75, eac:856698.60 },
 ];
 const exportSites = [
-  { name:'Rotton Row',     mpan:'1160001460438', pm:8.0, s0:7.90, s66:7.10, s85:6.75, s100:6.40, pmVol:140485.93, spillVol:508223.89, eag:648709.82 },
-  { name:'Ollerton Road',  mpan:'2394000128957', pm:8.0, s0:7.95, s66:7.15, s85:6.80, s100:6.45, pmVol:747308.07, spillVol:849316.93, eag:1596625.00 },
-  { name:'Rainsbutt Farm', mpan:'2900000029326', pm:8.0, s0:7.55, s66:6.75, s85:6.40, s100:6.05, pmVol:666758.53, spillVol:834164.48, eag:1500923.01 },
+  { name:'Generator 1',     mpan:'1160001460438', pm:8.0, s0:7.90, s66:7.10, s85:6.75, s100:6.40, pmVol:140485.93, spillVol:508223.89, eag:648709.82 },
+  { name:'Generator 2',  mpan:'2394000128957', pm:8.0, s0:7.95, s66:7.15, s85:6.80, s100:6.45, pmVol:747308.07, spillVol:849316.93, eag:1596625.00 },
+  { name:'Generator 3', mpan:'2900000029326', pm:8.0, s0:7.55, s66:6.75, s85:6.40, s100:6.05, pmVol:666758.53, spillVol:834164.48, eag:1500923.01 },
 ];
 
 const PLATFORM_FEE = 0.4;
@@ -1039,7 +1735,7 @@ function renderStack(){
   addBar('sb-ncc','Non-Commodity Charges (NCC)', ncc);
   addBar('sb-pm','Generator PM Rate'+(feeOn?' (net)':''), genCore);
   if(feeOn) addBar('sb-fee','UC Platform Fee', fee);
-  if(commOn) addBar('sb-comm','TPI Commission · Lumina', comm);
+  if(commOn) addBar('sb-comm','TPI / Broker Commission', comm);
   const t = document.createElement('div');
   t.className = 'stack-bar sb-total';
   t.innerHTML = `<span class="lbl">All-in Private Market Rate</span><span class="val">${fmt(total)}p / kWh</span>`;
@@ -1069,7 +1765,6 @@ importSites.forEach(s=>{
   const dStr = (delta<0?'−':'+')+fmt(Math.abs(delta));
   tr.innerHTML = `
     <td class="site">${s.name}</td>
-    <td class="mpan">${s.mpan}</td>
     <td class="num">${fmt(s.ncc,3)}</td>
     <td class="num">${fmt(s.pm,3)} <span class="delta ${dCls}">${dStr}</span></td>
     <td class="num">${fmt(s.grid)}</td>
@@ -1082,7 +1777,7 @@ importSites.forEach(s=>{
 });
 document.getElementById('import-foot').innerHTML = `
   <tr>
-    <td colspan="5">Total · 6 sites</td>
+    <td colspan="4">Total · 6 sites</td>
     <td class="num">${fmt(tot.pmVol,0)}</td>
     <td class="num">${fmt(tot.gridVol,0)}</td>
     <td class="num">${fmt(tot.eac,0)}</td>
@@ -1094,7 +1789,6 @@ exportSites.forEach(s=>{
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td class="site">${s.name}</td>
-    <td class="mpan">${s.mpan}</td>
     <td class="num">${fmt(s.pm,2)}</td>
     <td class="num">${fmt(s.s0,2)}</td>
     <td class="num">${fmt(s.s66,2)}</td>
@@ -1109,7 +1803,7 @@ exportSites.forEach(s=>{
 });
 document.getElementById('export-foot').innerHTML = `
   <tr>
-    <td colspan="7">Total · 3 generators</td>
+    <td colspan="6">Total · 3 generators</td>
     <td class="num">${fmt(etot.pmVol,0)}</td>
     <td class="num">${fmt(etot.spillVol,0)}</td>
     <td class="num">${fmt(etot.eag,0)}</td>
@@ -1123,6 +1817,369 @@ document.querySelectorAll('.deal-tab').forEach(t=>{
     document.getElementById('tab-export').style.display = t.dataset.target==='export'?'block':'none';
   });
 });
+
+
+/* ═════════════ §4 · GEOGRAPHIC FLOW MAP ═════════════ */
+const MAP_DATA = {"regional":{"w":700,"h":460,"paths":["M17.3,177.0L20.5,181.5L25.1,185.1L30.2,187.6L36.0,187.6L36.0,187.1L36.0,185.6L36.7,184.1L38.0,183.6L39.9,183.6L42.5,185.1L43.8,185.1L47.0,185.1L49.6,184.1L54.1,181.5L53.5,177.5L53.5,175.0L55.4,172.4L56.7,170.9L58.0,171.4L60.0,171.4L61.2,170.4L63.2,168.9L60.6,168.4L51.6,170.9L49.6,171.9L48.3,176.5L45.1,178.0L43.2,177.5L37.3,177.0L29.6,173.9L22.5,169.4L16.7,163.3L12.8,156.2L9.0,148.2L9.0,72.6L14.7,65.4L16.0,64.4L18.0,61.3L25.1,56.2L27.0,52.6L11.5,52.6L9.0,51.4L9.0,2.8L520.6,2.8L520.6,2.8L539.3,32.6L571.6,80.7L574.2,91.0L572.3,100.7L571.0,101.7L567.1,105.2L571.0,95.5L571.6,90.4L569.0,88.4L565.2,86.9L557.4,81.2L553.5,79.7L550.3,80.7L543.2,85.3L539.3,85.8L534.8,85.8L530.9,84.3L527.1,82.3L523.8,79.7L507.0,57.7L500.6,52.6L494.1,51.6L492.8,51.6L470.2,59.2L467.0,59.2L456.0,59.2L449.5,60.8L448.2,60.3L443.7,55.7L443.7,55.1L433.4,53.6L429.5,55.1L417.2,63.3L418.5,63.9L420.5,64.9L421.7,65.9L423.0,67.4L425.6,62.8L430.8,60.3L436.0,59.8L440.5,61.3L447.6,66.4L449.5,68.5L452.1,70.5L455.3,69.0L459.9,65.4L492.2,59.2L497.3,61.3L500.6,67.4L513.5,87.9L521.2,92.0L527.1,98.6L530.3,100.7L536.7,101.7L539.3,102.7L547.7,113.4L564.5,127.7L567.8,129.2L571.6,129.7L574.9,131.2L577.4,134.8L578.1,136.8L578.7,139.9L578.7,142.9L580.0,144.0L581.3,144.5L586.5,148.5L585.2,150.6L588.4,152.6L591.7,156.7L593.6,161.8L594.2,165.8L609.1,206.4L611.0,217.5L611.7,230.6L607.8,246.3L606.5,248.3L604.6,248.8L601.4,249.8L598.1,251.9L582.0,268.0L578.7,269.5L576.2,271.5L561.9,292.1L558.1,296.2L554.2,298.2L551.6,300.2L549.0,304.2L549.0,307.7L554.8,308.2L563.9,306.2L566.5,306.7L571.6,311.2L573.6,312.2L578.1,315.2L587.1,329.3L590.6,333.5L9.0,333.5L9.0,154.6L17.3,177.0Z","M594.9,332.3L598.8,331.8L605.9,332.8L607.1,333.5L593.3,333.5L594.9,332.3Z","M618.8,330.8L624.0,325.3L625.9,321.3L627.2,314.2L629.1,306.2L632.4,298.7L634.3,293.6L640.8,287.1L649.8,283.1L659.5,281.1L667.9,281.6L666.6,279.6L670.5,278.1L674.4,279.1L678.2,280.6L682.1,281.6L691.0,281.6L691.0,333.5L617.2,333.5L618.8,330.8Z"]},"national":{"w":180,"h":280,"paths":["M92.1,206.6L90.9,206.7L90.4,206.2L87.4,208.9L87.6,209.4L87.2,210.2L81.7,210.2L79.9,208.3L78.7,207.9L78.2,206.2L77.1,204.7L74.9,205.1L75.1,206.2L74.3,206.4L72.9,206.1L71.5,206.7L70.3,206.3L70.3,204.8L71.1,204.1L71.4,204.7L73.3,204.2L73.7,203.4L69.9,203.3L68.9,202.1L70.0,202.0L69.2,201.7L69.2,200.6L68.7,201.3L67.9,201.0L68.2,201.6L67.7,201.9L64.9,202.0L64.4,202.4L63.9,204.0L61.6,204.2L60.4,205.3L59.1,204.9L58.7,203.8L57.6,203.3L61.8,202.5L61.3,201.3L62.1,200.4L60.5,200.9L61.1,201.8L60.8,202.3L57.2,202.3L56.7,203.0L55.6,202.0L57.8,200.8L57.6,198.9L56.1,198.4L54.7,198.7L55.0,197.4L57.6,196.4L58.1,195.9L58.4,194.7L61.9,195.0L61.9,194.1L63.7,192.6L64.4,192.9L64.4,192.2L65.0,191.9L66.9,192.0L69.0,190.2L69.9,190.0L72.6,187.2L73.3,185.7L73.9,182.2L75.5,181.7L73.9,181.8L72.8,180.3L73.1,179.0L74.9,177.0L74.0,177.3L72.5,175.3L72.9,174.6L72.7,173.1L73.8,172.3L73.6,172.1L68.2,173.1L67.4,174.0L67.1,174.7L67.3,175.3L66.8,175.6L65.6,174.9L63.1,175.6L63.5,174.6L65.6,172.1L69.3,169.6L69.5,167.4L69.8,167.7L72.0,164.7L77.3,162.9L76.6,161.7L78.3,162.2L79.0,163.0L80.8,162.9L84.3,161.3L85.5,161.6L88.7,164.3L88.7,163.3L87.1,160.2L89.1,159.2L89.8,159.6L91.0,162.4L91.8,162.9L93.8,162.4L93.8,161.8L94.6,161.3L93.1,162.1L91.1,161.4L88.5,156.0L89.7,153.6L91.5,151.4L90.2,151.4L89.3,150.6L89.1,147.0L92.2,145.4L92.0,145.1L92.6,144.2L91.6,144.5L91.3,143.7L93.1,141.4L92.2,139.6L92.9,139.1L93.1,138.1L90.9,140.6L90.0,140.4L89.8,139.1L89.3,138.8L89.1,140.4L87.8,142.0L87.8,142.9L86.3,141.7L86.2,140.1L86.7,139.9L86.9,137.7L86.3,138.8L86.5,139.3L85.3,139.6L83.8,137.3L83.7,135.6L80.3,131.2L82.2,125.7L83.3,124.6L84.1,121.4L86.1,121.0L85.2,120.4L85.8,119.8L88.1,120.1L89.7,119.5L88.6,119.5L89.7,118.9L82.3,118.5L82.0,118.9L81.3,118.4L81.1,121.4L77.5,122.1L77.5,121.3L76.9,122.4L77.3,123.1L74.5,124.5L73.9,124.2L73.8,122.8L73.3,123.3L73.4,124.2L72.8,124.3L71.5,122.9L71.7,121.9L70.6,122.6L69.3,121.9L68.5,120.7L68.2,121.8L68.5,122.9L69.5,123.7L69.4,126.2L68.9,126.8L67.1,126.2L65.6,124.3L61.6,121.9L60.1,123.3L61.5,126.5L61.6,128.0L60.1,127.3L60.1,125.5L57.1,121.5L56.7,119.5L56.8,118.1L57.7,117.5L58.5,118.9L58.7,120.4L59.5,120.4L58.7,117.6L59.3,114.5L61.5,112.4L62.0,109.4L62.9,108.4L63.3,107.2L64.8,106.3L65.3,105.0L64.8,103.9L64.3,103.7L64.5,103.2L64.1,102.1L62.2,101.2L62.3,100.7L60.7,99.3L61.6,97.9L61.2,93.5L62.5,92.5L67.4,93.3L64.4,92.4L62.5,90.5L62.1,89.2L61.8,89.6L62.8,91.5L61.7,91.6L61.5,89.5L63.2,85.7L61.7,88.3L61.3,88.0L61.1,86.6L60.7,86.7L61.2,89.1L60.9,89.8L61.1,91.6L60.1,91.4L60.8,92.4L59.7,94.9L58.8,94.5L58.4,92.5L57.6,91.0L57.3,91.3L58.2,94.0L56.8,93.1L56.7,92.1L55.7,94.3L56.4,95.9L54.9,95.4L54.3,93.7L54.5,92.5L54.3,91.4L56.3,88.1L57.9,87.2L58.8,85.4L60.4,84.4L60.7,83.7L58.5,85.1L57.9,86.4L54.2,89.9L53.8,91.1L52.7,90.6L52.5,92.6L52.9,92.7L53.3,95.0L54.6,97.3L52.7,99.2L51.9,101.0L52.4,102.8L52.0,103.1L51.7,105.3L50.5,106.8L51.6,108.3L51.4,108.7L50.0,110.1L47.5,109.9L47.3,108.2L48.5,106.3L48.4,103.2L49.2,101.1L49.0,100.2L52.5,95.6L50.3,97.8L49.4,96.8L49.1,95.6L50.7,93.1L49.2,94.4L48.8,93.6L50.7,90.3L49.9,90.7L48.9,93.0L48.6,92.9L48.8,91.8L50.6,88.7L51.3,89.0L50.9,87.8L51.7,86.2L50.2,87.5L51.1,85.4L50.9,85.0L51.9,84.2L50.4,84.5L50.8,82.0L52.6,81.4L51.2,81.4L52.5,79.2L56.3,79.1L57.7,77.4L58.5,75.8L56.4,78.7L53.7,78.7L53.2,77.5L52.3,78.3L52.9,76.5L54.0,77.1L55.7,75.8L54.0,76.7L53.2,76.4L54.9,73.5L54.6,73.1L59.5,71.6L57.0,72.1L55.8,71.6L57.6,68.8L55.9,70.4L55.4,71.7L54.3,72.2L49.1,77.7L47.7,76.5L48.0,75.6L47.3,76.4L46.4,76.2L44.1,74.3L44.1,73.6L45.2,73.3L46.7,74.1L46.2,73.1L47.9,72.0L49.6,72.6L51.2,72.1L49.4,72.3L48.0,71.6L45.8,72.8L42.7,72.1L41.7,72.7L40.6,71.5L41.4,70.5L44.5,69.7L46.4,70.7L45.9,69.7L47.9,69.7L46.4,68.4L48.3,68.0L49.4,67.2L48.4,67.8L47.5,67.6L48.2,66.6L45.4,66.6L46.4,66.4L46.0,65.8L47.0,63.4L48.3,63.0L49.9,64.3L51.4,63.7L49.9,63.9L49.0,63.4L49.1,62.7L47.4,62.0L48.5,60.3L49.6,60.0L51.0,60.9L53.3,60.7L51.2,60.7L49.0,59.2L49.9,57.6L49.6,57.1L50.6,56.1L53.3,57.2L51.8,55.9L52.7,54.7L50.6,55.9L48.3,55.3L49.5,53.7L50.1,54.0L51.8,53.2L52.5,52.6L52.6,51.7L50.8,53.4L49.7,53.1L50.2,52.7L49.9,51.9L48.6,53.5L47.1,53.7L46.8,52.6L47.0,51.2L46.3,50.9L46.1,49.7L46.7,47.3L49.5,49.2L49.5,48.6L51.6,48.3L50.5,47.8L49.4,48.3L47.8,45.7L47.2,45.5L47.4,44.0L48.9,44.1L49.1,43.6L47.2,42.6L47.0,40.0L47.6,39.0L48.8,39.0L49.1,39.3L49.4,41.2L50.2,41.8L49.9,41.2L50.5,41.4L50.5,40.1L49.5,38.3L50.1,37.3L51.1,37.7L51.0,38.4L52.0,39.4L52.5,39.5L53.1,37.9L56.1,39.7L53.4,37.6L53.9,36.9L54.9,37.9L56.4,38.2L58.4,40.0L58.0,38.9L56.1,37.5L56.5,37.1L56.3,36.4L55.0,35.8L53.9,34.4L52.9,34.3L53.2,33.7L52.6,32.8L52.9,32.4L53.9,33.3L54.9,33.2L55.2,32.8L55.2,31.5L54.9,31.3L55.7,30.9L54.8,30.6L53.5,27.7L55.0,28.3L57.5,27.4L60.5,28.8L59.8,28.0L60.6,27.6L58.7,27.7L56.8,25.2L57.3,23.2L59.2,24.0L58.6,23.0L57.9,23.2L58.2,22.8L57.8,22.6L58.7,22.1L59.5,22.6L57.8,21.1L57.8,20.5L59.0,19.4L59.6,17.0L61.9,17.7L62.4,19.0L62.2,20.0L62.9,17.6L64.6,19.1L63.1,22.3L65.4,20.0L66.2,18.4L68.2,19.3L67.2,22.2L69.5,19.6L71.1,20.0L70.9,19.8L71.4,19.2L73.5,18.9L74.3,17.9L74.7,18.7L76.3,18.8L80.9,17.0L81.9,17.7L84.4,17.8L84.7,17.2L83.7,16.2L84.3,15.5L84.8,16.4L86.9,16.0L89.7,16.6L88.0,20.3L88.2,21.2L89.2,21.7L88.0,24.5L86.6,26.4L84.1,27.6L82.1,30.4L77.6,33.7L77.0,35.1L74.9,36.4L74.7,37.1L73.4,36.3L73.6,36.9L74.9,37.9L74.6,39.0L70.1,39.2L68.7,37.9L70.0,39.5L71.6,39.3L72.5,40.1L72.6,39.7L74.1,40.5L75.0,39.8L76.0,40.8L77.8,39.1L78.1,39.4L74.9,44.0L74.4,43.9L74.5,43.2L74.0,42.8L72.2,44.2L70.3,44.4L68.2,47.3L71.6,44.5L73.3,45.0L74.6,44.2L72.9,46.9L73.1,47.3L72.1,47.5L72.0,48.2L70.7,48.1L71.6,48.4L70.9,49.6L71.7,49.8L74.2,47.9L73.4,47.1L77.2,46.9L80.5,44.9L80.1,45.5L81.0,45.5L80.6,44.7L81.8,44.9L82.5,43.5L83.8,43.2L85.6,43.2L88.8,44.7L91.3,43.8L95.2,43.9L97.2,44.7L105.3,43.8L107.9,46.3L108.3,48.8L108.9,49.6L108.6,50.1L109.0,50.3L105.6,54.7L104.1,59.3L104.5,60.3L102.4,64.1L102.4,66.2L100.2,69.5L98.8,70.6L97.4,75.1L94.0,78.5L89.1,78.9L86.4,81.3L85.0,81.3L86.5,81.5L91.7,78.7L93.0,79.6L92.5,81.3L93.5,82.2L95.3,82.5L96.5,83.7L95.4,85.1L93.3,86.1L90.5,85.7L88.1,88.0L87.3,89.7L84.8,90.6L79.8,89.9L77.2,88.4L79.8,91.0L84.9,91.5L88.1,92.1L88.8,92.8L90.9,92.1L92.2,91.0L92.0,90.5L92.7,89.7L95.6,89.7L96.6,90.7L96.4,91.3L97.5,91.0L100.5,93.1L103.2,93.7L108.0,101.2L108.6,101.0L109.1,101.7L108.8,101.9L110.9,102.6L110.9,103.9L111.6,105.3L111.5,108.2L112.0,109.5L111.8,110.6L112.8,113.1L112.6,114.1L113.2,116.0L115.0,119.2L115.1,120.8L116.3,125.0L117.9,126.2L117.6,126.6L118.0,127.5L117.5,128.3L118.2,128.6L118.4,127.7L123.8,129.9L127.2,132.1L129.0,134.9L130.2,138.1L131.6,138.9L132.3,140.4L134.7,141.7L133.3,142.4L132.5,144.0L133.5,147.2L137.9,153.8L137.9,155.5L137.5,155.9L137.9,154.7L136.7,153.9L134.1,154.0L131.8,151.4L127.5,152.1L126.1,151.5L124.7,152.4L125.2,152.7L126.3,152.0L127.7,153.0L131.6,152.2L132.9,154.4L138.2,158.1L139.6,160.3L141.1,164.5L141.3,166.6L141.0,167.9L138.3,170.1L136.0,173.1L137.4,173.1L139.6,175.5L140.8,175.3L141.7,176.1L143.2,172.0L144.5,171.1L146.3,170.6L150.6,171.6L151.3,171.3L150.6,170.9L155.3,172.1L160.9,176.0L161.7,177.1L162.5,179.8L162.8,183.2L161.5,187.3L160.7,188.6L160.8,190.4L160.0,193.3L158.3,194.0L156.2,196.9L155.1,195.5L153.5,194.6L155.3,196.3L152.1,196.5L155.4,196.7L154.2,198.4L155.1,198.7L155.5,198.3L155.3,199.2L153.7,200.5L152.1,200.9L150.8,199.2L149.4,200.8L149.2,201.6L146.5,202.3L147.4,203.0L150.0,201.7L150.4,203.3L149.8,204.7L150.4,204.8L149.9,205.5L147.6,207.0L145.7,206.8L142.8,207.6L142.4,208.5L141.7,208.9L144.0,207.9L146.5,208.3L146.7,209.1L145.6,209.1L144.3,209.8L144.8,210.4L146.7,210.5L146.5,209.9L146.9,209.7L147.5,211.0L150.7,211.4L152.6,210.8L157.9,210.6L157.5,211.9L156.8,212.0L157.4,214.5L157.0,216.2L153.7,218.0L152.1,218.3L150.6,220.3L150.8,221.9L147.4,221.6L145.4,223.3L141.4,224.3L140.0,226.0L131.7,224.0L129.7,224.7L124.2,225.3L123.7,226.4L121.9,225.3L122.6,224.5L121.6,224.2L121.5,223.7L120.2,223.7L119.7,225.2L119.3,225.2L119.0,224.9L119.5,223.7L118.0,223.7L118.6,224.3L118.6,225.0L118.3,225.2L115.4,223.0L113.4,221.9L115.6,224.1L115.7,224.8L112.5,225.7L112.0,226.7L109.9,226.2L107.5,226.5L106.2,227.4L106.0,226.8L104.7,226.2L104.0,227.2L104.7,226.8L105.2,227.6L106.0,227.7L106.3,228.5L105.8,229.5L104.0,229.6L99.2,228.5L98.2,229.4L98.2,229.9L98.7,230.6L98.3,231.3L97.9,229.8L94.7,227.3L92.1,226.3L86.0,227.8L85.5,228.7L84.4,229.2L83.6,228.9L82.9,227.7L83.4,229.3L82.3,231.5L82.6,233.0L81.5,233.6L82.6,234.3L82.0,235.6L81.3,235.4L80.4,236.5L79.9,238.7L77.9,238.9L75.3,236.2L73.9,236.8L72.9,235.5L73.1,235.1L72.2,234.9L71.8,233.9L72.3,233.0L71.7,233.0L71.1,233.5L71.2,234.4L70.3,234.4L71.8,234.9L71.2,235.1L72.0,235.4L71.8,236.2L69.6,235.1L67.2,236.1L64.5,236.4L64.1,235.7L63.0,236.2L63.2,236.7L62.7,238.3L60.2,239.2L59.4,240.5L59.1,239.3L58.7,239.3L58.5,240.2L58.8,240.5L57.6,241.6L58.4,241.8L58.6,242.5L57.9,243.6L57.2,243.7L56.6,244.9L55.8,244.2L54.8,242.0L52.2,240.8L51.2,241.2L51.3,242.0L50.6,242.6L48.7,242.7L48.6,240.8L49.0,240.1L51.7,238.7L52.8,239.3L53.5,238.2L54.6,237.9L57.2,235.6L57.1,234.4L58.7,233.7L59.2,231.1L60.2,230.5L60.5,231.5L61.8,231.6L60.6,230.7L60.7,229.8L62.6,229.7L63.3,227.9L65.9,225.4L66.3,224.5L66.2,222.4L66.7,219.6L69.9,219.9L71.6,218.0L70.8,216.2L71.5,216.2L71.2,215.2L78.0,213.9L83.4,214.8L84.1,215.4L89.6,214.5L89.7,215.2L90.0,214.5L89.7,212.0L90.1,212.1L90.6,210.8L90.4,210.5L91.2,210.3L93.1,208.1L94.7,207.4L96.8,203.8L99.3,201.5L99.4,201.0L97.9,201.7L95.1,204.8L92.1,206.6Z","M25.0,117.0L27.9,117.2L29.3,114.7L29.5,113.1L32.6,113.5L36.9,111.6L40.5,112.7L42.7,112.6L43.6,113.8L43.3,116.3L44.7,117.2L44.4,118.8L45.6,119.4L46.9,121.6L47.2,123.1L48.5,124.1L47.3,122.4L48.0,122.1L48.9,123.8L48.3,125.5L45.8,127.0L45.3,128.0L45.6,128.7L48.0,126.8L50.7,126.8L51.3,127.4L51.6,129.0L52.2,129.7L52.8,132.6L52.0,135.0L52.2,135.2L51.6,135.8L50.6,134.1L51.2,132.7L51.0,131.2L48.8,129.5L48.5,130.6L49.9,131.1L49.2,131.4L49.7,131.6L49.9,133.1L49.4,134.7L48.6,135.4L50.6,134.6L51.1,135.0L51.0,136.8L49.4,138.6L48.2,138.1L46.3,138.6L45.8,141.9L43.0,143.7L42.4,143.5L42.9,143.1L41.3,142.2L38.7,141.7L38.4,142.9L34.6,143.5L33.9,142.8L34.4,140.2L33.6,139.4L32.8,139.8L32.1,139.3L30.7,137.4L31.1,137.0L30.7,135.6L28.6,133.8L26.0,135.8L26.1,136.3L25.7,136.7L26.7,138.0L26.5,138.8L25.1,139.5L25.2,140.3L24.6,141.3L24.3,141.3L24.4,140.3L23.8,140.7L24.2,141.6L22.9,141.4L22.6,140.8L21.3,141.4L19.6,141.0L18.1,139.4L15.8,139.1L15.5,137.1L14.4,136.8L13.6,135.3L12.4,134.7L11.0,132.5L12.7,131.7L13.6,130.4L15.4,130.7L18.1,128.8L18.1,128.3L16.0,128.1L14.7,126.3L16.0,125.4L17.1,126.1L19.0,125.1L20.6,125.2L20.6,123.8L22.0,122.0L22.1,120.1L22.7,119.6L22.7,118.2L23.5,117.2L25.1,116.4L25.0,117.0Z","M29.2,42.9L27.0,39.9L27.7,40.6L29.1,39.1L30.2,39.0L29.5,38.3L31.5,38.1L30.9,37.5L31.4,37.1L27.2,35.5L28.1,34.9L28.0,34.5L29.9,33.7L28.0,34.1L28.5,33.7L28.1,33.5L28.5,32.9L27.8,33.4L27.2,32.4L27.0,31.6L27.5,30.4L27.2,30.0L28.6,29.8L28.0,29.1L28.4,28.2L30.3,29.0L29.9,29.5L31.0,32.2L30.6,30.4L30.9,29.8L32.0,29.4L32.9,30.4L33.4,29.8L32.2,28.5L31.8,27.6L32.0,27.2L31.7,27.0L33.2,25.4L35.7,24.6L40.1,20.4L40.8,20.7L41.7,23.0L40.9,24.6L41.6,25.2L40.3,26.2L39.2,28.3L38.6,28.4L40.1,29.0L41.9,27.8L41.7,29.0L40.6,29.9L38.1,29.2L38.5,31.1L36.7,32.4L34.7,32.8L38.0,32.2L38.6,33.5L38.1,33.9L38.8,34.1L37.7,35.1L35.8,34.8L37.2,35.9L36.4,37.1L35.8,36.9L36.0,37.5L35.3,37.6L34.6,36.5L34.7,37.7L34.1,37.3L33.4,35.1L34.0,33.9L35.1,33.5L33.7,33.5L32.5,35.1L33.9,37.3L33.6,37.5L34.1,38.7L32.1,38.2L31.9,38.7L32.5,39.0L32.9,40.1L32.1,40.2L32.2,40.6L31.2,40.0L31.4,40.6L30.6,41.4L30.8,41.6L29.2,42.9Z","M33.6,53.4L32.2,50.8L33.1,50.8L32.8,49.9L33.2,49.2L34.9,51.1L35.0,50.4L34.5,49.6L35.6,49.4L34.2,48.1L34.6,47.4L34.4,46.5L37.1,49.2L37.8,49.0L37.4,49.9L38.1,49.0L39.4,50.6L38.3,48.1L38.7,46.9L38.1,46.7L37.8,45.4L39.4,43.8L41.8,47.0L42.2,50.2L41.9,51.7L41.3,52.6L42.3,52.1L42.1,53.6L42.7,54.3L41.8,55.0L43.5,55.0L43.0,55.9L44.1,55.6L45.9,56.9L47.7,55.9L49.6,56.2L48.9,58.3L47.5,59.0L47.2,60.2L45.2,62.5L44.1,62.8L43.8,61.9L44.4,60.3L46.6,58.4L44.4,58.8L43.5,57.2L43.8,58.1L42.8,60.1L42.3,58.1L41.5,58.0L41.5,58.6L39.3,59.1L40.0,58.0L38.9,58.4L38.4,57.4L38.9,56.8L37.9,56.8L36.8,54.9L37.8,54.2L39.4,55.3L39.2,54.9L38.0,53.8L37.1,53.9L37.3,53.5L36.9,53.3L36.9,52.4L36.2,52.9L36.1,51.9L35.4,52.8L35.6,53.9L33.6,53.4Z","M49.4,80.3L48.1,80.0L47.5,81.3L48.6,80.9L48.7,81.3L46.5,82.8L46.0,82.4L46.4,81.9L46.1,81.5L43.2,83.4L40.5,83.5L39.9,84.1L38.9,83.4L38.6,82.5L39.5,81.8L40.4,82.8L40.7,82.4L40.3,82.2L41.3,82.2L43.9,80.8L41.8,81.5L41.1,80.9L42.3,79.0L44.0,78.4L43.9,77.5L42.2,78.3L41.2,76.9L39.0,76.1L39.7,75.6L39.2,74.6L40.7,74.6L40.8,73.9L41.9,73.4L43.3,73.7L43.2,74.3L43.7,74.3L44.7,76.9L47.3,77.1L49.6,79.0L49.5,79.6L48.9,79.4L49.4,80.3Z","M74.0,162.6L73.2,163.9L71.5,165.0L71.4,165.6L69.5,166.9L68.5,167.0L68.8,165.6L67.9,166.2L67.2,165.7L67.1,164.9L66.0,163.3L66.0,160.2L68.2,159.4L69.8,159.6L70.5,160.0L71.6,162.7L74.0,162.6Z","M43.8,100.0L43.3,100.6L40.9,101.5L39.8,102.8L39.4,102.6L39.3,101.4L40.5,100.6L40.0,99.4L39.2,99.1L40.3,97.4L39.2,97.3L37.1,100.2L36.5,100.0L36.5,98.9L37.3,97.4L36.8,97.0L37.4,95.5L39.1,94.3L39.0,95.6L39.4,96.3L39.6,95.0L42.0,92.9L42.7,96.7L43.7,98.7L43.8,100.0Z"]},"sites":[{"mpan":"1100039600646","name":"Consumer 1","role":"consumer","pc":"NG17 5LL","lat":53.1265,"lon":-1.2548,"kwh":963808,"lat_jit":53.1265,"lon_jit":-1.2548,"x":322.2,"y":236.2,"nat_x":116.7,"nat_y":167.1},{"mpan":"1100039635240","name":"Consumer 2","role":"consumer","pc":"NG22 0PQ","lat":53.2284,"lon":-0.8932,"kwh":951948,"lat_jit":53.2404,"lon_jit":-0.9112,"x":383.9,"y":202.1,"nat_x":122.2,"nat_y":164.5},{"mpan":"1100039635259","name":"Consumer 3","role":"consumer","pc":"NG22 0PQ","lat":53.2284,"lon":-0.8932,"kwh":428788,"lat_jit":53.2404,"lon_jit":-0.8752,"x":390.3,"y":202.1,"nat_x":122.2,"nat_y":164.5},{"mpan":"1600000102802","name":"Consumer 4","role":"consumer","pc":"M6 5JJ","lat":53.4886,"lon":-2.2833,"kwh":88840,"lat_jit":53.4886,"lon_jit":-2.2833,"x":137.6,"y":127.5,"nat_x":100.9,"nat_y":157.8},{"mpan":"2336587932010","name":"Consumer 5","role":"consumer","pc":"S9 4EX","lat":53.403,"lon":-1.4118,"kwh":1054290,"lat_jit":53.403,"lon_jit":-1.4118,"x":294.0,"y":153.3,"nat_x":114.3,"nat_y":160.0},{"mpan":"2900000029335","name":"Consumer 6","role":"consumer","pc":"DN17 4BJ","lat":53.6032,"lon":-0.661,"kwh":2068,"lat_jit":53.5912,"lon_jit":-0.643,"x":432.0,"y":96.5,"nat_x":125.7,"nat_y":154.9},{"mpan":"1160001460438","name":"Generator 1","role":"generator","pc":"NG22 0PQ","lat":53.2284,"lon":-0.8932,"kwh":802210,"lat_jit":53.2164,"lon_jit":-0.8932,"x":387.1,"y":209.3,"nat_x":122.2,"nat_y":164.5},{"mpan":"2394000128957","name":"Generator 2","role":"generator","pc":"LN12 1NX","lat":53.3422,"lon":0.2786,"kwh":1979403,"lat_jit":53.3422,"lon_jit":0.2786,"x":597.4,"y":171.6,"nat_x":140.1,"nat_y":161.6},{"mpan":"2900000029326","name":"Generator 3","role":"generator","pc":"DN17 4BJ","lat":53.6032,"lon":-0.661,"kwh":1886913,"lat_jit":53.6152,"lon_jit":-0.679,"x":425.6,"y":89.2,"nat_x":125.7,"nat_y":154.9}],"flows":[{"gen_mpan":"2394000128957","con_mpan":"2336587932010","gen_name":"Generator 2","con_name":"Consumer 5","matched_kwh":241367.0,"pct_of_total_match":12.8},{"gen_mpan":"2900000029326","con_mpan":"2336587932010","gen_name":"Generator 3","con_name":"Consumer 5","matched_kwh":230089.0,"pct_of_total_match":12.2},{"gen_mpan":"2394000128957","con_mpan":"1100039600646","gen_name":"Generator 2","con_name":"Consumer 1","matched_kwh":220652.0,"pct_of_total_match":11.7},{"gen_mpan":"2394000128957","con_mpan":"1100039635240","gen_name":"Generator 2","con_name":"Consumer 2","matched_kwh":217937.0,"pct_of_total_match":11.6},{"gen_mpan":"2900000029326","con_mpan":"1100039600646","gen_name":"Generator 3","con_name":"Consumer 1","matched_kwh":210342.0,"pct_of_total_match":11.2},{"gen_mpan":"2900000029326","con_mpan":"1100039635240","gen_name":"Generator 3","con_name":"Consumer 2","matched_kwh":207754.0,"pct_of_total_match":11.0},{"gen_mpan":"2394000128957","con_mpan":"1100039635259","gen_name":"Generator 2","con_name":"Consumer 3","matched_kwh":98166.0,"pct_of_total_match":5.2},{"gen_mpan":"1160001460438","con_mpan":"2336587932010","gen_name":"Generator 1","con_name":"Consumer 5","matched_kwh":97821.0,"pct_of_total_match":5.2},{"gen_mpan":"2900000029326","con_mpan":"1100039635259","gen_name":"Generator 3","con_name":"Consumer 3","matched_kwh":93579.0,"pct_of_total_match":5.0},{"gen_mpan":"1160001460438","con_mpan":"1100039600646","gen_name":"Generator 1","con_name":"Consumer 1","matched_kwh":89426.0,"pct_of_total_match":4.7},{"gen_mpan":"1160001460438","con_mpan":"1100039635240","gen_name":"Generator 1","con_name":"Consumer 2","matched_kwh":88325.0,"pct_of_total_match":4.7},{"gen_mpan":"1160001460438","con_mpan":"1100039635259","gen_name":"Generator 1","con_name":"Consumer 3","matched_kwh":39785.0,"pct_of_total_match":2.1},{"gen_mpan":"2394000128957","con_mpan":"1600000102802","gen_name":"Generator 2","con_name":"Consumer 4","matched_kwh":20339.0,"pct_of_total_match":1.1},{"gen_mpan":"2900000029326","con_mpan":"1600000102802","gen_name":"Generator 3","con_name":"Consumer 4","matched_kwh":19389.0,"pct_of_total_match":1.0},{"gen_mpan":"1160001460438","con_mpan":"1600000102802","gen_name":"Generator 1","con_name":"Consumer 4","matched_kwh":8243.0,"pct_of_total_match":0.4},{"gen_mpan":"2394000128957","con_mpan":"2900000029335","gen_name":"Generator 2","con_name":"Consumer 6","matched_kwh":473.0,"pct_of_total_match":0.0},{"gen_mpan":"2900000029326","con_mpan":"2900000029335","gen_name":"Generator 3","con_name":"Consumer 6","matched_kwh":451.0,"pct_of_total_match":0.0},{"gen_mpan":"1160001460438","con_mpan":"2900000029335","gen_name":"Generator 1","con_name":"Consumer 6","matched_kwh":192.0,"pct_of_total_match":0.0}],"totals":{"matched":1884331,"demand":3489742,"supply":4668526}};
+
+(function buildMap(){
+  const svg = document.getElementById('geo-map');
+  const inset = document.getElementById('geo-inset');
+  if(!svg || !inset) return;
+  const data = MAP_DATA;
+  const ns = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, text) => {
+    const e = document.createElementNS(ns, tag);
+    for(const k in attrs) e.setAttribute(k, attrs[k]);
+    if(text != null) e.textContent = text;
+    return e;
+  };
+
+  // ── REGIONAL MAP ──
+  const reg = data.regional;
+  reg.paths.forEach(p => {
+    svg.appendChild(el('path', {
+      d: p, fill: '#162536', stroke: '#2a4561',
+      'stroke-width': 0.6, 'stroke-opacity': 0.7
+    }));
+  });
+
+  const sites = data.sites;
+  const flows = data.flows;
+  const gens = sites.filter(s => s.role === 'generator');
+  const cons = sites.filter(s => s.role === 'consumer');
+  const maxGenKwh = Math.max.apply(null, gens.map(g => g.kwh));
+  const maxConKwh = Math.max.apply(null, cons.map(c => c.kwh));
+  const maxFlow = Math.max.apply(null, flows.map(f => f.matched_kwh));
+
+  // ── flow lines ──
+  const flowGroup = el('g', {id:'geo-flows'});
+  svg.appendChild(flowGroup);
+  flows.forEach(f => {
+    const g = sites.find(s => s.mpan === f.gen_mpan);
+    const c = sites.find(s => s.mpan === f.con_mpan);
+    const sx = g.x, sy = g.y, ex = c.x, ey = c.y;
+    const dx = ex - sx, dy = ey - sy;
+    const len = Math.hypot(dx, dy);
+    let pathD;
+    if(len < 1){
+      const r = 14;
+      pathD = 'M'+sx+','+(sy-r)+' A'+r+','+r+' 0 1,1 '+(sx+0.1)+','+(sy-r);
+    } else {
+      const px = -dy / len, py = dx / len;
+      const bend = len * 0.22;
+      const cx = (sx+ex)/2 + px * bend;
+      const cy = (sy+ey)/2 + py * bend;
+      pathD = 'M'+sx+','+sy+' Q'+cx.toFixed(1)+','+cy.toFixed(1)+' '+ex+','+ey;
+    }
+    const w = 0.8 + (f.matched_kwh / maxFlow) * 4.5;
+    const opacity = 0.20 + (f.matched_kwh / maxFlow) * 0.5;
+    flowGroup.appendChild(el('path', {
+      d: pathD, fill: 'none', stroke: '#7cf2b0',
+      'stroke-width': w.toFixed(2), 'stroke-opacity': opacity.toFixed(2),
+      'stroke-linecap': 'round',
+      class: 'flow-line',
+      'data-gen': f.gen_mpan, 'data-con': f.con_mpan
+    }));
+  });
+
+  // ── site markers ──
+  const siteGroup = el('g', {id:'geo-sites'});
+  svg.appendChild(siteGroup);
+  sites.forEach(s => {
+    const isGen = s.role === 'generator';
+    const fill = isGen ? '#7cf2b0' : '#a8b6c4';
+    let r;
+    if(s.kwh < 5000) r = 3;
+    else if(isGen) r = 4 + (s.kwh / maxGenKwh) * 8;
+    else r = 3 + (s.kwh / maxConKwh) * 6;
+
+    const g = el('g', {class:'site-marker', 'data-mpan': s.mpan, 'data-role': s.role});
+    g.appendChild(el('circle', {cx: s.x, cy: s.y, r: r + 3, fill: fill, opacity: 0.18}));
+    g.appendChild(el('circle', {cx: s.x, cy: s.y, r: r, fill: fill, stroke: '#0a1118', 'stroke-width': 1.5}));
+    siteGroup.appendChild(g);
+  });
+
+  // ── labels ──
+  const labelGroup = el('g', {id:'geo-labels'});
+  svg.appendChild(labelGroup);
+  const LABEL_POS = {
+    '1100039600646': {dx: 0,   dy: 18,  anchor:'middle'},
+    '1100039635240': {dx:-12, dy:-6,   anchor:'end'},
+    '1100039635259': {dx: 12, dy:-6,   anchor:'start'},
+    '1600000102802': {dx: 12, dy: 4,   anchor:'start'},
+    '2336587932010': {dx:-10, dy: 4,   anchor:'end'},
+    '2900000029335': {dx: 12, dy: 14,  anchor:'start'},
+    '1160001460438': {dx: 0,   dy: 18,  anchor:'middle'},
+    '2394000128957': {dx:-12, dy: 4,   anchor:'end'},
+    '2900000029326': {dx: 0,   dy:-12, anchor:'middle'}
+  };
+  sites.forEach(s => {
+    const pos = LABEL_POS[s.mpan] || {dx:10, dy:4, anchor:'start'};
+    const isGen = s.role === 'generator';
+    const t = el('text', {
+      x: s.x + pos.dx, y: s.y + pos.dy,
+      fill: isGen ? '#7cf2b0' : '#cdd5de',
+      'font-family': 'JetBrains Mono', 'font-size': 10, 'font-weight': isGen ? 500 : 400,
+      'text-anchor': pos.anchor,
+      'paint-order': 'stroke fill', stroke: '#0a1118', 'stroke-width': 3,
+      class: 'site-label', 'data-mpan': s.mpan
+    }, s.name);
+    labelGroup.appendChild(t);
+  });
+
+  // ── click-to-isolate ──
+  let focusedMpan = null;
+  function setFocus(mpan){
+    focusedMpan = mpan;
+    if(!mpan){
+      svg.classList.remove('has-focus');
+      svg.querySelectorAll('.flow-line, .site-marker').forEach(n => n.classList.remove('is-related'));
+      return;
+    }
+    svg.classList.add('has-focus');
+    svg.querySelectorAll('.flow-line').forEach(l => {
+      l.classList.toggle('is-related', l.dataset.gen === mpan || l.dataset.con === mpan);
+    });
+    svg.querySelectorAll('.site-marker').forEach(m => {
+      if(m.dataset.mpan === mpan){ m.classList.add('is-related'); return; }
+      const partner = flows.some(f =>
+        (f.gen_mpan === mpan && f.con_mpan === m.dataset.mpan) ||
+        (f.con_mpan === mpan && f.gen_mpan === m.dataset.mpan)
+      );
+      m.classList.toggle('is-related', partner);
+    });
+  }
+  svg.addEventListener('click', (ev) => {
+    const marker = ev.target.closest('.site-marker');
+    if(marker){ setFocus(marker.dataset.mpan === focusedMpan ? null : marker.dataset.mpan); ev.stopPropagation(); }
+    else { setFocus(null); }
+  });
+
+  // ── NATIONAL INSET ──
+  const nat = data.national;
+  nat.paths.forEach(p => {
+    inset.appendChild(el('path', {d: p, fill: '#162536', stroke: '#2a4561', 'stroke-width': 0.5, 'stroke-opacity': 0.7}));
+  });
+  const nx = sites.map(s => s.nat_x), ny = sites.map(s => s.nat_y);
+  const minX = Math.min.apply(null, nx) - 6, maxX = Math.max.apply(null, nx) + 6;
+  const minY = Math.min.apply(null, ny) - 6, maxY = Math.max.apply(null, ny) + 6;
+  inset.appendChild(el('rect', {
+    x: minX, y: minY, width: maxX-minX, height: maxY-minY,
+    fill: 'rgba(124,242,176,.08)', stroke: '#7cf2b0',
+    'stroke-width': 1, 'stroke-opacity': 0.7, 'stroke-dasharray': '2 2'
+  }));
+})();
+
+/* ═════════════ §4 · MONTHLY MATCHING CHART ═════════════ */
+/* Computed offline from the 9 half-hourly meter CSVs (Mar 2025 → Apr 2026, 20,348 HHs). */
+const monthlyMatch = [
+  { mkey:'2025-02', label:'Feb 2025', short_label:'Feb·25', days:1,  demand:13810,  supply:990,    matched:986,    surplus:4,      rate:7.1  },
+  { mkey:'2025-03', label:'Mar 2025', short_label:'Mar·25', days:31, demand:284006, supply:254650, matched:130938, surplus:123712, rate:46.1 },
+  { mkey:'2025-04', label:'Apr 2025', short_label:'Apr·25', days:30, demand:267202, supply:198672, matched:100281, surplus:98391,  rate:37.5 },
+  { mkey:'2025-05', label:'May 2025', short_label:'May·25', days:31, demand:237115, supply:278098, matched:110612, surplus:167487, rate:46.6 },
+  { mkey:'2025-06', label:'Jun 2025', short_label:'Jun·25', days:30, demand:201734, supply:324738, matched:125454, surplus:199284, rate:62.2 },
+  { mkey:'2025-07', label:'Jul 2025', short_label:'Jul·25', days:31, demand:237986, supply:187454, matched:101488, surplus:85967,  rate:42.6 },
+  { mkey:'2025-08', label:'Aug 2025', short_label:'Aug·25', days:31, demand:211304, supply:257723, matched:117483, surplus:140240, rate:55.6 },
+  { mkey:'2025-09', label:'Sep 2025', short_label:'Sep·25', days:30, demand:223965, supply:338043, matched:133064, surplus:204980, rate:59.4 },
+  { mkey:'2025-10', label:'Oct 2025', short_label:'Oct·25', days:31, demand:276028, supply:368124, matched:126904, surplus:241220, rate:46.0 },
+  { mkey:'2025-11', label:'Nov 2025', short_label:'Nov·25', days:30, demand:235122, supply:449400, matched:166391, surplus:283009, rate:70.8 },
+  { mkey:'2025-12', label:'Dec 2025', short_label:'Dec·25', days:31, demand:223284, supply:485905, matched:163263, surplus:322642, rate:73.1 },
+  { mkey:'2026-01', label:'Jan 2026', short_label:'Jan·26', days:31, demand:295060, supply:483640, matched:179988, surplus:303652, rate:61.0 },
+  { mkey:'2026-02', label:'Feb 2026', short_label:'Feb·26', days:28, demand:279807, supply:362606, matched:170590, surplus:192016, rate:61.0 },
+  { mkey:'2026-03', label:'Mar 2026', short_label:'Mar·26', days:31, demand:288286, supply:367427, matched:150251, surplus:217176, rate:52.1 },
+  { mkey:'2026-04', label:'Apr 2026', short_label:'Apr·26', days:27, demand:215034, supply:311057, matched:106640, surplus:204417, rate:49.6 },
+];
+
+(function renderMatchChart(){
+  const svg = document.getElementById('match-chart');
+  if(!svg) return;
+
+  // viewBox geometry
+  const W = 1100, H = 460;
+  const M = { top: 50, right: 30, bottom: 110, left: 70 };
+  const plotW = W - M.left - M.right;
+  const plotH = H - M.top - M.bottom;
+
+  // y-domain: highest stack across all months
+  const yMax = Math.max(...monthlyMatch.map(m => Math.max(m.demand, m.supply)));
+  const yNice = Math.ceil(yMax / 100000) * 100000; // round up to nearest 100k
+  const y = (v) => M.top + plotH - (v / yNice) * plotH;
+  const h = (v) => (v / yNice) * plotH;
+
+  // x: 15 month groups, each containing two slim bars
+  const groupW = plotW / monthlyMatch.length;
+  const barW = (groupW - 14) / 2; // 14px gap between groups
+  const innerGap = 2;
+
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs, text) => {
+    const e = document.createElementNS(svgNS, tag);
+    for(const k in attrs) e.setAttribute(k, attrs[k]);
+    if(text != null) e.textContent = text;
+    return e;
+  };
+
+  // ── defs: gradients matching the section-head graphic ──
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="mc-matched" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#7cf2b0" stop-opacity=".95"/>
+        <stop offset="1" stop-color="#34c47c" stop-opacity=".75"/>
+      </linearGradient>
+      <linearGradient id="mc-shortfall" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#f3a847" stop-opacity=".85"/>
+        <stop offset="1" stop-color="#d68328" stop-opacity=".55"/>
+      </linearGradient>
+      <linearGradient id="mc-surplus" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#7eb6ff" stop-opacity=".85"/>
+        <stop offset="1" stop-color="#5d8fd8" stop-opacity=".55"/>
+      </linearGradient>
+    </defs>
+  `;
+
+  // ── y-axis: 0, 25%, 50%, 75%, 100% gridlines ──
+  for(let i=0; i<=4; i++){
+    const v = (yNice/4) * i;
+    const yy = y(v);
+    svg.appendChild(el('line', {
+      x1: M.left, x2: M.left + plotW, y1: yy, y2: yy,
+      stroke: '#23344a', 'stroke-width': '1', 'stroke-dasharray': i===0 ? '0' : '2 4', opacity: i===0 ? '.8' : '.45'
+    }));
+    svg.appendChild(el('text', {
+      x: M.left - 10, y: yy + 4,
+      fill: '#6a7a8c', 'font-family': 'JetBrains Mono', 'font-size': '10', 'text-anchor': 'end'
+    }, (v/1000).toFixed(0) + 'k'));
+  }
+  // y-axis title
+  svg.appendChild(el('text', {
+    x: 18, y: M.top + plotH/2,
+    fill: '#a8b6c4', 'font-family': 'JetBrains Mono', 'font-size': '10', 'text-anchor': 'middle',
+    'letter-spacing': '2',
+    transform: `rotate(-90 18 ${M.top + plotH/2})`
+  }, 'kWh PER MONTH'));
+
+  // ── bars ──
+  const matchedTopPoints = []; // for the trend line over matched portion
+  monthlyMatch.forEach((m, i) => {
+    const gx = M.left + i * groupW + 7;
+    // Order: SUPPLY (generators) on the left, DEMAND (consumers) on the right
+    // — matches the §4 Sankey-style graphic above this chart.
+    const sx = gx;                          // supply bar x (left)
+    const dx = gx + barW + innerGap;        // demand bar x (right)
+
+    // SUPPLY bar (matched + surplus)
+    const sSurp = m.supply - m.matched;
+    svg.appendChild(el('rect', {
+      x: sx, y: y(m.matched), width: barW, height: h(m.matched),
+      fill: 'url(#mc-matched)', stroke: '#7cf2b0', 'stroke-width': '.5', 'stroke-opacity': '.7'
+    }));
+    if(sSurp > 0){
+      svg.appendChild(el('rect', {
+        x: sx, y: y(m.supply), width: barW, height: h(sSurp),
+        fill: 'url(#mc-surplus)', stroke: '#7eb6ff', 'stroke-width': '.5', 'stroke-opacity': '.6'
+      }));
+    }
+
+    // DEMAND bar (matched + shortfall)
+    const dShort = m.demand - m.matched;
+    svg.appendChild(el('rect', {
+      x: dx, y: y(m.matched), width: barW, height: h(m.matched),
+      fill: 'url(#mc-matched)', stroke: '#7cf2b0', 'stroke-width': '.5', 'stroke-opacity': '.7'
+    }));
+    if(dShort > 0){
+      svg.appendChild(el('rect', {
+        x: dx, y: y(m.demand), width: barW, height: h(dShort),
+        fill: 'url(#mc-shortfall)', stroke: '#f3a847', 'stroke-width': '.5', 'stroke-opacity': '.6'
+      }));
+    }
+
+    // record midpoint of matched-top for trend line
+    matchedTopPoints.push({ x: gx + barW + innerGap/2, y: y(m.matched) });
+
+    // x-axis label: month + match rate
+    const labelY = M.top + plotH + 18;
+    const cx = gx + barW + innerGap/2;
+    const partial = m.days < 28;
+    svg.appendChild(el('text', {
+      x: cx, y: labelY,
+      fill: partial ? '#6a7a8c' : '#a8b6c4',
+      'font-family': 'JetBrains Mono', 'font-size': '10', 'text-anchor': 'middle'
+    }, m.short_label + (partial ? ' ○' : '')));
+
+    // match-rate underneath, coloured
+    let rateColor = '#a8b6c4';
+    if(m.rate >= 60) rateColor = '#7cf2b0';
+    else if(m.rate < 40) rateColor = '#f3a847';
+    svg.appendChild(el('text', {
+      x: cx, y: labelY + 14,
+      fill: rateColor,
+      'font-family': 'JetBrains Mono', 'font-size': '10', 'text-anchor': 'middle', 'font-weight': '500'
+    }, m.rate.toFixed(0) + '%'));
+  });
+
+  // trend line connecting the matched-top of each pair (visualises matching capacity over time)
+  const linePath = matchedTopPoints.map((p, i) => (i===0 ? 'M' : 'L') + p.x.toFixed(1) + ' ' + p.y.toFixed(1)).join(' ');
+  svg.appendChild(el('path', {
+    d: linePath, fill: 'none', stroke: '#7cf2b0', 'stroke-width': '1.5',
+    'stroke-dasharray': '3 3', opacity: '.5'
+  }));
+  // dots on the line
+  matchedTopPoints.forEach(p => {
+    svg.appendChild(el('circle', { cx: p.x, cy: p.y, r: 2.5, fill: '#7cf2b0', opacity: '.85' }));
+  });
+
+  // Top-of-chart axis labels: which side of each pair is which
+  const firstGx = M.left + 7;
+  const supplyCx = firstGx + barW/2;
+  const demandCx = firstGx + barW + innerGap + barW/2;
+
+  // Right-aligned matched-trend caption
+  svg.appendChild(el('text', {
+    x: M.left + plotW, y: 24,
+    fill: '#7cf2b0', 'font-family': 'JetBrains Mono', 'font-size': '9', 'text-anchor': 'end',
+    'letter-spacing': '2'
+  }, 'MATCHED VOLUME TREND  · · ·'));
+
+  // Explicit "GENERATORS" / "CONSUMERS" labels above the first bar pair
+  svg.appendChild(el('text', {
+    x: supplyCx, y: M.top - 22,
+    fill: '#7cf2b0', 'font-family': 'JetBrains Mono', 'font-size': '8', 'text-anchor': 'middle',
+    'letter-spacing': '1.5', 'font-weight': '500'
+  }, 'GEN'));
+  svg.appendChild(el('text', {
+    x: supplyCx, y: M.top - 10,
+    fill: '#7cf2b0', 'font-family': 'JetBrains Mono', 'font-size': '7', 'text-anchor': 'middle',
+    'letter-spacing': '1', opacity: '.7'
+  }, 'supply'));
+  svg.appendChild(el('text', {
+    x: demandCx, y: M.top - 22,
+    fill: '#a8b6c4', 'font-family': 'JetBrains Mono', 'font-size': '8', 'text-anchor': 'middle',
+    'letter-spacing': '1.5', 'font-weight': '500'
+  }, 'CON'));
+  svg.appendChild(el('text', {
+    x: demandCx, y: M.top - 10,
+    fill: '#a8b6c4', 'font-family': 'JetBrains Mono', 'font-size': '7', 'text-anchor': 'middle',
+    'letter-spacing': '1', opacity: '.7'
+  }, 'demand'));
+
+  // Tiny indicator line connecting the labels to the bar pair
+  svg.appendChild(el('line', {
+    x1: supplyCx, x2: supplyCx, y1: M.top - 4, y2: M.top - 1,
+    stroke: '#7cf2b0', 'stroke-width': '1', opacity: '.5'
+  }));
+  svg.appendChild(el('line', {
+    x1: demandCx, x2: demandCx, y1: M.top - 4, y2: M.top - 1,
+    stroke: '#a8b6c4', 'stroke-width': '1', opacity: '.5'
+  }));
+
+  // x-axis section label
+  svg.appendChild(el('text', {
+    x: M.left + plotW/2, y: H - 18,
+    fill: '#6a7a8c', 'font-family': 'JetBrains Mono', 'font-size': '9', 'text-anchor': 'middle',
+    'letter-spacing': '2'
+  }, 'MONTH  ·  MATCH RATE (% OF DEMAND)'));
+})();
 
 /* ═════════════ §5 · SPILL TIERS ═════════════ */
 function fmtP(n){ return n.toFixed(2)+'p'; }
@@ -1206,8 +2263,6 @@ const regoPriceInput = document.getElementById('rego-price');
 const regoStatus = document.getElementById('rego-status');
 const p442Share = document.getElementById('p442-share');
 const p442ShareLbl = document.getElementById('p442-share-label');
-const p442StackLbl = document.getElementById('p442-stack-label');
-const p442ItemsWrap = document.getElementById('p442-items');
 
 let regoOn = false;
 
@@ -1216,40 +2271,8 @@ function updateRegoStatus(){
   regoStatus.textContent = regoOn ? `+${price.toFixed(2)} p/kWh` : 'off';
 }
 
-// Itemised P442 levy stack — values in p/kWh
-const P442_LEVIES = [
-  { id:'fit',  name:'FiT',  desc:'Feed-in Tariff levy',           rate:0.80, on:true },
-  { id:'ro',   name:'RO',   desc:'Renewables Obligation',         rate:3.28, on:true },
-  { id:'cfd',  name:'CfD',  desc:'Contracts for Difference',      rate:0.73, on:true },
-  { id:'cm',   name:'CM',   desc:'Capacity Market',               rate:1.05, on:true },
-  { id:'nrab', name:'NRAB', desc:'Nuclear Regulated Asset Base',  rate:0.33, on:true },
-];
-
-function renderP442Items(){
-  p442ItemsWrap.innerHTML = '';
-  P442_LEVIES.forEach(l=>{
-    const d = document.createElement('div');
-    d.className = 'p442-item' + (l.on ? ' on' : '');
-    d.innerHTML = `
-      <div class="lvy-name">
-        <span class="p442-check"></span>
-        <strong>${l.name}</strong>
-        <span class="lvy-desc">${l.desc}</span>
-      </div>
-      <span class="lvy-rate">${l.rate.toFixed(2)}p</span>
-    `;
-    d.addEventListener('click', ()=>{
-      l.on = !l.on;
-      renderP442Items();
-      renderGenStack();
-    });
-    p442ItemsWrap.appendChild(d);
-  });
-}
-
-function getP442StackValue(){
-  return P442_LEVIES.filter(l=>l.on).reduce((a,l)=>a+l.rate, 0);
-}
+// P442 cost stack — fixed at 6.19p (FiT 0.80 + RO 3.28 + CfD 0.73 + CM 1.05 + NRAB 0.33)
+const P442_STACK_VALUE = 6.19;
 
 togRego.addEventListener('click',()=>{
   regoOn=!regoOn;
@@ -1258,7 +2281,6 @@ togRego.addEventListener('click',()=>{
   renderGenStack();
 });
 regoPriceInput.addEventListener('input', ()=>{
-  // Auto-enable REGO when user edits the price (intent signal)
   if(!regoOn){ regoOn = true; togRego.classList.add('on'); }
   updateRegoStatus();
   renderGenStack();
@@ -1273,7 +2295,7 @@ function renderGenStack(){
   const regoRate = parseFloat(regoPriceInput.value) || 0;
   const rego = regoOn ? regoRate : 0;
   const sharePct = +p442Share.value;
-  const stackVal = getP442StackValue();
+  const stackVal = P442_STACK_VALUE;
   const p442Earned = stackVal * sharePct / 100;
 
   // Spill tier rates — fixed per generator (no averaging)
@@ -1287,7 +2309,6 @@ function renderGenStack(){
   const total = pm + rego + p442Earned; // matched-volume per-kWh stack
 
   // update labels
-  p442StackLbl.textContent = stackVal.toFixed(2)+' p/kWh';
   document.getElementById('tier-name').textContent = currentTier + '%';
   document.getElementById('tier-rate').textContent = rateRangeStr;
 
@@ -1302,8 +2323,7 @@ function renderGenStack(){
   };
   addBar('sb-pm','PM rate (matched volume)', pm, 'all generators');
   if(regoOn) addBar('sb-ncc','REGO purchase', rego, 'all volume · market rate');
-  const activeLevies = P442_LEVIES.filter(l=>l.on).map(l=>l.name).join('+') || 'none';
-  addBar('sb-comm', `P442 share · ${sharePct}% × ${stackVal.toFixed(2)}p`, p442Earned, `${activeLevies} · ecosystem-matched`);
+  addBar('sb-comm', `P442 share · ${sharePct}% × ${stackVal.toFixed(2)}p`, p442Earned, 'ecosystem-matched');
   const t = document.createElement('div');
   t.className = 'stack-bar sb-total';
   t.innerHTML = `<span class="lbl">All-in matched-volume rate</span><span class="val">${fmt(total)}p / kWh</span>`;
@@ -1364,7 +2384,6 @@ function renderGenStack(){
           p442Rev, 'var(--grid)');
 }
 updateRegoStatus();
-renderP442Items();
 renderGenStack();
 
 /* ═════════════ §7 · CONSUMER COST ═════════════ */
@@ -1455,6 +2474,193 @@ const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
 },{threshold:0.1});
 document.querySelectorAll('section').forEach(s=>{ s.classList.add('reveal'); io.observe(s); });
+
+/* ═════════════ section tabs ═════════════ */
+(function(){
+  const tabs = document.querySelectorAll('.section-tab');
+  const sections = document.querySelectorAll('[data-tab]');
+  // Valid targets include both Private Market sub-tabs (.section-tab buttons)
+  // AND any other section that wants to be activatable (contact, future home/etc)
+  const validTargets = Array.from(new Set([
+    ...Array.from(tabs).map(t => t.dataset.target),
+    ...Array.from(sections).map(s => s.dataset.tab)
+  ]));
+
+  function activate(target, opts){
+    opts = opts || {};
+    if(!validTargets.includes(target)) target = 'overview';
+
+    tabs.forEach(t=>{
+      t.classList.toggle('active', t.dataset.target === target);
+    });
+
+    sections.forEach(s=>{
+      const isActive = s.dataset.tab === target;
+      s.classList.toggle('tab-active', isActive);
+      if(isActive){
+        // ensure reveal animation runs even though IO won't re-fire
+        s.classList.add('reveal','in');
+      }
+    });
+
+    // try to sync URL hash for deep-linking; some embedded contexts
+    // (sandboxed iframes, about:srcdoc) reject this — silently ignore.
+    if(opts.updateHash !== false && canUseHistory){
+      try{
+        history.replaceState(null, '', target === 'overview' ? location.pathname + location.search : '#' + target);
+      }catch(_){
+        canUseHistory = false; // give up for the rest of the session
+      }
+    }
+
+    if(opts.scroll !== false){
+      // jump to the top of the content area, just below the sticky nav
+      try{ window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'}); }catch(_){}
+    }
+
+    // some charts measure container width on render — nudge them after layout settles
+    requestAnimationFrame(()=>{ window.dispatchEvent(new Event('resize')); });
+  }
+
+  // detect whether history.replaceState is usable in this context
+  let canUseHistory = true;
+  try{
+    // top-level docs allow this; sandboxed/srcdoc iframes throw
+    if(window.location.protocol === 'about:') canUseHistory = false;
+  }catch(_){ canUseHistory = false; }
+
+  tabs.forEach(t=>{
+    t.addEventListener('click', ()=> activate(t.dataset.target));
+  });
+
+  // expose for the topbar dropdown
+  window.__activateTab = activate;
+
+  // restore from URL hash on load (e.g. #generator) — only meaningful when we can read a real hash
+  let initial = '';
+  try{ initial = (location.hash || '').replace('#',''); }catch(_){}
+  if(initial && validTargets.includes(initial)){
+    activate(initial, {updateHash:false, scroll:false});
+  }
+
+  // back/forward navigation — only useful when hash sync works
+  if(canUseHistory){
+    window.addEventListener('hashchange', ()=>{
+      let t = 'overview';
+      try{ t = (location.hash || '').replace('#','') || 'overview'; }catch(_){}
+      activate(t, {updateHash:false, scroll:false});
+    });
+  }
+})();
+
+/* ═════════════ topbar nav dropdowns ═════════════ */
+(function(){
+  const items = document.querySelectorAll('.nav-item');
+  if(!items.length) return;
+
+  // Map: tab id → which top-level menu owns it (for highlighting)
+  const PRIVATE_MARKET_TABS = ['overview','mechanics','price','deal','match','spill','generator','consumer'];
+  function ownerMenuFor(tab){
+    if(PRIVATE_MARKET_TABS.includes(tab)) return 'pm';
+    if(tab === 'contact') return 'contact';
+    if(tab === 'home') return 'home';
+    if(tab === 'export') return 'export';
+    if(tab === 'import') return 'import';
+    return null;
+  }
+
+  // dropdown links → tab activation (Private Market sub-tabs)
+  document.querySelectorAll('.nav-dropdown a[data-target]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const t = a.dataset.target;
+      if(window.__activateTab) window.__activateTab(t);
+      items.forEach(i => i.classList.remove('open'));
+    });
+  });
+
+  // top-level link items (Contact, eventually Home) — fire activate directly
+  document.querySelectorAll('.nav-item-link[data-target]').forEach(item => {
+    item.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      const t = item.dataset.target;
+      if(window.__activateTab) window.__activateTab(t);
+      items.forEach(i => i.classList.remove('open'));
+    });
+  });
+
+  // sync the "active" highlight + dropdown "current" markers
+  function syncCurrent(){
+    // find the currently active tab by inspecting which section has tab-active
+    const activeSection = document.querySelector('[data-tab].tab-active');
+    const target = activeSection ? activeSection.dataset.tab : 'overview';
+
+    // dropdown current marker
+    document.querySelectorAll('.nav-dropdown a[data-target]').forEach(a =>
+      a.classList.toggle('current', a.dataset.target === target)
+    );
+    // top-level menu lit state
+    const owner = ownerMenuFor(target);
+    items.forEach(i => i.classList.toggle('active', i.dataset.menu === owner));
+
+    // section nav strip only relevant inside Private Market
+    const sectionNav = document.querySelector('.section-nav');
+    if(sectionNav){
+      sectionNav.style.display = (owner === 'pm') ? '' : 'none';
+    }
+  }
+  syncCurrent();
+  // observe both section tab class changes and tab-active class changes on section content
+  const navObserver = new MutationObserver(syncCurrent);
+  document.querySelectorAll('.section-tab').forEach(t =>
+    navObserver.observe(t, {attributes:true, attributeFilter:['class']})
+  );
+  document.querySelectorAll('[data-tab]').forEach(s =>
+    navObserver.observe(s, {attributes:true, attributeFilter:['class']})
+  );
+
+  // touch / click toggle for mobile (where :hover doesn't trigger reliably)
+  items.forEach(item => {
+    // skip simple link-style items — they navigate, no dropdown to toggle
+    if(item.classList.contains('nav-item-link')) return;
+    // click on the label itself toggles the dropdown — keeps hover for desktop
+    item.addEventListener('click', (ev) => {
+      // ignore clicks on dropdown links — they're handled above
+      if(ev.target.closest('.nav-dropdown a')) return;
+      ev.stopPropagation();
+      const wasOpen = item.classList.contains('open');
+      items.forEach(i => i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+    // keyboard support
+    item.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Enter' || ev.key === ' '){
+        ev.preventDefault();
+        item.click();
+      } else if(ev.key === 'Escape'){
+        item.classList.remove('open');
+        item.blur();
+      }
+    });
+  });
+
+  // keyboard support for link-style items too
+  document.querySelectorAll('.nav-item-link').forEach(item => {
+    item.addEventListener('keydown', (ev) => {
+      if(ev.key === 'Enter' || ev.key === ' '){
+        ev.preventDefault();
+        item.click();
+      }
+    });
+  });
+
+  // click anywhere outside closes any open menu
+  document.addEventListener('click', (ev) => {
+    if(!ev.target.closest('.nav-item')) {
+      items.forEach(i => i.classList.remove('open'));
+    }
+  });
+})();
 
 </script>
 </body>
