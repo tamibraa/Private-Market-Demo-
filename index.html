@@ -415,6 +415,151 @@
   .rego-cell{flex:1;border-radius:4px;transition:all .3s ease;position:relative}
   .rego-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-dim);display:flex;justify-content:space-between;text-transform:uppercase}
 
+  /* ─── Pure Export page ─────────────────────── */
+
+  /* §2 What we offer — fixed 3-col grid */
+  .ext-offer-grid{
+    margin-top:32px;display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  }
+  @media (max-width: 980px){.ext-offer-grid{grid-template-columns:repeat(2, minmax(0, 1fr))}}
+  @media (max-width: 540px){.ext-offer-grid{grid-template-columns:1fr}}
+  .ext-offer-card{background:var(--panel);padding:24px;display:flex;flex-direction:column;gap:8px}
+  .ext-offer-num{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;
+    color:var(--accent);text-transform:uppercase;margin-bottom:0;
+  }
+  .ext-offer-title{font-family:var(--serif);font-size:16px;color:var(--ink);font-weight:500;line-height:1.3}
+  .ext-offer-desc{font-family:var(--serif);font-size:13px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0}
+
+  /* §3 tier picker */
+  .ext-tier-wrap{margin-top:32px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:36px;}
+  .ext-tier-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:32px}
+  @media (max-width: 720px){.ext-tier-buttons{grid-template-columns:repeat(2,1fr);gap:6px}}
+  .ext-tier-btn{
+    padding:18px 12px;background:rgba(124,242,176,.04);
+    border:1px solid var(--line);border-radius:8px;cursor:pointer;
+    transition:all .18s ease;color:var(--ink-soft);text-align:center;
+    font-family:inherit;
+  }
+  .ext-tier-btn:hover{background:rgba(124,242,176,.08);border-color:var(--line)}
+  .ext-tier-btn.active{
+    background:rgba(124,242,176,.1);border-color:var(--accent);
+    box-shadow:inset 0 0 0 1px rgba(124,242,176,.4);
+  }
+  .ext-tier-pct{font-family:var(--serif);font-size:32px;color:var(--accent);font-weight:500;line-height:1;margin-bottom:6px}
+  .ext-tier-btn:not(.active) .ext-tier-pct{color:var(--ink-soft)}
+  .ext-tier-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+  .ext-tier-btn.active .ext-tier-lbl{color:var(--ink)}
+
+  /* visualisation bar */
+  .ext-tier-viz{margin-bottom:28px}
+  .ext-tier-bar{
+    display:flex;height:54px;border-radius:6px;overflow:hidden;
+    border:1px solid var(--line);transition:all .35s ease;
+  }
+  .ext-tier-bar-fixed,.ext-tier-bar-market{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    transition:flex .35s cubic-bezier(.4,0,.2,1), background .25s ease;
+    padding:0 14px;overflow:hidden;
+  }
+  .ext-tier-bar-fixed{background:rgba(124,242,176,.18);color:var(--accent)}
+  .ext-tier-bar-market{background:rgba(243,168,71,.18);color:var(--grid)}
+  .ext-tier-bar-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;white-space:nowrap}
+  .ext-tier-bar-value{font-family:var(--mono);font-size:14px;font-weight:600;margin-top:3px;font-variant-numeric:tabular-nums}
+  /* hide labels when bar segment is too narrow */
+  .ext-tier-bar-fixed[style*="flex: 0 "],
+  .ext-tier-bar-market[style*="flex: 0 "]{padding:0}
+  .ext-tier-axis{
+    display:flex;justify-content:space-between;margin-top:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-dim);
+  }
+  .ext-tier-axis-arrow{color:var(--accent);font-weight:600}
+
+  /* tier description block */
+  .ext-tier-desc{padding:24px;border:1px solid var(--line-soft);border-radius:8px;background:rgba(124,242,176,.025)}
+  .ext-tier-desc-head{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+  .ext-tier-desc-pct{font-family:var(--serif);font-size:24px;color:var(--accent);font-weight:500}
+  .ext-tier-desc-name{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+  .ext-tier-desc-body{font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;font-weight:300;margin:0}
+
+  /* §4 Diversified Pool */
+  .ext-pool-grid{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  @media (max-width:780px){.ext-pool-grid{grid-template-columns:1fr}}
+  .ext-pool-card{background:var(--panel);padding:32px}
+  .ext-pool-yes{background:linear-gradient(180deg, rgba(124,242,176,.06) 0%, var(--panel) 60%)}
+  .ext-pool-no{background:linear-gradient(180deg, rgba(243,168,71,.05) 0%, var(--panel) 60%)}
+  .ext-pool-tag{
+    font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+    margin-bottom:14px;display:inline-block;padding:5px 10px;border-radius:4px;border:1px solid;
+  }
+  .ext-pool-yes .ext-pool-tag{color:var(--accent);border-color:rgba(124,242,176,.4)}
+  .ext-pool-no .ext-pool-tag{color:var(--grid);border-color:rgba(243,168,71,.4)}
+  .ext-pool-title{
+    font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;
+    margin:0 0 24px;line-height:1.2;
+  }
+  .ext-pool-rows{display:flex;flex-direction:column;gap:18px}
+  .ext-pool-row{padding-bottom:16px;border-bottom:1px solid var(--line-soft)}
+  .ext-pool-row:last-child{border-bottom:none}
+  .ext-pool-row-k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+  .ext-pool-row-v{font-family:var(--serif);font-size:16px;color:var(--ink);font-weight:500;line-height:1.3}
+  .ext-pool-row-note{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-dim);margin-top:4px;line-height:1.5}
+  .ext-pool-num{color:var(--accent);font-family:var(--mono);font-weight:600}
+  .ext-pool-no .ext-pool-num{color:var(--grid)}
+
+  /* §6 Steps */
+  .ext-steps{margin-top:32px;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .ext-step{background:var(--panel);padding:24px 28px;display:flex;gap:24px;align-items:flex-start;transition:background .18s ease}
+  .ext-step:hover{background:#172332}
+  .ext-step-num{
+    flex-shrink:0;font-family:var(--serif);font-size:32px;color:var(--accent);font-weight:500;
+    line-height:1;width:48px;
+  }
+  .ext-step-body{flex:1;min-width:0}
+  .ext-step-title{font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;margin-bottom:8px;line-height:1.3}
+  .ext-step-desc{font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;font-weight:300;margin:0}
+
+  /* §6 CTA */
+  .ext-cta{
+    margin-top:48px;padding:40px 44px;
+    background:linear-gradient(135deg, rgba(124,242,176,.08) 0%, var(--panel) 100%);
+    border:1px solid var(--line);border-radius:14px;
+    display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:center;
+  }
+  @media (max-width: 780px){.ext-cta{grid-template-columns:1fr;padding:28px;gap:24px}}
+  .ext-cta-eyebrow{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:12px;
+  }
+  .ext-cta-headline{
+    font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;
+    line-height:1.3;margin:0 0 12px;
+  }
+  .ext-cta-headline em{color:var(--accent);font-style:italic}
+  .ext-cta-sub{
+    font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;
+    font-weight:300;margin:0;
+  }
+  .ext-cta-actions{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+  .ext-cta-btn-primary,.ext-cta-btn-secondary{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:14px 22px;border-radius:8px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    text-decoration:none;cursor:pointer;font-weight:500;
+    transition:all .18s ease;text-align:center;
+  }
+  .ext-cta-btn-primary{
+    background:var(--accent);color:#0a1118;border:1px solid var(--accent);
+  }
+  .ext-cta-btn-primary:hover{background:#9bf6c5;border-color:#9bf6c5}
+  .ext-cta-btn-secondary{
+    background:transparent;color:var(--ink-soft);border:1px solid var(--line);
+  }
+  .ext-cta-btn-secondary:hover{color:var(--ink);border-color:var(--ink-soft);background:rgba(255,255,255,.02)}
+
   /* ─── contact / growth team page ──────────────── */
   .gt-section{padding-top:48px}
   .gt-section .section-head{margin-bottom:20px}
@@ -592,7 +737,14 @@
         Export
         <span class="caret"></span>
         <div class="nav-dropdown">
-          <div class="nav-stub">Pure Export — the generator product. Page in progress; sub-navigation will appear here once published.</div>
+          <a href="#" data-target="export"><span>Overview</span><span class="nav-num">00</span></a>
+          <div class="nav-divider"></div>
+          <a href="#" data-target="export-market"><span>Old vs new market</span><span class="nav-num">§1</span></a>
+          <a href="#" data-target="export-offer"><span>What we offer</span><span class="nav-num">§2</span></a>
+          <a href="#" data-target="export-tiers"><span>Pricing tiers</span><span class="nav-num">§3</span></a>
+          <a href="#" data-target="export-pool"><span>Diversified pool</span><span class="nav-num">§4</span></a>
+          <a href="#" data-target="export-summary"><span>Package summary</span><span class="nav-num">§5</span></a>
+          <a href="#" data-target="export-next"><span>Next steps</span><span class="nav-num">§6</span></a>
         </div>
       </div>
       <div class="nav-item" data-menu="import" tabindex="0">
@@ -610,7 +762,7 @@
 </header>
 
 <!-- ════════════════ SECTION NAV ════════════════ -->
-<nav class="section-nav" aria-label="Section navigation">
+<nav class="section-nav" data-page="pm" aria-label="Section navigation">
   <div class="section-nav-inner" role="tablist">
     <button class="section-tab active" role="tab" data-target="overview"><span class="stab-num">00</span>Overview</button>
     <button class="section-tab" role="tab" data-target="mechanics"><span class="stab-num">§1</span>Mechanics</button>
@@ -620,6 +772,18 @@
     <button class="section-tab" role="tab" data-target="spill"><span class="stab-num">§5</span>Spill</button>
     <button class="section-tab" role="tab" data-target="generator"><span class="stab-num">§6</span>Generator</button>
     <button class="section-tab" role="tab" data-target="consumer"><span class="stab-num">§7</span>Consumer</button>
+  </div>
+</nav>
+
+<nav class="section-nav" data-page="export" aria-label="Export section navigation" style="display:none">
+  <div class="section-nav-inner" role="tablist">
+    <button class="section-tab" role="tab" data-target="export"><span class="stab-num">00</span>Overview</button>
+    <button class="section-tab" role="tab" data-target="export-market"><span class="stab-num">§1</span>Market</button>
+    <button class="section-tab" role="tab" data-target="export-offer"><span class="stab-num">§2</span>What we offer</button>
+    <button class="section-tab" role="tab" data-target="export-tiers"><span class="stab-num">§3</span>Pricing tiers</button>
+    <button class="section-tab" role="tab" data-target="export-pool"><span class="stab-num">§4</span>Diversified pool</button>
+    <button class="section-tab" role="tab" data-target="export-summary"><span class="stab-num">§5</span>Package summary</button>
+    <button class="section-tab" role="tab" data-target="export-next"><span class="stab-num">§6</span>Next steps</button>
   </div>
 </nav>
 
@@ -1413,6 +1577,461 @@
   </section>
 
   
+  <!-- ════════════════ EXPORT · §0 OVERVIEW ════════════════ -->
+  <section class="hero" data-tab="export" style="border-top:none;padding-top:88px">
+    <div class="section-head"><span class="section-num">Pure Export · for Generators</span></div>
+    <h1 class="display">A direct market<br/>for your <em>renewable</em> output.</h1>
+    <p class="hero-sub">UrbanChain's Pure Export product gives renewable generators an alternative to the wholesale market: sell directly to UC's pool of corporate consumers, choose how much you lock at a fixed price, and capture P442 rebates on assets under 5 MW. Improved upside, full traceability, guaranteed terms.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-k">Product</div><div class="meta-v">Pure Export</div></div>
+      <div class="meta-item"><div class="meta-k">Audience</div><div class="meta-v">Renewable generators</div></div>
+      <div class="meta-item"><div class="meta-k">Tier choice</div><div class="meta-v"><span class="num">0% · 66% · 80% · 100%</span><span style="color:var(--ink-dim);font-family:var(--mono);font-size:14px"> fixed</span></div></div>
+      <div class="meta-item"><div class="meta-k">P442 rebate</div><div class="meta-v">On assets <span class="num">&lt; 5 MW</span></div></div>
+    </div>
+
+    <!-- 3 value props -->
+    <div style="margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+      <div style="background:var(--panel);padding:28px 24px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">01 · Improved upside</div>
+        <div style="font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;line-height:1.3;margin-bottom:10px">More money in your pocket.</div>
+        <p style="font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0">Selling direct removes the wholesale margin a Power Company would otherwise extract. Combined with P442 access on small assets, that's a meaningful lift on every kWh exported.</p>
+      </div>
+      <div style="background:var(--panel);padding:28px 24px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">02 · Traceability</div>
+        <div style="font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;line-height:1.3;margin-bottom:10px">Choose where your energy goes.</div>
+        <p style="font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0">Half-hourly matching means we can show you exactly which consumers each unit of your generation served. Useful for ESG reporting, partner stories, and regional impact narratives.</p>
+      </div>
+      <div style="background:var(--panel);padding:28px 24px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;margin-bottom:12px">03 · Guaranteed price</div>
+        <div style="font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;line-height:1.3;margin-bottom:10px">Lock as much as you like.</div>
+        <p style="font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0">Choose 0%, 66%, 80% or 100% of your output to lock at a fixed price. The remainder rides at UC market rates — which historically track close to System Sell Price.</p>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:24px;padding:32px 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)">
+      <div>
+        <div style="font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500">3<span style="font-size:22px">rd</span></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase;margin-top:6px">Fastest growing tech in UK</div>
+      </div>
+      <div>
+        <div style="font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500">250<span style="font-size:22px">+</span></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase;margin-top:6px">Years senior leadership exp</div>
+      </div>
+      <div>
+        <div style="font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500">£20<span style="font-size:22px">M</span></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase;margin-top:6px">Funding & debt raised</div>
+      </div>
+      <div>
+        <div style="font-family:var(--serif);font-size:36px;color:var(--accent);font-weight:500">10<span style="font-size:22px">×</span></div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase;margin-top:6px">YoY growth, last 2 FYs</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ EXPORT · §1 OLD vs NEW MARKET ════════════════ -->
+  <section data-tab="export-market">
+    <div class="section-head"><span class="section-num">§1 · The market shift</span></div>
+    <h2 class="section-title">Out of <em>wholesale</em>. Into a direct market.</h2>
+    <p class="section-lede">The old energy market was built for big fossil-fuel plants moving energy long distances through the grid. UrbanChain rebuilds the connection — generator straight to consumer, with the wholesale aggregator removed.</p>
+
+    <!-- Old vs New diagram -->
+    <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden">
+
+      <!-- OLD MARKET -->
+      <div style="background:var(--panel);padding:32px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:18px">The old market</div>
+        <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+          <!-- generators -->
+          <g font-family="JetBrains Mono" font-size="9" fill="#7eb6ff">
+            <rect x="6" y="8" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="22" text-anchor="middle">Generator</text>
+            <rect x="6" y="38" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="52" text-anchor="middle">Generator</text>
+            <rect x="6" y="68" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="82" text-anchor="middle">Generator</text>
+          </g>
+          <!-- wholesale -->
+          <rect x="120" y="20" width="120" height="60" rx="6" fill="rgba(243,168,71,.1)" stroke="#f3a847" stroke-width="0.8"/>
+          <text x="180" y="44" text-anchor="middle" font-family="Inter Tight" font-size="11" fill="#f3a847" font-weight="500">Wholesale market</text>
+          <text x="180" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#f3a847" opacity="0.7">+ Power Company</text>
+          <!-- consumers -->
+          <g font-family="JetBrains Mono" font-size="9" fill="#e9efef">
+            <rect x="270" y="8" width="84" height="22" rx="4" fill="rgba(233,239,239,.06)" stroke="#23344a" stroke-width="0.7"/>
+            <text x="312" y="22" text-anchor="middle">Consumer</text>
+            <rect x="270" y="38" width="84" height="22" rx="4" fill="rgba(233,239,239,.06)" stroke="#23344a" stroke-width="0.7"/>
+            <text x="312" y="52" text-anchor="middle">Consumer</text>
+            <rect x="270" y="68" width="84" height="22" rx="4" fill="rgba(233,239,239,.06)" stroke="#23344a" stroke-width="0.7"/>
+            <text x="312" y="82" text-anchor="middle">Consumer</text>
+            <rect x="270" y="98" width="84" height="22" rx="4" fill="rgba(233,239,239,.06)" stroke="#23344a" stroke-width="0.7"/>
+            <text x="312" y="112" text-anchor="middle">Consumer</text>
+          </g>
+          <!-- gen → wholesale lines -->
+          <g stroke="#7eb6ff" stroke-width="0.7" opacity="0.55" fill="none">
+            <path d="M 90 19 L 120 38"/>
+            <path d="M 90 49 L 120 50"/>
+            <path d="M 90 79 L 120 62"/>
+          </g>
+          <!-- wholesale → consumers lines -->
+          <g stroke="#f3a847" stroke-width="0.7" opacity="0.55" fill="none">
+            <path d="M 240 38 L 270 19"/>
+            <path d="M 240 45 L 270 49"/>
+            <path d="M 240 60 L 270 79"/>
+            <path d="M 240 65 L 270 109"/>
+          </g>
+          <!-- pinch label -->
+          <text x="180" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6a7a8c" font-style="italic">aggregator pinch</text>
+          <!-- problems -->
+          <text x="6" y="160" font-family="JetBrains Mono" font-size="9" fill="#6a7a8c">— wholesale margin extracted</text>
+          <text x="6" y="178" font-family="JetBrains Mono" font-size="9" fill="#6a7a8c">— no traceability of where it went</text>
+          <text x="6" y="196" font-family="JetBrains Mono" font-size="9" fill="#6a7a8c">— losses across long-distance grid</text>
+          <text x="6" y="214" font-family="JetBrains Mono" font-size="9" fill="#6a7a8c">— rebates harder to claim</text>
+        </svg>
+      </div>
+
+      <!-- NEW MARKET -->
+      <div style="background:var(--panel);padding:32px">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;margin-bottom:18px">The UC market</div>
+        <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+          <!-- generators -->
+          <g font-family="JetBrains Mono" font-size="9" fill="#7eb6ff">
+            <rect x="6" y="8" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="22" text-anchor="middle">Generator</text>
+            <rect x="6" y="38" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="52" text-anchor="middle">Generator</text>
+            <rect x="6" y="68" width="84" height="22" rx="4" fill="rgba(126,182,255,.08)" stroke="#7eb6ff" stroke-width="0.7"/>
+            <text x="48" y="82" text-anchor="middle">Generator</text>
+          </g>
+          <!-- consumers -->
+          <g font-family="JetBrains Mono" font-size="9" fill="#e9efef">
+            <rect x="270" y="8" width="84" height="22" rx="4" fill="rgba(124,242,176,.08)" stroke="#7cf2b0" stroke-width="0.7"/>
+            <text x="312" y="22" text-anchor="middle">Consumer</text>
+            <rect x="270" y="38" width="84" height="22" rx="4" fill="rgba(124,242,176,.08)" stroke="#7cf2b0" stroke-width="0.7"/>
+            <text x="312" y="52" text-anchor="middle">Consumer</text>
+            <rect x="270" y="68" width="84" height="22" rx="4" fill="rgba(124,242,176,.08)" stroke="#7cf2b0" stroke-width="0.7"/>
+            <text x="312" y="82" text-anchor="middle">Consumer</text>
+            <rect x="270" y="98" width="84" height="22" rx="4" fill="rgba(124,242,176,.08)" stroke="#7cf2b0" stroke-width="0.7"/>
+            <text x="312" y="112" text-anchor="middle">Consumer</text>
+          </g>
+          <!-- direct lines -->
+          <g stroke="#7cf2b0" stroke-width="0.9" opacity="0.7" fill="none">
+            <path d="M 90 19 L 270 19"/>
+            <path d="M 90 22 L 270 49"/>
+            <path d="M 90 49 L 270 22"/>
+            <path d="M 90 49 L 270 80"/>
+            <path d="M 90 79 L 270 50"/>
+            <path d="M 90 79 L 270 109"/>
+          </g>
+          <!-- UC matching layer (subtle ribbon) -->
+          <rect x="120" y="125" width="120" height="22" rx="4" fill="rgba(124,242,176,.06)" stroke="#7cf2b0" stroke-width="0.7" stroke-dasharray="3 2"/>
+          <text x="180" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="8.5" fill="#7cf2b0">UC matching layer</text>
+          <!-- benefits -->
+          <text x="6" y="170" font-family="JetBrains Mono" font-size="9" fill="#7cf2b0">+ direct payment, no aggregator margin</text>
+          <text x="6" y="186" font-family="JetBrains Mono" font-size="9" fill="#7cf2b0">+ traceable half-hourly matches</text>
+          <text x="6" y="202" font-family="JetBrains Mono" font-size="9" fill="#7cf2b0">+ local matching reduces grid losses</text>
+          <text x="6" y="218" font-family="JetBrains Mono" font-size="9" fill="#7cf2b0">+ P442 captured automatically</text>
+        </svg>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;font-weight:300">
+      <em style="color:var(--accent);font-style:italic">The same kWh, sold differently.</em> In both models the electrons still flow over the public grid. What changes is the contract path: instead of a generator → wholesale → power company → consumer chain, the contract sits directly between you and the consumer, with UC providing the matching, settlement and rebate plumbing.
+    </p>
+  </section>
+
+  <!-- ════════════════ EXPORT · §2 WHAT WE OFFER ════════════════ -->
+  <section data-tab="export-offer">
+    <div class="section-head"><span class="section-num">§2 · What we offer</span></div>
+    <h2 class="section-title">Six things in <em>every</em> generator package.</h2>
+    <p class="section-lede">Whatever fixed-price tier you choose, these six elements are part of the deal. Tier-specific differences (rebate, matching cost, payment terms) sit on top.</p>
+
+    <div class="ext-offer-grid">
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">01</div>
+        <div class="ext-offer-title">Full account management</div>
+        <p class="ext-offer-desc">Dedicated account manager (volume-dependent). One point of contact across pricing, dispute resolution and ongoing portfolio review.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">02</div>
+        <div class="ext-offer-title">Guaranteed export prices</div>
+        <p class="ext-offer-desc">Whatever percentage you lock at fixed price is contractually guaranteed for the term — no day-ahead exposure on that portion.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">03</div>
+        <div class="ext-offer-title">Portfolio analysis & rebates</div>
+        <p class="ext-offer-desc">We analyse your asset stack and apply for any government rebates you're eligible for — most commonly P442 on assets under 5 MW.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">04</div>
+        <div class="ext-offer-title">Access to the UC market</div>
+        <p class="ext-offer-desc">Whatever portion you don't lock at fixed price is exposed to the UC matching layer — a pool of corporate consumers paying market rates for clean power.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">05</div>
+        <div class="ext-offer-title">Full energy traceability</div>
+        <p class="ext-offer-desc">Half-hourly matching means we know exactly which consumer received each kWh. Useful for ESG reports, partner stories and regional impact narratives.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">06</div>
+        <div class="ext-offer-title">Customisable packages</div>
+        <p class="ext-offer-desc">Reporting, account management, optional Diversified Pool — every line item is configurable. Tell us what you need and we'll build the contract around it.</p>
+      </div>
+    </div>
+
+    <!-- P442 callout -->
+    <div style="margin-top:32px;padding:24px 28px;border:1px solid rgba(124,242,176,.25);background:rgba(124,242,176,.04);border-radius:10px;display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+      <div style="flex-shrink:0;font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;padding:6px 10px;border:1px solid var(--accent);border-radius:4px">P442</div>
+      <div style="flex:1;min-width:240px">
+        <div style="font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:500;line-height:1.4;margin-bottom:6px">P442 rebates apply only to generation assets <em style="color:var(--accent);font-style:italic">under 5 MW</em>.</div>
+        <p style="font-family:var(--serif);font-size:13px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0">P442 is the Ofgem code that lets small-scale generators reclaim a share of distribution-network charges when their output is locally consumed. We claim it on your behalf, automatically, on every eligible kWh — no extra paperwork on your end.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ EXPORT · §3 PRICING TIERS ════════════════ -->
+  <section data-tab="export-tiers">
+    <div class="section-head"><span class="section-num">§3 · Pricing tiers</span></div>
+    <h2 class="section-title">Choose what % to <em>lock</em>.</h2>
+    <p class="section-lede">The single biggest decision a generator makes when joining UC: how much of your output do you want at a fixed contracted price, and how much do you want to ride the UC market? The less you lock, the higher your potential revenue — and the higher your risk. This picker shows the trade-off across the four standard tiers.</p>
+
+    <!-- Tier picker -->
+    <div class="ext-tier-wrap">
+      <!-- Tier buttons -->
+      <div class="ext-tier-buttons" role="tablist">
+        <button class="ext-tier-btn" data-tier="0">
+          <div class="ext-tier-pct">0%</div>
+          <div class="ext-tier-lbl">Maximise revenue</div>
+        </button>
+        <button class="ext-tier-btn" data-tier="66">
+          <div class="ext-tier-pct">66%</div>
+          <div class="ext-tier-lbl">Balanced</div>
+        </button>
+        <button class="ext-tier-btn active" data-tier="80">
+          <div class="ext-tier-pct">80%</div>
+          <div class="ext-tier-lbl">High security</div>
+        </button>
+        <button class="ext-tier-btn" data-tier="100">
+          <div class="ext-tier-pct">100%</div>
+          <div class="ext-tier-lbl">Maximum security</div>
+        </button>
+      </div>
+
+      <!-- Visualisation: stacked bar showing fixed vs UC market split -->
+      <div class="ext-tier-viz">
+        <div class="ext-tier-bar">
+          <div class="ext-tier-bar-fixed" id="ext-bar-fixed">
+            <span class="ext-tier-bar-label">Locked at fixed price</span>
+            <span class="ext-tier-bar-value" id="ext-bar-fixed-val">80%</span>
+          </div>
+          <div class="ext-tier-bar-market" id="ext-bar-market">
+            <span class="ext-tier-bar-label">Sold to UC market</span>
+            <span class="ext-tier-bar-value" id="ext-bar-market-val">20%</span>
+          </div>
+        </div>
+        <div class="ext-tier-axis">
+          <div class="ext-tier-axis-end" style="text-align:left">
+            <span class="ext-tier-axis-arrow">←</span> Lower revenue ceiling, lower risk
+          </div>
+          <div class="ext-tier-axis-end" style="text-align:right">
+            Higher revenue ceiling, higher risk <span class="ext-tier-axis-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tier description -->
+      <div class="ext-tier-desc">
+        <div class="ext-tier-desc-head">
+          <span class="ext-tier-desc-pct" id="ext-desc-pct">80%</span>
+          <span class="ext-tier-desc-name" id="ext-desc-name">High security</span>
+        </div>
+        <p class="ext-tier-desc-body" id="ext-desc-body">
+          The majority of your energy is locked at a fixed contracted price, with the remaining 20% sold at UC market rate (typically very close to System Sell Price). The 20% unit price can be slightly higher or lower than the contract — modest exposure for marginal upside.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-family:var(--serif);font-size:13px;color:var(--ink-dim);line-height:1.55;font-weight:300;font-style:italic">
+      Whichever package you choose, your energy will always be fully traceable. The matching engine settles every half-hour regardless of which tier you sit in.
+    </p>
+  </section>
+
+  <!-- ════════════════ EXPORT · §4 DIVERSIFIED POOL ════════════════ -->
+  <section data-tab="export-pool">
+    <div class="section-head"><span class="section-num">§4 · Diversified pool</span></div>
+    <h2 class="section-title">The <em>second</em> dial: assured terms.</h2>
+    <p class="section-lede">On top of the fixed-price tier choice, generators choose whether to sit inside or outside the Diversified Pool. The Pool is UrbanChain stepping in as guarantor — if the consumer matched to your output fails to pay their bill, UC pays you anyway. There's a fee for that protection.</p>
+
+    <div class="ext-pool-grid">
+      <div class="ext-pool-card ext-pool-yes">
+        <div class="ext-pool-tag">Diversified Pool · YES</div>
+        <h3 class="ext-pool-title">Assured terms</h3>
+        <div class="ext-pool-rows">
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Cost</div>
+            <div class="ext-pool-row-v">Up to <span class="ext-pool-num">0.65 p</span>/kWh</div>
+            <div class="ext-pool-row-note">Volume- and term-dependent</div>
+          </div>
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Counterparty risk</div>
+            <div class="ext-pool-row-v">UrbanChain pays in their place</div>
+            <div class="ext-pool-row-note">If your matched consumer defaults, UC settles instead</div>
+          </div>
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Payment timing</div>
+            <div class="ext-pool-row-v">Choose <span class="ext-pool-num">45</span> or <span class="ext-pool-num">120</span> days</div>
+            <div class="ext-pool-row-note">Fixed schedule from invoice</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ext-pool-card ext-pool-no">
+        <div class="ext-pool-tag">Diversified Pool · NO</div>
+        <h3 class="ext-pool-title">Pass-through terms</h3>
+        <div class="ext-pool-rows">
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Cost</div>
+            <div class="ext-pool-row-v"><span class="ext-pool-num">Free</span></div>
+            <div class="ext-pool-row-note">No additional fee</div>
+          </div>
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Counterparty risk</div>
+            <div class="ext-pool-row-v">You wear it</div>
+            <div class="ext-pool-row-note">If a matched consumer doesn't pay, you don't get paid for that volume</div>
+          </div>
+          <div class="ext-pool-row">
+            <div class="ext-pool-row-k">Payment timing</div>
+            <div class="ext-pool-row-v">Tracks your matched consumers</div>
+            <div class="ext-pool-row-note">Funds flow when consumers settle their bills</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-family:var(--serif);font-size:13px;color:var(--ink-soft);line-height:1.6;font-weight:300">
+      <em style="color:var(--accent);font-style:italic">Why two dials?</em> Some generators want certainty on price <em style="font-style:italic">and</em> certainty on cashflow — that's "100% fixed + Pool YES". Some want maximum revenue capture and don't mind chasing payments — that's "0% fixed + Pool NO". Most sit somewhere in between. Pick the combination that matches your treasury preference.
+    </p>
+  </section>
+
+  <!-- ════════════════ EXPORT · §5 PACKAGE SUMMARY ════════════════ -->
+  <section data-tab="export-summary">
+    <div class="section-head"><span class="section-num">§5 · Package summary</span></div>
+    <h2 class="section-title">The full <em>feature matrix</em>.</h2>
+    <p class="section-lede">Every feature, every tier, in one table. Anything not included by default at your chosen tier is available as an optional extra.</p>
+
+    <div class="table-wrap" style="margin-top:32px">
+      <table class="deal">
+        <thead>
+          <tr>
+            <th style="width:30%">Feature</th>
+            <th class="num">0% Fixed</th>
+            <th class="num">66% Fixed</th>
+            <th class="num">80% Fixed</th>
+            <th class="num">100% Fixed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="site">Dedicated account manager</td>
+            <td class="num" style="color:var(--ink-soft)">Vol. dependent</td>
+            <td class="num" style="color:var(--ink-soft)">Vol. dependent</td>
+            <td class="num" style="color:var(--ink-soft)">Vol. dependent</td>
+            <td class="num" style="color:var(--ink-soft)">Vol. dependent</td>
+          </tr>
+          <tr>
+            <td class="site">P442 rebate access</td>
+            <td class="num" style="color:var(--accent)">On assets &lt; 5 MW</td>
+            <td class="num" style="color:var(--accent)">On assets &lt; 5 MW</td>
+            <td class="num" style="color:var(--accent)">On assets &lt; 5 MW</td>
+            <td class="num" style="color:var(--accent)">On assets &lt; 5 MW</td>
+          </tr>
+          <tr>
+            <td class="site">Reconciliation</td>
+            <td class="num">Quarterly</td>
+            <td class="num">Quarterly</td>
+            <td class="num">Quarterly</td>
+            <td class="num">Quarterly</td>
+          </tr>
+          <tr>
+            <td class="site">Invoicing</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">2nd week, monthly</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">2nd week, monthly</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">2nd week, monthly</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">2nd week, monthly</td>
+          </tr>
+          <tr>
+            <td class="site">Platform price</td>
+            <td class="num"><span class="num">0.4 p</span>/kWh</td>
+            <td class="num"><span class="num">0.4 p</span>/kWh</td>
+            <td class="num"><span class="num">0.4 p</span>/kWh</td>
+            <td class="num"><span class="num">0.4 p</span>/kWh</td>
+          </tr>
+          <tr style="background:rgba(124,242,176,.03)">
+            <td class="site" style="color:var(--accent)">Diversified Pool fee</td>
+            <td class="num">Up to 0.65 p/kWh</td>
+            <td class="num">Up to 0.65 p/kWh</td>
+            <td class="num">Up to 0.65 p/kWh</td>
+            <td class="num">Up to 0.65 p/kWh</td>
+          </tr>
+          <tr>
+            <td class="site" style="color:var(--ink-dim);font-style:italic">Payment timeframes</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Pool: 45 / 120d · No-pool: matched</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Pool: 45 / 120d · No-pool: matched</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Pool: 45 / 120d · No-pool: matched</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Pool: 45 / 120d · No-pool: matched</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-dim);line-height:1.5">
+      Any features not included by default at your tier — for example deeper portfolio reporting at low volume — are available as optional extras. Talk to your account manager about scope.
+    </p>
+  </section>
+
+  <!-- ════════════════ EXPORT · §6 NEXT STEPS ════════════════ -->
+  <section data-tab="export-next">
+    <div class="section-head"><span class="section-num">§6 · Next steps</span></div>
+    <h2 class="section-title">From <em>conversation</em> to contract in three steps.</h2>
+    <p class="section-lede">Once you've chosen your tier and Pool preference, getting from initial chat to live contract typically takes a couple of weeks. Three things need to happen — in this order.</p>
+
+    <div class="ext-steps">
+      <div class="ext-step">
+        <div class="ext-step-num">01</div>
+        <div class="ext-step-body">
+          <div class="ext-step-title">Sign agreements</div>
+          <p class="ext-step-desc">Standard NDA so we can see your portfolio data. Where applicable, an LOA (Letter of Authority) so we can fetch readings from the data aggregator on your behalf. Signed digitally — usually same day.</p>
+        </div>
+      </div>
+      <div class="ext-step">
+        <div class="ext-step-num">02</div>
+        <div class="ext-step-body">
+          <div class="ext-step-title">Portfolio information form</div>
+          <p class="ext-step-desc">A short form covering your assets — capacity, location, technology, current offtake arrangements, any P442-eligible meter points. We use this to generate accurate revenue forecasts.</p>
+        </div>
+      </div>
+      <div class="ext-step">
+        <div class="ext-step-num">03</div>
+        <div class="ext-step-body">
+          <div class="ext-step-title">Forecast revenue & contract</div>
+          <p class="ext-step-desc">We come back with a forecast for your chosen tier, a draft contract, and a target start date. From here it's signature, KYC, and onboarding to the UC market.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA back to contact -->
+    <div class="ext-cta">
+      <div class="ext-cta-text">
+        <div class="ext-cta-eyebrow">Ready to talk?</div>
+        <h3 class="ext-cta-headline">The Origination team will <em>walk you through</em> a forecast.</h3>
+        <p class="ext-cta-sub">Tyler, Basim and Tam handle generator-side conversations. They'll model your portfolio against the tier options and show you what the revenue uplift looks like before you sign anything.</p>
+      </div>
+      <div class="ext-cta-actions">
+        <a href="mailto:sales@urbanchain.co.uk" class="ext-cta-btn-primary">sales@urbanchain.co.uk →</a>
+        <button class="ext-cta-btn-secondary" data-target-jump="contact">Meet the Growth team</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ════════════════ CONTACT · GROWTH TEAM ════════════════ -->
   <section data-tab="contact" class="gt-section">
     <div class="section-head"><span class="section-num">Contact · Growth Team</span></div>
@@ -2469,6 +3088,64 @@ function renderConsumerCost(){
 }
 renderConsumerCost();
 
+/* ═════════════ Pure Export · tier picker ═════════════ */
+(function(){
+  const buttons = document.querySelectorAll('.ext-tier-btn');
+  if(!buttons.length) return;
+
+  const tierData = {
+    '0':   {pct:0,   name:'Maximise revenue',  desc:"None of your output is locked at fixed price — every kWh is sold on the UC market at prevailing rates. Maximum upside potential, but with no minimum threshold. Suits generators with strong balance-sheet appetite for price exposure who want to capture market upside fully."},
+    '66':  {pct:66,  name:'Balanced',          desc:"Two-thirds of your output is locked at a fixed contracted price; the remaining third is exposed to UC market rates. The third tracks System Sell Price closely — it can land slightly above or below your fixed rate depending on the half-hour."},
+    '80':  {pct:80,  name:'High security',     desc:"The majority of your energy is locked at a fixed contracted price, with the remaining 20% sold at UC market rate (typically very close to System Sell Price). The 20% unit price can be slightly higher or lower than the contract — modest exposure for marginal upside."},
+    '100': {pct:100, name:'Maximum security',  desc:"All of your output is locked at a fixed contracted price for the full term. None is exposed to the UC market. Predictable cashflow, no upside surprise. Suits assets with debt covenants requiring revenue certainty."}
+  };
+
+  const barFixed = document.getElementById('ext-bar-fixed');
+  const barMarket = document.getElementById('ext-bar-market');
+  const valFixed = document.getElementById('ext-bar-fixed-val');
+  const valMarket = document.getElementById('ext-bar-market-val');
+  const descPct = document.getElementById('ext-desc-pct');
+  const descName = document.getElementById('ext-desc-name');
+  const descBody = document.getElementById('ext-desc-body');
+
+  function setTier(t){
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.tier === t));
+    const d = tierData[t];
+    if(!d) return;
+    // resize the bar segments using flex-grow
+    barFixed.style.flex  = `${d.pct} 1 0`;
+    barMarket.style.flex = `${100 - d.pct} 1 0`;
+    valFixed.textContent  = d.pct + '%';
+    valMarket.textContent = (100 - d.pct) + '%';
+    descPct.textContent  = d.pct + '%';
+    descName.textContent = d.name;
+    descBody.textContent = d.desc;
+    // hide labels when the segment is too narrow
+    const fixedWide  = d.pct >= 25;
+    const marketWide = (100 - d.pct) >= 25;
+    barFixed.style.opacity  = d.pct === 0 ? '0' : '1';
+    barMarket.style.opacity = d.pct === 100 ? '0' : '1';
+    if(barFixed.querySelector('.ext-tier-bar-label'))
+      barFixed.querySelector('.ext-tier-bar-label').style.display = fixedWide ? '' : 'none';
+    if(barMarket.querySelector('.ext-tier-bar-label'))
+      barMarket.querySelector('.ext-tier-bar-label').style.display = marketWide ? '' : 'none';
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => setTier(b.dataset.tier)));
+  // initial: 80% (already marked active in markup)
+  setTier('80');
+})();
+
+/* ═════════════ Export CTA → Contact jump ═════════════ */
+(function(){
+  document.querySelectorAll('[data-target-jump]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.targetJump;
+      if(window.__activateTab) window.__activateTab(t);
+    });
+  });
+})();
+
 /* ═════════════ reveal on scroll ═════════════ */
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
@@ -2560,12 +3237,14 @@ document.querySelectorAll('section').forEach(s=>{ s.classList.add('reveal'); io.
 
   // Map: tab id → which top-level menu owns it (for highlighting)
   const PRIVATE_MARKET_TABS = ['overview','mechanics','price','deal','match','spill','generator','consumer'];
+  const EXPORT_TABS = ['export','export-market','export-offer','export-tiers','export-pool','export-summary','export-next'];
   function ownerMenuFor(tab){
     if(PRIVATE_MARKET_TABS.includes(tab)) return 'pm';
+    if(EXPORT_TABS.includes(tab)) return 'export';
     if(tab === 'contact') return 'contact';
     if(tab === 'home') return 'home';
-    if(tab === 'export') return 'export';
     if(tab === 'import') return 'import';
+    if(tab === 'tpi') return 'tpi';
     return null;
   }
 
@@ -2603,11 +3282,15 @@ document.querySelectorAll('section').forEach(s=>{ s.classList.add('reveal'); io.
     const owner = ownerMenuFor(target);
     items.forEach(i => i.classList.toggle('active', i.dataset.menu === owner));
 
-    // section nav strip only relevant inside Private Market
-    const sectionNav = document.querySelector('.section-nav');
-    if(sectionNav){
-      sectionNav.style.display = (owner === 'pm') ? '' : 'none';
-    }
+    // section nav strip — show the strip whose data-page matches the current top-level menu
+    document.querySelectorAll('.section-nav').forEach(nav => {
+      const navOwner = nav.dataset.page;
+      nav.style.display = (navOwner === owner) ? '' : 'none';
+    });
+    // active section button within the visible strip
+    document.querySelectorAll('.section-nav .section-tab').forEach(tab => {
+      tab.classList.toggle('active', tab.dataset.target === target);
+    });
   }
   syncCurrent();
   // observe both section tab class changes and tab-active class changes on section content
