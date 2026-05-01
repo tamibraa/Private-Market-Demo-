@@ -705,6 +705,278 @@
   }
   .ext-cta-btn-secondary:hover{color:var(--ink);border-color:var(--ink-soft);background:rgba(255,255,255,.02)}
 
+  /* ─── Pure Import page ─────────────────────── */
+
+  /* §0 headline savings strip */
+  .imp-headline{
+    margin-top:36px;display:flex;align-items:stretch;gap:0;
+    padding:32px 36px;border:1px solid var(--line);border-radius:14px;
+    background:linear-gradient(135deg, rgba(124,242,176,.06) 0%, var(--panel) 100%);
+    flex-wrap:wrap;
+  }
+  .imp-headline-stat{flex:1;min-width:160px;padding:0 24px;text-align:center}
+  .imp-headline-stat:first-child{padding-left:0}
+  .imp-headline-stat:last-child{padding-right:0}
+  .imp-headline-num{
+    font-family:var(--serif);font-size:40px;color:var(--accent);font-weight:500;
+    line-height:1;
+  }
+  .imp-headline-lbl{
+    font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:10px;line-height:1.4;
+  }
+  .imp-headline-divider{
+    width:1px;background:var(--line);margin:8px 0;
+  }
+  @media (max-width:780px){
+    .imp-headline{padding:24px}
+    .imp-headline-stat{padding:14px 0;flex:0 0 100%}
+    .imp-headline-divider{width:auto;height:1px;margin:0}
+  }
+
+  /* §3 cross-link to private market */
+  .imp-cross-link{
+    margin-top:32px;padding:24px 28px;
+    border:1px solid var(--line-soft);border-radius:10px;
+    background:rgba(124,242,176,.03);
+    display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+  }
+  .imp-cross-link-text{
+    flex:1;min-width:240px;
+    font-family:var(--serif);font-size:14px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;
+  }
+  .imp-cross-link-text em{color:var(--accent);font-style:italic}
+  .imp-cross-link-btn{
+    background:transparent;color:var(--accent);
+    border:1px solid var(--accent);padding:11px 18px;border-radius:6px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    cursor:pointer;transition:all .18s ease;font-weight:500;flex-shrink:0;
+  }
+  .imp-cross-link-btn:hover{background:var(--accent);color:#0a1118}
+
+  /* §4 onboarding — vertical numbered flow */
+  .imp-onboard-flow{
+    margin-top:32px;display:flex;flex-direction:column;gap:0;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:36px;
+  }
+  .imp-onboard-step{display:flex;gap:24px;align-items:flex-start}
+  .imp-onboard-num{
+    flex-shrink:0;font-family:var(--serif);font-size:30px;color:var(--accent);
+    line-height:1;font-weight:500;width:48px;
+  }
+  .imp-onboard-body{flex:1;min-width:0;padding-top:4px}
+  .imp-onboard-title{
+    font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;
+    margin-bottom:6px;line-height:1.3;
+  }
+  .imp-onboard-desc{
+    font-family:var(--serif);font-size:14px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0;
+  }
+  .imp-onboard-conn{
+    width:2px;height:24px;background:linear-gradient(180deg, rgba(124,242,176,.4) 0%, var(--line) 100%);
+    margin-left:23px;margin-top:8px;margin-bottom:8px;
+  }
+
+  /* ─── TPI page ──────────────────────────────── */
+
+  /* §0 problem callout */
+  .tpi-problem{
+    margin-top:48px;border:1px solid var(--line);border-radius:14px;
+    background:var(--panel);overflow:hidden;
+  }
+  .tpi-problem-head{
+    padding:14px 24px;background:rgba(243,168,71,.06);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .tpi-problem-tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--grid);
+  }
+  .tpi-problem-body{
+    padding:32px 36px;display:grid;
+    grid-template-columns:repeat(3, minmax(0,1fr)) 2fr;gap:36px;align-items:center;
+  }
+  @media (max-width:1100px){.tpi-problem-body{grid-template-columns:repeat(3, minmax(0,1fr));gap:28px}.tpi-problem-text{grid-column:1 / -1}}
+  @media (max-width:680px){.tpi-problem-body{grid-template-columns:1fr;gap:24px}.tpi-problem-text{grid-column:auto}}
+  .tpi-problem-stat{}
+  .tpi-problem-num{
+    font-family:var(--serif);font-size:34px;color:var(--grid);font-weight:500;line-height:1;
+  }
+  .tpi-problem-lbl{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:10px;line-height:1.4;
+  }
+  .tpi-problem-text{padding-left:24px;border-left:1px solid var(--line-soft)}
+  @media (max-width:1100px){.tpi-problem-text{padding-left:0;border-left:none;padding-top:24px;border-top:1px solid var(--line-soft)}}
+  .tpi-problem-text p{
+    margin:0;font-family:var(--serif);font-size:14px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;
+  }
+  .tpi-problem-text em{color:var(--accent);font-style:italic;font-weight:400}
+
+  /* §1 three pillars */
+  .tpi-pillars{
+    margin-top:32px;display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  }
+  @media (max-width:1100px){.tpi-pillars{grid-template-columns:1fr}}
+  .tpi-pillar{
+    background:var(--panel);padding:32px 28px;display:flex;flex-direction:column;gap:14px;
+    position:relative;
+  }
+  .tpi-pillar::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:var(--accent);
+  }
+  .tpi-pillar-export::before{background:#7eb6ff}
+  .tpi-pillar-pm::before{background:var(--grid)}
+  .tpi-pillar-tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .tpi-pillar-export .tpi-pillar-tag{color:#7eb6ff}
+  .tpi-pillar-pm     .tpi-pillar-tag{color:var(--grid)}
+  .tpi-pillar-title{
+    font-family:var(--serif);font-size:20px;color:var(--ink);font-weight:500;
+    margin:0;line-height:1.25;
+  }
+  .tpi-pillar-title em{color:var(--accent);font-style:italic}
+  .tpi-pillar-export .tpi-pillar-title em{color:#7eb6ff}
+  .tpi-pillar-pm     .tpi-pillar-title em{color:var(--grid)}
+  .tpi-pillar-desc{
+    font-family:var(--serif);font-size:13.5px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0;
+  }
+  .tpi-pillar-list{
+    list-style:none;padding:0;margin:6px 0 0;display:flex;flex-direction:column;gap:8px;
+  }
+  .tpi-pillar-list li{
+    font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+    line-height:1.5;font-weight:300;padding-left:14px;position:relative;
+  }
+  .tpi-pillar-list li::before{
+    content:"+";position:absolute;left:0;color:var(--accent);font-weight:600;
+  }
+  .tpi-pillar-export .tpi-pillar-list li::before{color:#7eb6ff}
+  .tpi-pillar-pm     .tpi-pillar-list li::before{color:var(--grid)}
+  .tpi-pillar-cta{
+    margin-top:auto;background:transparent;border:1px solid var(--line);
+    padding:11px 16px;border-radius:6px;cursor:pointer;
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-soft);display:flex;align-items:center;justify-content:space-between;
+    gap:8px;font-weight:500;transition:all .18s ease;
+  }
+  .tpi-pillar-cta:hover{color:var(--ink);border-color:var(--ink-soft);background:rgba(255,255,255,.02)}
+  .tpi-pillar-cta .gt-arrow{transition:transform .15s ease;display:inline-block}
+  .tpi-pillar-cta:hover .gt-arrow{transform:translateX(3px)}
+
+  /* §2 partner benefits — 5 cards in flexible grid */
+  .tpi-benefits{
+    margin-top:32px;display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  }
+  @media (max-width:1100px){.tpi-benefits{grid-template-columns:repeat(2, minmax(0,1fr))}}
+  @media (max-width:640px){.tpi-benefits{grid-template-columns:1fr}}
+  .tpi-benefit{background:var(--panel);padding:26px 24px;display:flex;flex-direction:column;gap:10px;transition:background .18s ease}
+  .tpi-benefit:hover{background:#172332}
+  .tpi-benefit-num{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--accent);
+    text-transform:uppercase;
+  }
+  .tpi-benefit-title{
+    font-family:var(--serif);font-size:17px;color:var(--ink);font-weight:500;
+    margin:0;line-height:1.3;
+  }
+  .tpi-benefit-desc{
+    font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0;
+  }
+
+  /* §3 quote workflow — horizontal flow */
+  .tpi-workflow{
+    margin-top:32px;display:flex;align-items:stretch;gap:0;flex-wrap:nowrap;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:28px;overflow-x:auto;
+  }
+  @media (max-width:1100px){.tpi-workflow{flex-wrap:wrap}}
+  .tpi-wf-step{
+    flex:1;min-width:180px;display:flex;flex-direction:column;gap:8px;
+    padding:14px;border:1px solid var(--line-soft);border-radius:8px;
+    background:rgba(124,242,176,.025);
+  }
+  .tpi-wf-num{font-family:var(--serif);font-size:24px;color:var(--accent);font-weight:500;line-height:1}
+  .tpi-wf-tag{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .tpi-wf-title{
+    font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:500;
+    line-height:1.3;
+  }
+  .tpi-wf-desc{
+    font-family:var(--serif);font-size:12px;color:var(--ink-soft);
+    line-height:1.55;font-weight:300;margin:0;
+  }
+  .tpi-wf-arrow{
+    flex-shrink:0;display:flex;align-items:center;color:var(--accent);
+    font-family:var(--mono);font-size:18px;padding:0 8px;font-weight:600;
+  }
+  @media (max-width:1100px){.tpi-wf-arrow{transform:rotate(90deg);padding:8px 0;width:100%;justify-content:center}}
+  .tpi-wf-note{
+    margin-top:24px;padding:18px 22px;border:1px solid var(--line-soft);border-radius:8px;
+    font-family:var(--serif);font-size:13px;color:var(--ink-soft);line-height:1.6;
+    font-weight:300;background:rgba(124,242,176,.02);
+  }
+  .tpi-wf-note strong{color:var(--accent);font-weight:500}
+
+  /* §4 partner stories */
+  .tpi-story{
+    margin-top:32px;background:var(--panel);border:1px solid var(--line);
+    border-radius:14px;overflow:hidden;
+  }
+  .tpi-story-tag{
+    padding:14px 28px;background:rgba(124,242,176,.06);
+    border-bottom:1px solid var(--line-soft);
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .tpi-story-grid{
+    padding:32px 36px;display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:center;
+  }
+  @media (max-width:980px){.tpi-story-grid{grid-template-columns:1fr;gap:28px}}
+  .tpi-story-narrative{}
+  .tpi-story-title{
+    font-family:var(--serif);font-size:22px;color:var(--ink);font-weight:500;
+    line-height:1.25;margin:0 0 16px;
+  }
+  .tpi-story-body{
+    font-family:var(--serif);font-size:14px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0 0 12px;
+  }
+  .tpi-story-body:last-child{margin-bottom:0}
+  .tpi-story-stats{
+    display:flex;flex-direction:column;gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  }
+  .tpi-story-stat{
+    background:rgba(124,242,176,.03);padding:18px 22px;
+  }
+  .tpi-story-stat-num{
+    font-family:var(--serif);font-size:30px;color:var(--accent);font-weight:500;
+    line-height:1;
+  }
+  .tpi-story-stat-unit{
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink);
+    text-transform:uppercase;margin-top:4px;
+  }
+  .tpi-story-stat-lbl{
+    font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:6px;
+  }
+
   /* ─── contact / growth team page ──────────────── */
   .gt-section{padding-top:48px}
   .gt-section .section-head{margin-bottom:20px}
@@ -860,7 +1132,6 @@
   <div class="topbar-inner">
     <div class="brand">
       <img class="brand-mark" src="data:image/png;base64,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" alt="UrbanChain" />
-      <span style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)">eChain</span>
     </div>
     <div class="topbar-right">
       <div class="nav-item nav-item-link" data-menu="home" tabindex="0" data-target="home">
@@ -870,34 +1141,51 @@
         Export
         <span class="caret"></span>
         <div class="nav-dropdown">
-          <a href="#" data-target="export"><span>Overview</span><span class="nav-num">00</span></a>
+          <a href="#" data-target="export"><span>Overview</span></a>
           <div class="nav-divider"></div>
-          <a href="#" data-target="export-offer"><span>What we offer</span><span class="nav-num">§1</span></a>
-          <a href="#" data-target="export-tiers"><span>Pricing tiers</span><span class="nav-num">§2</span></a>
-          <a href="#" data-target="export-pool"><span>Diversified pool</span><span class="nav-num">§3</span></a>
-          <a href="#" data-target="export-summary"><span>Package summary</span><span class="nav-num">§4</span></a>
+          <a href="#" data-target="export-offer"><span>What we offer</span></a>
+          <a href="#" data-target="export-tiers"><span>Pricing tiers</span></a>
+          <a href="#" data-target="export-pool"><span>Diversified pool</span></a>
+          <a href="#" data-target="export-summary"><span>Package summary</span></a>
         </div>
       </div>
       <div class="nav-item" data-menu="import" tabindex="0">
         Import
         <span class="caret"></span>
         <div class="nav-dropdown">
-          <div class="nav-stub">Pure Import — the consumer product. Page in progress; sub-navigation will appear here once published.</div>
+          <a href="#" data-target="import"><span>Overview</span></a>
+          <div class="nav-divider"></div>
+          <a href="#" data-target="import-offer"><span>What we offer</span></a>
+          <a href="#" data-target="import-tiers"><span>Pricing tiers</span></a>
+          <a href="#" data-target="import-summary"><span>Package summary</span></a>
+          <a href="#" data-target="import-onboarding"><span>Onboarding</span></a>
         </div>
       </div>
       <div class="nav-item" data-menu="pm" tabindex="0">
         Private Market
         <span class="caret"></span>
         <div class="nav-dropdown">
-          <a href="#" data-target="overview"><span>Overview</span><span class="nav-num">00</span></a>
+          <a href="#" data-target="overview"><span>Overview</span></a>
           <div class="nav-divider"></div>
-          <a href="#" data-target="mechanics"><span>Mechanics</span><span class="nav-num">§1</span></a>
-          <a href="#" data-target="price"><span>Price construction</span><span class="nav-num">§2</span></a>
-          <a href="#" data-target="deal"><span>Deal anatomy</span><span class="nav-num">§3</span></a>
-          <a href="#" data-target="match"><span>The match</span><span class="nav-num">§4</span></a>
-          <a href="#" data-target="spill"><span>Spill mechanics</span><span class="nav-num">§5</span></a>
-          <a href="#" data-target="generator"><span>Generator stack</span><span class="nav-num">§6</span></a>
-          <a href="#" data-target="consumer"><span>Consumer cost</span><span class="nav-num">§7</span></a>
+          <a href="#" data-target="mechanics"><span>Mechanics</span></a>
+          <a href="#" data-target="price"><span>Price construction</span></a>
+          <a href="#" data-target="deal"><span>Deal anatomy</span></a>
+          <a href="#" data-target="match"><span>The match</span></a>
+          <a href="#" data-target="spill"><span>Spill mechanics</span></a>
+          <a href="#" data-target="generator"><span>Generator stack</span></a>
+          <a href="#" data-target="consumer"><span>Consumer cost</span></a>
+        </div>
+      </div>
+      <div class="nav-item" data-menu="tpi" tabindex="0">
+        TPI
+        <span class="caret"></span>
+        <div class="nav-dropdown">
+          <a href="#" data-target="tpi"><span>Overview</span></a>
+          <div class="nav-divider"></div>
+          <a href="#" data-target="tpi-pillars"><span>Three pillars</span></a>
+          <a href="#" data-target="tpi-benefits"><span>Partner benefits</span></a>
+          <a href="#" data-target="tpi-workflow"><span>Quote workflow</span></a>
+          <a href="#" data-target="tpi-stories"><span>Partner stories</span></a>
         </div>
       </div>
       <div class="nav-item nav-item-link" data-menu="contact" tabindex="0" data-target="contact">
@@ -910,24 +1198,44 @@
 <!-- ════════════════ SECTION NAV ════════════════ -->
 <nav class="section-nav" data-page="pm" aria-label="Section navigation">
   <div class="section-nav-inner" role="tablist">
-    <button class="section-tab active" role="tab" data-target="overview"><span class="stab-num">00</span>Overview</button>
-    <button class="section-tab" role="tab" data-target="mechanics"><span class="stab-num">§1</span>Mechanics</button>
-    <button class="section-tab" role="tab" data-target="price"><span class="stab-num">§2</span>Price</button>
-    <button class="section-tab" role="tab" data-target="deal"><span class="stab-num">§3</span>Deal</button>
-    <button class="section-tab" role="tab" data-target="match"><span class="stab-num">§4</span>Match</button>
-    <button class="section-tab" role="tab" data-target="spill"><span class="stab-num">§5</span>Spill</button>
-    <button class="section-tab" role="tab" data-target="generator"><span class="stab-num">§6</span>Generator</button>
-    <button class="section-tab" role="tab" data-target="consumer"><span class="stab-num">§7</span>Consumer</button>
+    <button class="section-tab active" role="tab" data-target="overview">Overview</button>
+    <button class="section-tab" role="tab" data-target="mechanics">Mechanics</button>
+    <button class="section-tab" role="tab" data-target="price">Price</button>
+    <button class="section-tab" role="tab" data-target="deal">Deal</button>
+    <button class="section-tab" role="tab" data-target="match">Match</button>
+    <button class="section-tab" role="tab" data-target="spill">Spill</button>
+    <button class="section-tab" role="tab" data-target="generator">Generator</button>
+    <button class="section-tab" role="tab" data-target="consumer">Consumer</button>
   </div>
 </nav>
 
 <nav class="section-nav" data-page="export" aria-label="Export section navigation" style="display:none">
   <div class="section-nav-inner" role="tablist">
-    <button class="section-tab" role="tab" data-target="export"><span class="stab-num">00</span>Overview</button>
-    <button class="section-tab" role="tab" data-target="export-offer"><span class="stab-num">§1</span>What we offer</button>
-    <button class="section-tab" role="tab" data-target="export-tiers"><span class="stab-num">§2</span>Pricing tiers</button>
-    <button class="section-tab" role="tab" data-target="export-pool"><span class="stab-num">§3</span>Diversified pool</button>
-    <button class="section-tab" role="tab" data-target="export-summary"><span class="stab-num">§4</span>Package summary</button>
+    <button class="section-tab" role="tab" data-target="export">Overview</button>
+    <button class="section-tab" role="tab" data-target="export-offer">What we offer</button>
+    <button class="section-tab" role="tab" data-target="export-tiers">Pricing tiers</button>
+    <button class="section-tab" role="tab" data-target="export-pool">Diversified pool</button>
+    <button class="section-tab" role="tab" data-target="export-summary">Package summary</button>
+  </div>
+</nav>
+
+<nav class="section-nav" data-page="import" aria-label="Import section navigation" style="display:none">
+  <div class="section-nav-inner" role="tablist">
+    <button class="section-tab" role="tab" data-target="import">Overview</button>
+    <button class="section-tab" role="tab" data-target="import-offer">What we offer</button>
+    <button class="section-tab" role="tab" data-target="import-tiers">Pricing tiers</button>
+    <button class="section-tab" role="tab" data-target="import-summary">Package summary</button>
+    <button class="section-tab" role="tab" data-target="import-onboarding">Onboarding</button>
+  </div>
+</nav>
+
+<nav class="section-nav" data-page="tpi" aria-label="TPI section navigation" style="display:none">
+  <div class="section-nav-inner" role="tablist">
+    <button class="section-tab" role="tab" data-target="tpi">Overview</button>
+    <button class="section-tab" role="tab" data-target="tpi-pillars">Three pillars</button>
+    <button class="section-tab" role="tab" data-target="tpi-benefits">Partner benefits</button>
+    <button class="section-tab" role="tab" data-target="tpi-workflow">Quote workflow</button>
+    <button class="section-tab" role="tab" data-target="tpi-stories">Partner stories</button>
   </div>
 </nav>
 
@@ -935,7 +1243,7 @@
 
   <!-- ════════════════ HOME ════════════════ -->
   <section class="hero tab-active" data-tab="home" style="border-top:none;padding-top:88px">
-    <div class="section-head"><span class="section-num">UrbanChain · 00</span></div>
+    <div class="section-head"><span class="section-num">UrbanChain</span></div>
     <h1 class="display">A new energy market<br/>for <em>renewable</em> trade.</h1>
     <p class="hero-sub">UrbanChain is a licensed energy supplier and operating system that lets renewable generators sell directly to corporate consumers — with full traceability, half-hourly matching, and long-term price stability. We replace the wholesale aggregator with a transparent peer-to-peer market.</p>
 
@@ -1115,7 +1423,7 @@
   <!-- ════════════════ §1 · MECHANICS ════════════════ -->
   <section data-tab="mechanics">
     <div class="section-head">
-      <span class="section-num">§1 · Mechanics</span>
+      <span class="section-num">Mechanics</span>
     </div>
     <h2 class="section-title">How the <em>private market</em> moves an electron.</h2>
     <p class="section-lede">Every half-hour, the platform attempts to match each kWh of consumption with a kWh of generation from a nominated asset. What's matched flows through the private market at a fixed rate. What isn't gets backstopped — by the grid for shortfalls, by the spill curve for surpluses.</p>
@@ -1302,7 +1610,7 @@
 
   <!-- ════════════════ §2 · PRICE BUILD-UP ════════════════ -->
   <section data-tab="price">
-    <div class="section-head"><span class="section-num">§2 · Price construction</span></div>
+    <div class="section-head"><span class="section-num">Price construction</span></div>
     <h2 class="section-title">A price <em>built</em> from its parts.</h2>
     <p class="section-lede">The private market import rate is the sum of two things: the generator-set PM rate, and the non-commodity charges (the regulated pass-through floor — network costs, levies, balancing, distribution). Pick a site to see how it stacks up against the equivalent grid price.</p>
 
@@ -1368,7 +1676,7 @@
 
   <!-- ════════════════ §3 · DEAL TABLE ════════════════ -->
   <section data-tab="deal">
-    <div class="section-head"><span class="section-num">§3 · Deal anatomy</span></div>
+    <div class="section-head"><span class="section-num">Deal anatomy</span></div>
     <h2 class="section-title">The full <em>contract</em> ledger.</h2>
     <p class="section-lede">Six demand sites on the import side, three generation assets on the export side. The numbers below are the lifted figures from the 27 January 2026 quote — rate and forecast volume per site, per year.</p>
 
@@ -1420,7 +1728,7 @@
 
   <!-- ════════════════ §4 · MATCHING ════════════════ -->
   <section data-tab="match">
-    <div class="section-head"><span class="section-num">§4 · The match</span></div>
+    <div class="section-head"><span class="section-num">The match</span></div>
     <h2 class="section-title">Generation <em>meets</em> consumption.</h2>
     <p class="section-lede">Across the year-one forecast, the private market matches <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of generation against <span style="color:var(--accent);font-family:var(--mono)">1.55 GWh</span> of consumption — exactly. The remaining <span style="color:var(--accent);font-family:var(--mono)">1.47 GWh</span> of demand isn't a fallback to brown grid power: UrbanChain re-matches it within the ecosystem against another UC generator with available spillage — the consumer pays the published grid rate, but the green claim survives.</p>
 
@@ -1630,7 +1938,7 @@
 
   <!-- ════════════════ §5 · SPILL TIERS ════════════════ -->
   <section data-tab="spill">
-    <div class="section-head"><span class="section-num">§5 · Spill mechanics</span></div>
+    <div class="section-head"><span class="section-num">Spill mechanics</span></div>
     <h2 class="section-title">When generation <em>exceeds</em> demand.</h2>
     <p class="section-lede">Generators don't always find a private market match. The 2.19 GWh of unmatched output gets routed through a UC Spill product the generator chooses up front — each tier is a <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">guaranteed</em> percentage of that volume that will be paid at the tier rate. Anything UrbanChain matches to other consumers <em style="color:var(--ink);font-style:italic">above</em> that floor is also paid at the tier rate. Anything still unmatched after that flows to System Sell Price.</p>
 
@@ -1702,7 +2010,7 @@
 
   <!-- ════════════════ §6 · GENERATOR STACK ════════════════ -->
   <section data-tab="generator">
-    <div class="section-head"><span class="section-num">§6 · Generator economics</span></div>
+    <div class="section-head"><span class="section-num">Generator economics</span></div>
     <h2 class="section-title">What the <em>generator</em> earns, all-in.</h2>
     <p class="section-lede">The headline 8.0p PM rate is only part of the story. UrbanChain offers two further revenue layers that sit on top: a REGO purchase at the prevailing market rate (currently <span style="color:var(--accent);font-family:var(--mono)">~0.1p/kWh</span>, but tradable and rate-dependent) across all generated volume — a standing offer not taken in this quote — and a revenue share on the P442 license-exempt supply benefit, applied to <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">all volume matched in the UC ecosystem</em> (PM matched plus spill that gets re-matched). The full P442 cost stack is around <span style="color:var(--accent);font-family:var(--mono)">6.19p/kWh</span>; for this contract we offered the generator <span style="color:var(--accent);font-family:var(--mono)">30%</span> of the components they qualified for — earning them roughly <span style="color:var(--accent);font-family:var(--mono)">1.4–1.8p/kWh</span> on eligible volume.</p>
 
@@ -1835,7 +2143,7 @@
 
   <!-- ════════════════ §7 · CONSUMER COST ════════════════ -->
   <section data-tab="consumer">
-    <div class="section-head"><span class="section-num">§7 · Consumer cost</span></div>
+    <div class="section-head"><span class="section-num">Consumer cost</span></div>
     <h2 class="section-title">What the <em>consumer</em> pays, all-in.</h2>
     <p class="section-lede">The other side of the ledger. Each demand site pays the private market rate on its matched volume, the grid rate on its re-matched volume, and a standing charge that's heavily TNUoS-driven on these HH-metered sites. Across all six sites for year one, that comes to <span style="color:var(--accent);font-family:var(--mono)">£882k</span> — within <span style="color:var(--accent);font-family:var(--mono)">0.47%</span> of a pure grid-only contract, with the standing charge alone accounting for roughly <span style="color:var(--accent);font-family:var(--mono)">36%</span> of the total bill before a single kWh is consumed.</p>
 
@@ -1924,7 +2232,7 @@
 
   <!-- ════════════════ EXPORT · §2 WHAT WE OFFER ════════════════ -->
   <section data-tab="export-offer">
-    <div class="section-head"><span class="section-num">§1 · What we offer</span></div>
+    <div class="section-head"><span class="section-num">What we offer</span></div>
     <h2 class="section-title">Six things in <em>every</em> generator package.</h2>
     <p class="section-lede">Whatever fixed-price tier you choose, these six elements are part of the deal. Tier-specific differences (rebate, matching cost, payment terms) sit on top.</p>
 
@@ -1973,7 +2281,7 @@
 
   <!-- ════════════════ EXPORT · §3 PRICING TIERS ════════════════ -->
   <section data-tab="export-tiers">
-    <div class="section-head"><span class="section-num">§2 · Pricing tiers</span></div>
+    <div class="section-head"><span class="section-num">Pricing tiers</span></div>
     <h2 class="section-title">Choose what % to <em>lock</em>.</h2>
     <p class="section-lede">The single biggest decision a generator makes when joining UC: how much of your output do you want at a fixed contracted price, and how much do you want to ride the UC market? The less you lock, the higher your potential revenue — and the higher your risk. This picker shows the trade-off across the four standard tiers.</p>
 
@@ -2113,7 +2421,7 @@
 
   <!-- ════════════════ EXPORT · §4 DIVERSIFIED POOL ════════════════ -->
   <section data-tab="export-pool">
-    <div class="section-head"><span class="section-num">§3 · Diversified pool</span></div>
+    <div class="section-head"><span class="section-num">Diversified pool</span></div>
     <h2 class="section-title">The <em>second</em> dial: assured terms.</h2>
     <p class="section-lede">On top of the fixed-price tier choice, generators choose whether to sit inside or outside the Diversified Pool. The Pool is UrbanChain stepping in as guarantor — if the consumer matched to your output fails to pay their bill, UC pays you anyway. There's a fee for that protection.</p>
 
@@ -2170,7 +2478,7 @@
 
   <!-- ════════════════ EXPORT · §5 PACKAGE SUMMARY ════════════════ -->
   <section data-tab="export-summary">
-    <div class="section-head"><span class="section-num">§4 · Package summary</span></div>
+    <div class="section-head"><span class="section-num">Package summary</span></div>
     <h2 class="section-title">The full <em>feature matrix</em>.</h2>
     <p class="section-lede">Every feature, every tier, in one table. Anything not included by default at your chosen tier is available as an optional extra.</p>
 
@@ -2244,6 +2552,525 @@
     </p>
   </section>
 
+
+  <!-- ════════════════ IMPORT · §0 OVERVIEW ════════════════ -->
+  <section class="hero" data-tab="import" style="border-top:none;padding-top:88px">
+    <div class="section-head"><span class="section-num">Pure Import · for Consumers</span></div>
+    <h1 class="display">Real green energy<br/>on <em>your</em> terms.</h1>
+    <p class="hero-sub">UrbanChain's Pure Import product gives corporate buyers a way to source genuinely renewable energy directly from UK generators — with full half-hourly traceability, stable long-term pricing, and no greenwashing. Save up to 20% on energy costs and cut CO₂ by up to 43% versus a standard supplier tariff.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-k">Product</div><div class="meta-v">Pure Import</div></div>
+      <div class="meta-item"><div class="meta-k">Audience</div><div class="meta-v">Corporate buyers</div></div>
+      <div class="meta-item"><div class="meta-k">Tier choice</div><div class="meta-v"><span class="num">0% · 80% · 100%</span><span style="color:var(--ink-dim);font-family:var(--mono);font-size:14px"> fixed</span></div></div>
+      <div class="meta-item"><div class="meta-k">Headline savings</div><div class="meta-v">Up to <span class="num">20%</span> · <span class="num">43%</span> CO₂ cut</div></div>
+    </div>
+
+    <!-- 4 value props -->
+    <div class="ext-offer-grid" style="margin-top:48px;grid-template-columns:repeat(2, minmax(0,1fr))">
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">01</div>
+        <div class="ext-offer-title">Real green energy</div>
+        <p class="ext-offer-desc">Multiple package options to match your energy ambitions. Every kWh is sourced from a named UK renewable generator and matched to your demand half-hour by half-hour.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">02</div>
+        <div class="ext-offer-title">Stable prices</div>
+        <p class="ext-offer-desc">Lock in costs for your choice of contract length. Insulate your business from traditional energy market price changes — UK wholesale prices are still up 69% on 2019 levels.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">03</div>
+        <div class="ext-offer-title">Reporting & traceability</div>
+        <p class="ext-offer-desc">Prove you're meeting your ESG targets. EDI billing, meter services, contract management and dashboard included in every package — no add-ons required for compliance reporting.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">04</div>
+        <div class="ext-offer-title">Locally sourced</div>
+        <p class="ext-offer-desc">Match to local generators where possible to cut transmission losses and grid charges. Regional matching narratives strengthen your Scope 2 and Scope 3 reporting.</p>
+      </div>
+    </div>
+
+    <!-- Headline savings strip -->
+    <div class="imp-headline">
+      <div class="imp-headline-stat">
+        <div class="imp-headline-num">↓ 20%</div>
+        <div class="imp-headline-lbl">Save on energy costs vs standard supplier</div>
+      </div>
+      <div class="imp-headline-divider"></div>
+      <div class="imp-headline-stat">
+        <div class="imp-headline-num">↓ 43%</div>
+        <div class="imp-headline-lbl">Cut to your CO₂ emissions</div>
+      </div>
+      <div class="imp-headline-divider"></div>
+      <div class="imp-headline-stat">
+        <div class="imp-headline-num">100%</div>
+        <div class="imp-headline-lbl">Renewable, traceable, audited</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ IMPORT · §1 WHAT WE OFFER ════════════════ -->
+  <section data-tab="import-offer">
+    <div class="section-head"><span class="section-num">What we offer</span></div>
+    <h2 class="section-title">Five things in <em>every</em> consumer package.</h2>
+    <p class="section-lede">Whatever fixed-price tier you choose, these five elements are part of the deal. The pricing tier and contract length are the only material choices to make up front.</p>
+
+    <div class="ext-offer-grid" style="grid-template-columns:repeat(3, minmax(0,1fr))">
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">01</div>
+        <div class="ext-offer-title">Real green energy market</div>
+        <p class="ext-offer-desc">Direct half-hourly matching to named UK renewable generators. Your supply is verifiably green at the level the regulator and your auditor care about.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">02</div>
+        <div class="ext-offer-title">Save up to 20%</div>
+        <p class="ext-offer-desc">Removes the wholesale aggregator margin. Combined with locally-sourced matching that reduces grid charges, this typically lands as a 10–20% saving versus a standard corporate tariff.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">03</div>
+        <div class="ext-offer-title">UC market access</div>
+        <p class="ext-offer-desc">Whatever portion you don't lock at fixed price is purchased at UC market rates — typically below standard supplier prices because there's no retail margin layered on top.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">04</div>
+        <div class="ext-offer-title">Simple billing & dashboard</div>
+        <p class="ext-offer-desc">Single monthly invoice, EDI delivery, full meter services. Real-time dashboard shows topline usage, savings, and which generators served each kWh.</p>
+      </div>
+      <div class="ext-offer-card">
+        <div class="ext-offer-num">05</div>
+        <div class="ext-offer-title">Customisable packages</div>
+        <p class="ext-offer-desc">Tier choice, contract length, optional bolt-ons for advanced reporting or specific asset preferences. Tell us what you need and we'll structure the contract accordingly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ IMPORT · §2 PRICING TIERS ════════════════ -->
+  <section data-tab="import-tiers">
+    <div class="section-head"><span class="section-num">Pricing tiers</span></div>
+    <h2 class="section-title">Choose what % to <em>fix</em>.</h2>
+    <p class="section-lede">The single biggest decision a consumer makes when joining UC: how much of your demand do you want at a fixed contracted price, and how much do you want to source at the prevailing UC market rate? Three tiers — fewer than the four offered to generators because consumer demand is more predictable.</p>
+
+    <div class="ext-tier-wrap">
+      <div class="ext-tier-buttons" style="grid-template-columns:repeat(3,1fr)">
+        <button class="ext-tier-btn" data-tier="0">
+          <div class="ext-tier-pct">0%</div>
+          <div class="ext-tier-lbl">Maximise savings</div>
+        </button>
+        <button class="ext-tier-btn active" data-tier="80">
+          <div class="ext-tier-pct">80%</div>
+          <div class="ext-tier-lbl">Balanced</div>
+        </button>
+        <button class="ext-tier-btn" data-tier="100">
+          <div class="ext-tier-pct">100%</div>
+          <div class="ext-tier-lbl">Maximum security</div>
+        </button>
+      </div>
+
+      <div class="ext-tier-viz">
+        <div class="ext-tier-bar">
+          <div class="ext-tier-bar-fixed" id="imp-bar-fixed">
+            <span class="ext-tier-bar-label">Locked at fixed price</span>
+            <span class="ext-tier-bar-value" id="imp-bar-fixed-val">80%</span>
+          </div>
+          <div class="ext-tier-bar-matched" id="imp-bar-market">
+            <span class="ext-tier-bar-label">Sourced from UC market</span>
+            <span class="ext-tier-bar-value" id="imp-bar-market-val">20%</span>
+          </div>
+        </div>
+        <div class="ext-tier-axis">
+          <div class="ext-tier-axis-end" style="text-align:left">
+            <span class="ext-tier-axis-arrow">←</span> Higher savings ceiling, more market exposure
+          </div>
+          <div class="ext-tier-axis-end" style="text-align:right">
+            Fully predictable cost, no upside <span class="ext-tier-axis-arrow">→</span>
+          </div>
+        </div>
+        <div class="ext-tier-axis-note">
+          UC market rate is typically slightly below standard supplier rates because there's no retail margin in the contract.
+        </div>
+      </div>
+
+      <div class="ext-tier-desc">
+        <div class="ext-tier-desc-head">
+          <span class="ext-tier-desc-pct" id="imp-desc-pct">80%</span>
+          <span class="ext-tier-desc-name" id="imp-desc-name">Balanced</span>
+        </div>
+        <p class="ext-tier-desc-body" id="imp-desc-body">
+          80% of your energy is locked at a fixed contracted price for the full term, with the remaining 20% purchased at UC market rate. Most clients pick this tier — it captures the bulk of the savings benefit while leaving a small slice exposed to favourable market moves.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top:24px;font-family:var(--serif);font-size:13px;color:var(--ink-dim);line-height:1.55;font-weight:300;font-style:italic">
+      Whichever tier you choose, your energy will always be fully traceable to named UK renewable generators. The matching engine settles every half-hour regardless of tier.
+    </p>
+  </section>
+
+  <!-- ════════════════ IMPORT · §3 PACKAGE SUMMARY ════════════════ -->
+  <section data-tab="import-summary">
+    <div class="section-head"><span class="section-num">Package summary</span></div>
+    <h2 class="section-title">The full <em>feature matrix</em>.</h2>
+    <p class="section-lede">Every feature, every tier, in one table. Anything not included by default is available as an optional extra.</p>
+
+    <div class="table-wrap" style="margin-top:32px">
+      <table class="deal">
+        <thead>
+          <tr>
+            <th style="width:30%">Feature</th>
+            <th class="num">0% Fixed</th>
+            <th class="num">80% Fixed</th>
+            <th class="num">100% Fixed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="site">Real green energy match</td>
+            <td class="num" style="color:var(--accent)">100% renewable</td>
+            <td class="num" style="color:var(--accent)">100% renewable</td>
+            <td class="num" style="color:var(--accent)">100% renewable</td>
+          </tr>
+          <tr>
+            <td class="site">Half-hourly traceability</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+          </tr>
+          <tr>
+            <td class="site">Client portal & dashboard</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+          </tr>
+          <tr>
+            <td class="site">Billing</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">EDI · monthly</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">EDI · monthly</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">EDI · monthly</td>
+          </tr>
+          <tr>
+            <td class="site">Meter services & contract mgmt</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+            <td class="num">Included</td>
+          </tr>
+          <tr style="background:rgba(124,242,176,.03)">
+            <td class="site" style="color:var(--accent)">Price exposure</td>
+            <td class="num">100% UC market</td>
+            <td class="num">20% UC market</td>
+            <td class="num">None</td>
+          </tr>
+          <tr>
+            <td class="site" style="color:var(--ink-dim);font-style:italic">Typical use case</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Risk-tolerant buyers seeking max savings</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Most corporate clients</td>
+            <td class="num" style="color:var(--ink-soft);font-size:11px">Treasury-led, budget-fixed buyers</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--ink-dim);line-height:1.5">
+      Optional add-ons available include: bespoke matching by generator type (wind-only / solar-only), Scope 3 reporting integration, and consolidated billing across multiple sites. Talk to your account manager about scope.
+    </p>
+
+    <!-- Cross-link to private market -->
+    <div class="imp-cross-link">
+      <div class="imp-cross-link-text">
+        <em>Have a generator in mind?</em> Multi-site corporates with their own generation can also access UrbanChain's Private Market — trade energy across your portfolio at internally-set rates.
+      </div>
+      <button class="imp-cross-link-btn" data-target-jump="overview">See Private Market →</button>
+    </div>
+  </section>
+
+  <!-- ════════════════ IMPORT · §4 ONBOARDING ════════════════ -->
+  <section data-tab="import-onboarding">
+    <div class="section-head"><span class="section-num">Onboarding</span></div>
+    <h2 class="section-title">Six steps from <em>quote</em> to live supply.</h2>
+    <p class="section-lede">UrbanChain handles the heavy lifting on supply switching. Your team's involvement is limited to providing site details up front and signing the contract.</p>
+
+    <div class="imp-onboard-flow">
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">01</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">Site details</div>
+          <p class="imp-onboard-desc">Share MPANs, your desired contract start date, and your preferred contract length. We use this to generate accurate pricing.</p>
+        </div>
+      </div>
+      <div class="imp-onboard-conn"></div>
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">02</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">Additional info</div>
+          <p class="imp-onboard-desc">We may reach out for any additional information needed to size the deal — historical consumption profiles, any existing supply arrangements, asset preferences.</p>
+        </div>
+      </div>
+      <div class="imp-onboard-conn"></div>
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">03</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">Quoting & contracting</div>
+          <p class="imp-onboard-desc">All facilitated through UC Energy. We come back with a tier-by-tier quote and a draft contract within 2 working days.</p>
+        </div>
+      </div>
+      <div class="imp-onboard-conn"></div>
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">04</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">Options</div>
+          <p class="imp-onboard-desc">Review product offerings against your ambitions. Pick a tier (0% / 80% / 100%), choose a contract length, decide on any optional bolt-ons.</p>
+        </div>
+      </div>
+      <div class="imp-onboard-conn"></div>
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">05</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">AI matching</div>
+          <p class="imp-onboard-desc">Our matching engine connects your demand profile directly to specific UC generators — half-hour by half-hour — to produce the best blended rate.</p>
+        </div>
+      </div>
+      <div class="imp-onboard-conn"></div>
+      <div class="imp-onboard-step">
+        <div class="imp-onboard-num">06</div>
+        <div class="imp-onboard-body">
+          <div class="imp-onboard-title">Simple switching</div>
+          <p class="imp-onboard-desc">We handle the supply switch with your existing supplier. You receive portal access on go-live; bills appear from UC Energy from the contract start date onward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ TPI · §0 OVERVIEW ════════════════ -->
+  <section class="hero" data-tab="tpi" style="border-top:none;padding-top:88px">
+    <div class="section-head"><span class="section-num">TPI · for Brokers & Consultants</span></div>
+    <h1 class="display">More than a <em>commission</em>.<br/>A real market for your clients.</h1>
+    <p class="hero-sub">UrbanChain partners with brokers, consultants and TPIs to give your clients access to a renewable energy market that traditional Big Six suppliers can't match — direct generator pricing, half-hourly traceability, and structured products beyond standard fix/flex contracts. We protect your client relationship; you grow your value-add.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-k">Audience</div><div class="meta-v">TPIs &amp; brokers</div></div>
+      <div class="meta-item"><div class="meta-k">Products available</div><div class="meta-v">Import · Export · Private Market</div></div>
+      <div class="meta-item"><div class="meta-k">Quote turnaround</div><div class="meta-v"><span class="num">2</span> working days</div></div>
+      <div class="meta-item"><div class="meta-k">Client onboarding</div><div class="meta-v">Fully managed by UC</div></div>
+    </div>
+
+    <!-- Market problem callout -->
+    <div class="tpi-problem">
+      <div class="tpi-problem-head">
+        <span class="tpi-problem-tag">The market problem</span>
+      </div>
+      <div class="tpi-problem-body">
+        <div class="tpi-problem-stat">
+          <div class="tpi-problem-num">~10%</div>
+          <div class="tpi-problem-lbl">of UK SMEs can currently access PPAs</div>
+        </div>
+        <div class="tpi-problem-stat">
+          <div class="tpi-problem-num">+69%</div>
+          <div class="tpi-problem-lbl">UK energy prices vs 2019 levels</div>
+        </div>
+        <div class="tpi-problem-stat">
+          <div class="tpi-problem-num">~94%</div>
+          <div class="tpi-problem-lbl">of corporates rely on Big Six suppliers</div>
+        </div>
+        <div class="tpi-problem-text">
+          <p>The wholesale energy market favours large incumbents and fossil-fuel generators. PPAs are technically available but realistically only to the largest corporates — leaving SMEs and mid-market businesses paying inflated retail tariffs with little visibility on where their energy comes from. <em>UrbanChain unlocks PPA-style products for clients of every size, sold through the partners they already trust.</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ TPI · §1 THREE PILLARS ════════════════ -->
+  <section data-tab="tpi-pillars">
+    <div class="section-head"><span class="section-num">Three pillars</span></div>
+    <h2 class="section-title">Three products. <em>One</em> partner agreement.</h2>
+    <p class="section-lede">Whichever side of the market your client sits on, UrbanChain has a structured product for them. As a TPI you can quote across all three from a single LOA — no separate onboarding paths, no separate commission structures.</p>
+
+    <div class="tpi-pillars">
+      <div class="tpi-pillar tpi-pillar-import">
+        <div class="tpi-pillar-tag">Import</div>
+        <h3 class="tpi-pillar-title">For your <em>consumer</em> clients.</h3>
+        <p class="tpi-pillar-desc">Corporate buyers, SMEs and large industrial users. Direct half-hourly matched supply from named UK renewable generators with stable long-term pricing. Three tier choices (0% / 80% / 100% fixed).</p>
+        <ul class="tpi-pillar-list">
+          <li>Save up to 20% vs incumbent tariffs</li>
+          <li>Cut CO₂ by up to 43%</li>
+          <li>EDI billing, dashboard, full reporting included</li>
+          <li>2-day quote turnaround</li>
+        </ul>
+        <button class="tpi-pillar-cta" data-target-jump="import">Open Import page <span class="gt-arrow">→</span></button>
+      </div>
+
+      <div class="tpi-pillar tpi-pillar-export">
+        <div class="tpi-pillar-tag">Export</div>
+        <h3 class="tpi-pillar-title">For your <em>generator</em> clients.</h3>
+        <p class="tpi-pillar-desc">Renewable asset owners — solar, wind, BESS, hydro. Sell direct to UC's pool of corporate consumers, choose how much to lock at fixed price, capture P442 rebates on assets under 5 MW. Four tier choices (0% / 66% / 85% / 100% fixed).</p>
+        <ul class="tpi-pillar-list">
+          <li>Skip the wholesale aggregator margin</li>
+          <li>P442 rebate handled automatically</li>
+          <li>Optional Diversified Pool for assured terms</li>
+          <li>Full traceability of where energy was used</li>
+        </ul>
+        <button class="tpi-pillar-cta" data-target-jump="export">Open Export page <span class="gt-arrow">→</span></button>
+      </div>
+
+      <div class="tpi-pillar tpi-pillar-pm">
+        <div class="tpi-pillar-tag">Private Market</div>
+        <h3 class="tpi-pillar-title">For <em>multi-site</em> clients with on-site generation.</h3>
+        <p class="tpi-pillar-desc">Corporates with their own generation assets across a portfolio of sites. Trade internally between sites at custom rates, share spill volume across the group, settle via a single sleeved PPA structure.</p>
+        <ul class="tpi-pillar-list">
+          <li>Internal P2P market across owned sites</li>
+          <li>Spill product: re-match within ecosystem before SSP</li>
+          <li>Custom internal rates set by client treasury</li>
+          <li>Worked example available on the platform</li>
+        </ul>
+        <button class="tpi-pillar-cta" data-target-jump="overview">Open Private Market <span class="gt-arrow">→</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ TPI · §2 PARTNER BENEFITS ════════════════ -->
+  <section data-tab="tpi-benefits">
+    <div class="section-head"><span class="section-num">Partner benefits</span></div>
+    <h2 class="section-title">What partnering with UrbanChain <em>actually</em> looks like.</h2>
+    <p class="section-lede">Five practical benefits beyond the commission line. UrbanChain has built its TPI programme around protecting your existing client relationships and giving you a differentiated product to sell.</p>
+
+    <div class="tpi-benefits">
+      <div class="tpi-benefit">
+        <div class="tpi-benefit-num">01</div>
+        <h3 class="tpi-benefit-title">More than commission</h3>
+        <p class="tpi-benefit-desc">Competitive commission terms on every contract written, structured to recur across renewals. Plus access to bespoke pricing and structured products that command higher value than vanilla fix/flex deals.</p>
+      </div>
+      <div class="tpi-benefit">
+        <div class="tpi-benefit-num">02</div>
+        <h3 class="tpi-benefit-title">Protecting your brand</h3>
+        <p class="tpi-benefit-desc">UC handles billing, supply switching and customer service under our licence — but client communications carry your branding where appropriate. We never go around you to your client.</p>
+      </div>
+      <div class="tpi-benefit">
+        <div class="tpi-benefit-num">03</div>
+        <h3 class="tpi-benefit-title">Dedicated portal</h3>
+        <p class="tpi-benefit-desc">Single-pane-of-glass view across all your clients on the UC platform. Quote requests, contract status, billing, energy matching reports, commission statements — all in one place.</p>
+      </div>
+      <div class="tpi-benefit">
+        <div class="tpi-benefit-num">04</div>
+        <h3 class="tpi-benefit-title">Experienced team behind you</h3>
+        <p class="tpi-benefit-desc">A dedicated indirect-sales contact (Nick or Val), full origination support, and access to portfolio optimisation specialists for complex deals. 250+ years of senior leadership experience across the team.</p>
+      </div>
+      <div class="tpi-benefit">
+        <div class="tpi-benefit-num">05</div>
+        <h3 class="tpi-benefit-title">Built on confidence &amp; trust</h3>
+        <p class="tpi-benefit-desc">Licensed UK energy supplier with £20M raised, 10× YoY growth, and Innovate UK / Eurazeo / Series B institutional backing. Your clients are signing with a real, capitalised counterparty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ TPI · §3 QUOTE WORKFLOW ════════════════ -->
+  <section data-tab="tpi-workflow">
+    <div class="section-head"><span class="section-num">Quote workflow</span></div>
+    <h2 class="section-title">From <em>LOA</em> to live pricing in two days.</h2>
+    <p class="section-lede">Four steps to a live quote for your client. Most of the work sits with us — your team's time investment is collecting the LOA and the pricing form details up front.</p>
+
+    <div class="tpi-workflow">
+      <div class="tpi-wf-step">
+        <div class="tpi-wf-num">01</div>
+        <div class="tpi-wf-body">
+          <div class="tpi-wf-tag">Day 0</div>
+          <div class="tpi-wf-title">Letter of Authority signed</div>
+          <p class="tpi-wf-desc">Your client signs an LOA giving you and UrbanChain the authority to act on their behalf for energy procurement. Standard template; signed digitally.</p>
+        </div>
+      </div>
+      <div class="tpi-wf-arrow">→</div>
+      <div class="tpi-wf-step">
+        <div class="tpi-wf-num">02</div>
+        <div class="tpi-wf-body">
+          <div class="tpi-wf-tag">Day 0</div>
+          <div class="tpi-wf-title">KYC check</div>
+          <p class="tpi-wf-desc">Standard credit and identity checks on the corporate counterparty. Most clients clear within hours; complex group structures may take a day longer.</p>
+        </div>
+      </div>
+      <div class="tpi-wf-arrow">→</div>
+      <div class="tpi-wf-step">
+        <div class="tpi-wf-num">03</div>
+        <div class="tpi-wf-body">
+          <div class="tpi-wf-tag">Day 0–1</div>
+          <div class="tpi-wf-title">Pricing form completed</div>
+          <p class="tpi-wf-desc">You and your client fill in the pricing form — site MPANs, desired contract length, target start date, tier preference, any specific generator preferences.</p>
+        </div>
+      </div>
+      <div class="tpi-wf-arrow">→</div>
+      <div class="tpi-wf-step">
+        <div class="tpi-wf-num">04</div>
+        <div class="tpi-wf-body">
+          <div class="tpi-wf-tag">Day 1–2</div>
+          <div class="tpi-wf-title">Pricing shared</div>
+          <p class="tpi-wf-desc">Within 2 working days of a complete pricing form, UC returns a tier-by-tier quote and draft contract. From there it's signature → KYC sign-off → onboarding.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpi-wf-note">
+      <strong>After signature:</strong> UrbanChain handles the supply switch with the incumbent supplier, configures portal access, and sets up billing. The client receives go-live notification on their contract start date. You receive commission per the partnership agreement.
+    </div>
+  </section>
+
+  <!-- ════════════════ TPI · §4 PARTNER STORIES ════════════════ -->
+  <section data-tab="tpi-stories">
+    <div class="section-head"><span class="section-num">Partner stories</span></div>
+    <h2 class="section-title">Two examples from the <em>live</em> portfolio.</h2>
+    <p class="section-lede">A community energy aggregator and a national EV charging operator — both running on UrbanChain through indirect-sales partnerships. Different sectors, different client profiles, same underlying platform.</p>
+
+    <!-- Story 1: Community Energy -->
+    <div class="tpi-story">
+      <div class="tpi-story-tag">Community energy partner · Oxfordshire</div>
+      <div class="tpi-story-grid">
+        <div class="tpi-story-narrative">
+          <h3 class="tpi-story-title">Enabling 56 community-installed renewable assets to reach corporate buyers.</h3>
+          <p class="tpi-story-body">A community energy aggregator running 56 small renewable installations across Oxfordshire — a mix of rooftop solar on schools and community buildings, plus small-scale wind. Through UC's Pure Export product, generation from these community-owned assets is now matched directly to local corporate buyers, capturing P442 rebates that would otherwise be unreachable for assets of this size.</p>
+          <p class="tpi-story-body">UrbanChain handles the half-hourly settlement, P442 administration, and traceability reporting. The community keeps the upside.</p>
+        </div>
+        <div class="tpi-story-stats">
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">24.19</div>
+            <div class="tpi-story-stat-unit">GWh</div>
+            <div class="tpi-story-stat-lbl">Generated &amp; matched</div>
+          </div>
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">5,456</div>
+            <div class="tpi-story-stat-unit">tonnes</div>
+            <div class="tpi-story-stat-lbl">CO₂ saved</div>
+          </div>
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">56</div>
+            <div class="tpi-story-stat-unit">sites</div>
+            <div class="tpi-story-stat-lbl">Community installations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Story 2: Believ EV -->
+    <div class="tpi-story">
+      <div class="tpi-story-tag">Believ · National EV charging network</div>
+      <div class="tpi-story-grid">
+        <div class="tpi-story-narrative">
+          <h3 class="tpi-story-title">First national clean-energy supply partnership for public EV charging.</h3>
+          <p class="tpi-story-body">Believ — the public EV charging network backed by Liberty Global and Zouk Capital with £300M+ committed investment — chose UrbanChain as its first national clean-energy supply partner. UC supplies the chargepoints with traceable renewable energy, half-hour by half-hour, across the entire UK network.</p>
+          <p class="tpi-story-body">For Believ this is a credibility differentiator: every charge a customer takes is backed by named UK renewable generation, audited and reportable. For UC it's a reference customer in a fast-growing infrastructure category.</p>
+        </div>
+        <div class="tpi-story-stats">
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">30,000<span style="font-size:24px">+</span></div>
+            <div class="tpi-story-stat-unit">chargepoints</div>
+            <div class="tpi-story-stat-lbl">Public EV network</div>
+          </div>
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">£300M<span style="font-size:24px">+</span></div>
+            <div class="tpi-story-stat-unit">invested</div>
+            <div class="tpi-story-stat-lbl">Liberty Global, Zouk Capital</div>
+          </div>
+          <div class="tpi-story-stat">
+            <div class="tpi-story-stat-num">100%</div>
+            <div class="tpi-story-stat-unit">renewable</div>
+            <div class="tpi-story-stat-lbl">Traceable, half-hourly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ════════════════ CONTACT · GROWTH TEAM ════════════════ -->
   <section data-tab="contact" class="gt-section">
@@ -3289,7 +4116,7 @@ renderConsumerCost();
 
 /* ═════════════ Pure Export · tier picker ═════════════ */
 (function(){
-  const buttons = document.querySelectorAll('.ext-tier-btn');
+  const buttons = document.querySelectorAll('section[data-tab="export-tiers"] .ext-tier-btn');
   if(!buttons.length) return;
 
   // Each tier: fixed % is contractual. The remaining (100 - fixed) splits between
@@ -3351,6 +4178,58 @@ renderConsumerCost();
   buttons.forEach(b => b.addEventListener('click', () => setTier(b.dataset.tier)));
   // initial: 85% (already marked active in markup)
   setTier('85');
+})();
+
+/* ═════════════ Pure Import · tier picker ═════════════ */
+(function(){
+  const buttons = document.querySelectorAll('section[data-tab="import-tiers"] .ext-tier-btn');
+  if(!buttons.length) return;
+
+  // Import is consumer-side: locked at fixed price, OR sourced from UC market at prevailing rate.
+  // No SSP fallback concept — UC handles the matching internally and supplies the consumer
+  // either way. So 2 segments (fixed + market), not 3.
+  const tierData = {
+    '0':   {fixed:0,   market:100, name:'Maximise savings',
+            desc:"None of your demand is locked at fixed price — your full consumption is purchased at the prevailing UC market rate every half-hour. Highest savings potential when market rates are low; some exposure when market rates spike. Suits buyers comfortable with treasury-side market exposure."},
+    '80':  {fixed:80,  market:20,  name:'Balanced',
+            desc:"80% of your energy is locked at a fixed contracted price for the full term, with the remaining 20% purchased at UC market rate. Most clients pick this tier — it captures the bulk of the price-stability benefit while leaving a small slice exposed to favourable market moves."},
+    '100': {fixed:100, market:0,   name:'Maximum security',
+            desc:"All of your demand is locked at a fixed contracted price for the full term. Fully predictable energy cost, no market exposure. Suits treasury-led buyers with strict budget constraints or those running highly cost-sensitive operations."}
+  };
+
+  const segs = {
+    fixed:  { el: document.getElementById('imp-bar-fixed'),  val: document.getElementById('imp-bar-fixed-val') },
+    market: { el: document.getElementById('imp-bar-market'), val: document.getElementById('imp-bar-market-val') }
+  };
+  const descPct  = document.getElementById('imp-desc-pct');
+  const descName = document.getElementById('imp-desc-name');
+  const descBody = document.getElementById('imp-desc-body');
+
+  function setTier(t){
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.tier === t));
+    const d = tierData[t];
+    if(!d) return;
+
+    segs.fixed.el.style.flex  = `${d.fixed} 1 0`;
+    segs.market.el.style.flex = `${d.market} 1 0`;
+    segs.fixed.val.textContent  = d.fixed + '%';
+    segs.market.val.textContent = d.market + '%';
+
+    descPct.textContent  = d.fixed + '%';
+    descName.textContent = d.name;
+    descBody.textContent = d.desc;
+
+    segs.fixed.el.style.opacity  = d.fixed  > 0 ? '1' : '0';
+    segs.market.el.style.opacity = d.market > 0 ? '1' : '0';
+
+    Object.keys(segs).forEach(key => {
+      const lbl = segs[key].el.querySelector('.ext-tier-bar-label');
+      if(lbl) lbl.style.display = d[key] >= 15 ? '' : 'none';
+    });
+  }
+
+  buttons.forEach(b => b.addEventListener('click', () => setTier(b.dataset.tier)));
+  setTier('80');
 })();
 
 /* ═════════════ Export CTA → Contact jump ═════════════ */
@@ -3455,13 +4334,15 @@ document.querySelectorAll('section').forEach(s=>{ s.classList.add('reveal'); io.
   // Map: tab id → which top-level menu owns it (for highlighting)
   const PRIVATE_MARKET_TABS = ['overview','mechanics','price','deal','match','spill','generator','consumer'];
   const EXPORT_TABS = ['export','export-offer','export-tiers','export-pool','export-summary'];
+  const IMPORT_TABS = ['import','import-offer','import-tiers','import-summary','import-onboarding'];
+  const TPI_TABS    = ['tpi','tpi-pillars','tpi-benefits','tpi-workflow','tpi-stories'];
   function ownerMenuFor(tab){
     if(PRIVATE_MARKET_TABS.includes(tab)) return 'pm';
     if(EXPORT_TABS.includes(tab)) return 'export';
+    if(IMPORT_TABS.includes(tab)) return 'import';
+    if(TPI_TABS.includes(tab))    return 'tpi';
     if(tab === 'contact') return 'contact';
     if(tab === 'home') return 'home';
-    if(tab === 'import') return 'import';
-    if(tab === 'tpi') return 'tpi';
     return null;
   }
 
