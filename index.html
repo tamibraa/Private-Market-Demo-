@@ -734,6 +734,67 @@
     .imp-headline-divider{width:auto;height:1px;margin:0}
   }
 
+  /* §1 footer — why our prices land lower */
+  .imp-why{
+    margin-top:48px;border:1px solid var(--line);border-radius:14px;
+    background:linear-gradient(180deg, rgba(124,242,176,.04) 0%, var(--panel) 60%);
+    overflow:hidden;
+  }
+  .imp-why-head{
+    padding:32px 36px 18px;
+  }
+  .imp-why-eyebrow{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:12px;
+  }
+  .imp-why-title{
+    font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;
+    line-height:1.25;margin:0 0 12px;
+  }
+  .imp-why-title em{color:var(--accent);font-style:italic}
+  .imp-why-lede{
+    font-family:var(--serif);font-size:14px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0;max-width:760px;
+  }
+  .imp-why-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    background:var(--line);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+  }
+  @media (max-width:880px){.imp-why-grid{grid-template-columns:1fr}}
+  .imp-why-card{
+    background:var(--panel);padding:28px 32px;display:flex;flex-direction:column;gap:12px;
+  }
+  .imp-why-tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);
+  }
+  .imp-why-card-title{
+    font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;
+    line-height:1.3;margin:0;
+  }
+  .imp-why-card-title em{color:var(--accent);font-style:italic}
+  .imp-why-card-body{
+    font-family:var(--serif);font-size:13.5px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;margin:0;
+  }
+  .imp-why-rows{
+    display:flex;flex-direction:column;gap:6px;margin-top:8px;
+    padding-top:14px;border-top:1px solid var(--line-soft);
+  }
+  .imp-why-row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+    font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em;
+    line-height:1.5;
+  }
+  .imp-why-row-k{color:var(--ink-soft);font-weight:500;flex-shrink:0}
+  .imp-why-row-v{color:var(--ink-dim);text-align:right}
+  .imp-why-foot{
+    margin:0;padding:20px 36px 28px;
+    font-family:var(--serif);font-size:13px;color:var(--ink-soft);
+    line-height:1.6;font-weight:300;
+  }
+  .imp-why-foot em{color:var(--accent);font-style:italic;font-weight:400}
+
   /* §3 cross-link to private market */
   .imp-cross-link{
     margin-top:32px;padding:24px 28px;
@@ -2122,21 +2183,35 @@
 
     <!-- full-width annual revenue summary -->
     <div style="margin-top:32px;background:linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);border:1px solid var(--line);border-radius:18px;padding:36px">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:24px">
-        <div>
-          <h3 style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--ink);margin-bottom:4px">Annual generator revenue · all three assets</h3>
-          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Year-one forecast · 1.55 GWh matched + 2.19 GWh spill</div>
+      <!-- Total revenue across all 4 tiers -->
+      <div id="rev-tier-compare">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+          <div>
+            <div style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:4px">Total revenue · all tiers</div>
+            <div style="font-family:var(--serif);font-size:18px;color:var(--ink);font-weight:500;line-height:1.3">Picking a tier is a <em style="color:var(--accent);font-style:italic">trade-off</em>, not just a number.</div>
+          </div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.04em;text-align:right">
+            Currently selected: <span id="rev-tier-active-label" style="color:var(--accent);font-weight:500">0%</span>
+          </div>
         </div>
-        <div style="text-align:right">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">Total / yr</div>
-          <div id="rev-total" style="font-family:var(--serif);font-size:38px;font-style:italic;color:var(--accent);font-weight:500">£—</div>
+        <p style="font-family:var(--serif);font-size:13px;color:var(--ink-soft);line-height:1.55;font-weight:300;margin:0 0 14px;max-width:720px">
+          What the generator earns across the year under each tier choice. <em style="color:var(--ink);font-style:italic">PM revenue and P442 share are identical</em> across all four tiers — only the spill component moves. <em style="color:var(--accent);font-style:italic">Only the 100% tier locks in the full spill revenue contractually.</em> For every other tier the totals shown are a <em style="font-style:italic">realistic forecast</em> using UC's portfolio-wide matching performance (~80% of at-risk volume clears at tier rate, the residual 20% settles at SSP ≈ <span style="font-family:var(--mono)">5.5p/kWh</span>).
+        </p>
+
+        <!-- mini legend -->
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.04em">
+          <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--accent);border-radius:2px"></span>PM revenue · contractually fixed</span>
+          <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--spill);border-radius:2px"></span>Spill · guaranteed at tier rate</span>
+          <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:2px;background-image:repeating-linear-gradient(45deg, var(--spill) 0, var(--spill) 2px, rgba(126,182,255,.2) 2px, rgba(126,182,255,.2) 4px)"></span>Spill · matching-dependent</span>
+          <span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;background:var(--grid);border-radius:2px"></span>P442 share · constant</span>
+          <span id="rev-tier-rego-legend" style="display:none;align-items:center;gap:6px"><span style="width:10px;height:10px;background:#5d8fd8;border-radius:2px"></span>REGO · constant</span>
         </div>
+
+        <div id="rev-tier-bars" style="display:flex;flex-direction:column;gap:12px"></div>
       </div>
 
-      <div id="rev-breakdown" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px"></div>
-
       <div style="margin-top:22px;padding-top:20px;border-top:1px solid var(--line-soft);font-family:var(--mono);font-size:11px;color:var(--ink-dim);letter-spacing:.04em;line-height:1.7">
-        Potential spill revenue uses each generator's fixed tier rate × their spill volume, summed. The figure assumes UC matches enough demand for the entire spill volume to clear at tier rate (the guarantee floor is honoured regardless; matched-upside fills the rest). Anything UC fails to match would settle at SSP and reduce the figure accordingly.
+        Realistic forecasts assume <strong style="color:var(--ink-soft);font-weight:500">~80% portfolio match rate</strong> on at-risk volume (UC's typical performance is 80–85% across the wider book) with the unmatched residual settling at SSP ≈ <strong style="color:var(--ink-soft);font-weight:500">5.5p/kWh</strong>. P442 share is reduced proportionally on unmatched volume since P442 only applies to volume that clears in-ecosystem. The smaller "if 100% matched" caption above each total shows the upper bound — what the tier earns when UC matches every available kWh, which only happens reliably at the 100% tier.
       </div>
     </div>
   </section>
@@ -2192,6 +2267,35 @@
       </div>
 
       <div id="cons-bars" style="display:flex;flex-direction:column;gap:18px;margin-top:18px"></div>
+    </div>
+
+    <!-- PER-SITE COMPARISON TABLE: PM vs Grid-only -->
+    <div style="margin-top:32px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:36px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;gap:12px">
+        <div>
+          <h3 style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink);margin-bottom:4px">Private market cost vs grid-only counterfactual</h3>
+          <div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)">Per-site · all-in annual cost</div>
+        </div>
+      </div>
+      <p style="font-family:var(--serif);font-size:14px;color:var(--ink-soft);line-height:1.6;font-weight:300;margin:8px 0 24px;max-width:760px">
+        For each site, what the private market contract actually costs vs what it would have cost if every kWh had been bought at the grid rate. The <em style="color:var(--accent);font-style:italic">consumer benefit isn't usually a price saving</em> — it's getting full half-hourly traceability to named renewable generation for essentially the same money. Some sites do save; others pay a small premium for the green-claim coverage.
+      </p>
+
+      <div class="table-wrap">
+        <table class="deal" id="cons-compare-table">
+          <thead>
+            <tr>
+              <th style="width:24%">Site</th>
+              <th class="num">Private market</th>
+              <th class="num">Grid-only</th>
+              <th class="num">Difference</th>
+              <th class="num">% diff</th>
+            </tr>
+          </thead>
+          <tbody id="cons-compare-body"></tbody>
+          <tfoot id="cons-compare-foot"></tfoot>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -2640,6 +2744,44 @@
         <div class="ext-offer-title">Customisable packages</div>
         <p class="ext-offer-desc">Tier choice, contract length, optional bolt-ons for advanced reporting or specific asset preferences. Tell us what you need and we'll structure the contract accordingly.</p>
       </div>
+    </div>
+
+    <!-- Why our prices land lower — structural cost explainer -->
+    <div class="imp-why">
+      <div class="imp-why-head">
+        <div class="imp-why-eyebrow">Why our prices land lower</div>
+        <h3 class="imp-why-title">Two <em>structural</em> reasons — not headline discounting.</h3>
+        <p class="imp-why-lede">UrbanChain's import prices are typically below incumbent supplier tariffs not because we're absorbing margin to win volume, but because the platform removes two cost layers a Big Six supplier has to charge for. We pass on what we save.</p>
+      </div>
+
+      <div class="imp-why-grid">
+        <div class="imp-why-card">
+          <div class="imp-why-tag">01 · Non-commodity charges</div>
+          <h4 class="imp-why-card-title">Charged <em>at cost</em>, no margin layered on top.</h4>
+          <p class="imp-why-card-body">Transmission (TNUoS), distribution (DUoS), system balancing (BSUoS), the Climate Change Levy and the policy levies (RO, FiT, CfD, Capacity Market) make up roughly half of a typical commercial bill. Traditional suppliers build margin into each of these and bill them at a marked-up rate. We bill at the published Ofgem and National Grid figures — the same rate that UC pays — with no markup. Same charges, smaller bill.</p>
+          <div class="imp-why-rows">
+            <div class="imp-why-row"><span class="imp-why-row-k">TNUoS · DUoS</span><span class="imp-why-row-v">Pass-through at published rates</span></div>
+            <div class="imp-why-row"><span class="imp-why-row-k">BSUoS · CCL</span><span class="imp-why-row-v">Pass-through at published rates</span></div>
+            <div class="imp-why-row"><span class="imp-why-row-k">RO · FiT · CfD · CM</span><span class="imp-why-row-v">Pass-through at published rates</span></div>
+          </div>
+        </div>
+
+        <div class="imp-why-card">
+          <div class="imp-why-tag">02 · Imbalance &amp; shaping</div>
+          <h4 class="imp-why-card-title"><em>Absorbed</em> by half-hourly peer-to-peer matching.</h4>
+          <p class="imp-why-card-body">A traditional supplier buys block-shape power on the wholesale market then pays imbalance charges every half-hour their customers' actual demand differs from what they bought — and pays a shaping premium to procure power in a profile resembling commercial demand. Both costs get billed back to the consumer with margin. Our matching engine pairs generation directly to demand half-hour by half-hour across the platform, so the imbalance volume our customers ever see is materially smaller. The shaping premium largely vanishes because we're matching naturally-shaped renewables with real corporate load profiles. <em style="color:var(--ink);font-style:italic">Extreme imbalance events</em> — system-wide tight conditions where matching can't absorb the cost — can result in limited pass-through, but in normal market conditions UC absorbs this layer.</p>
+          <div class="imp-why-rows">
+            <div class="imp-why-row"><span class="imp-why-row-k">Imbalance volume</span><span class="imp-why-row-v">Reduced via real-time matching</span></div>
+            <div class="imp-why-row"><span class="imp-why-row-k">Shaping cost</span><span class="imp-why-row-v">Absorbed in P2P pairing</span></div>
+            <div class="imp-why-row"><span class="imp-why-row-k">Residual exposure</span><span class="imp-why-row-v">Carried by UC in normal conditions</span></div>
+            <div class="imp-why-row"><span class="imp-why-row-k">Extreme events</span><span class="imp-why-row-v">Limited pass-through possible</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="imp-why-foot">
+        Together these two structural choices typically deliver <em>10–20%</em> savings versus a comparable Big Six fix-flex tariff. The saving is not promotional pricing — it's the absence of cost layers that don't exist inside the UC matching layer in the first place.
+      </p>
     </div>
   </section>
 
@@ -3999,34 +4141,133 @@ function renderGenStack(){
   const p442Rev  = p442EligibleVol * p442Earned / 100;
   const totalRev = pmRev + spillRev + regoRev + p442Rev;
 
-  document.getElementById('rev-total').textContent = '£' + fmt(totalRev, 0);
+  // ─── total revenue across all 4 tiers (stacked: PM + Spill + REGO + P442) ───
+  const tierDefs = [
+    {key:'s0',   label:'0%',   pct:0},
+    {key:'s66',  label:'66%',  pct:66},
+    {key:'s85',  label:'85%',  pct:85},
+    {key:'s100', label:'100%', pct:100},
+  ];
+  // For each tier, compute what total annual revenue would be — only spill varies.
+  // We compute TWO totals:
+  //   - "If fully matched" (upper bound): assumes all spill clears at tier rate
+  //   - "Realistic forecast": uses UC's portfolio matching performance (80% midpoint of 80–85%)
+  //     with the unmatched residual settling at SSP (~5.5p/kWh), and P442 reduced for the
+  //     unmatched volume since P442 only applies to ecosystem-matched volume.
+  const PORTFOLIO_MATCH_RATE = 0.80;       // midpoint of 80–85%; conservative end
+  const SSP_RATE = 5.5;                    // p/kWh, mid of 5–6p typical range
+  const tierTotals = tierDefs.map(t => {
+    const sp = exportSites.reduce((a,s) => a + s.spillVol * s[t.key], 0) / 100;
+    const totalIfFully = pmRev + sp + regoRev + p442Rev;
 
-  const breakdown = document.getElementById('rev-breakdown');
-  breakdown.innerHTML = '';
-  const addCard = (label, sub, value, accent)=>{
-    const d = document.createElement('div');
-    d.style.cssText = `padding:18px 20px;background:var(--panel);border:1px solid var(--line-soft);border-radius:10px;border-left:3px solid ${accent}`;
-    d.innerHTML = `
-      <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px">${label}</div>
-      <div style="font-family:var(--serif);font-size:24px;color:var(--ink);font-weight:500;font-style:italic;margin-bottom:6px">£${fmt(value, 0)}</div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.04em;line-height:1.5">${sub}</div>
-    `;
-    breakdown.appendChild(d);
-  };
-  addCard('Private Market revenue',
-          `${fmt(totalMatchedVol/1000,0)} MWh × ${fmt(pm)}p`,
-          pmRev, 'var(--accent)');
-  // Per-generator spill breakdown for the subtitle
-  const spillSub = exportSites.map(s=>`${s.name.split(' ')[0]} ${fmt(s.spillVol/1000,0)} MWh × ${s[tierKey].toFixed(2)}p`).join(' · ');
-  addCard(`Potential spill revenue · ${currentTier}% tier`,
-          spillSub,
-          spillRev, 'var(--spill)');
-  if(regoOn) addCard('REGO revenue',
-          `${fmt(totalGenVol/1000,0)} MWh × ${fmt(rego)}p`,
-          regoRev, '#5d8fd8');
-  addCard('P442 revenue share',
-          `${fmt(p442EligibleVol/1000,0)} MWh ecosystem-matched × ${fmt(p442Earned)}p (${sharePct}% × ${stackVal.toFixed(2)}p)`,
-          p442Rev, 'var(--grid)');
+    // Realistic: per generator, split spill into guaranteed + at-risk; apply match rate to at-risk
+    let spRealistic = 0;
+    let p442Eligible = totalMatchedVol; // PM matched is always ecosystem-matched
+    exportSites.forEach(s => {
+      const guaranteedVol = s.spillVol * t.pct / 100;
+      const atRiskVol     = s.spillVol * (100 - t.pct) / 100;
+      const matchedAtRisk = atRiskVol * PORTFOLIO_MATCH_RATE;
+      const unmatched     = atRiskVol * (1 - PORTFOLIO_MATCH_RATE);
+      // Guaranteed + matched-at-risk earn tier rate; unmatched earns SSP
+      spRealistic += (guaranteedVol + matchedAtRisk) * s[t.key] / 100;
+      spRealistic += unmatched * SSP_RATE / 100;
+      // P442 only applies to volume that actually clears in-ecosystem (guaranteed + matched)
+      p442Eligible += guaranteedVol + matchedAtRisk;
+    });
+    const p442Realistic = p442Eligible * p442Earned / 100;
+    // REGO unaffected — applies to all volume generated regardless of where it settles
+    const totalRealistic = pmRev + spRealistic + regoRev + p442Realistic;
+
+    return { ...t, pm: pmRev, spill: sp, rego: regoRev, p442: p442Rev,
+             total: totalIfFully, totalRealistic };
+  });
+  const maxTotal = Math.max(...tierTotals.map(t => t.total));
+
+  // active tier indicator
+  const activeLabel = document.getElementById('rev-tier-active-label');
+  if(activeLabel) activeLabel.textContent = currentTier + '%';
+  // toggle REGO entry in the legend
+  const regoLegend = document.getElementById('rev-tier-rego-legend');
+  if(regoLegend) regoLegend.style.display = regoOn ? 'inline-flex' : 'none';
+
+  const barsWrap = document.getElementById('rev-tier-bars');
+  if(barsWrap){
+    barsWrap.innerHTML = '';
+    tierTotals.forEach(t => {
+      const isActive = t.pct === currentTier;
+      // bar width as % of max total so eye sees the relative differences
+      const widthPct = (t.total / maxTotal) * 100;
+      // segment widths within the bar (PM / spill / rego / p442 as % of THIS tier's total)
+      const pmW    = (t.pm    / t.total) * 100;
+      const spillW = (t.spill / t.total) * 100;
+      const regoW  = (t.rego  / t.total) * 100;
+      const p442W  = (t.p442  / t.total) * 100;
+
+      // Within the spill segment, split into guaranteed (tier %) and at-risk (100 - tier %)
+      // Bar pixels for spill = spillW (relative to bar). Sub-split by tier guarantee %.
+      const spillGuaranteedW = spillW * (t.pct / 100);
+      const spillAtRiskW     = spillW * ((100 - t.pct) / 100);
+
+      // delta vs the active tier — using the realistic forecast for both sides since
+      // that's the apples-to-apples comparison a generator should plan around.
+      const activeRealistic = tierTotals.find(x => x.pct === currentTier).totalRealistic;
+      const delta = t.totalRealistic - activeRealistic;
+      let deltaHtml = '';
+      if(t.pct !== currentTier){
+        const sign = delta >= 0 ? '+' : '−';
+        const colour = delta >= 0 ? 'var(--accent)' : 'var(--grid)';
+        deltaHtml = `<span style="font-family:var(--mono);font-size:10px;color:${colour};margin-left:8px;letter-spacing:.04em">${sign}£${fmt(Math.abs(delta), 0)}</span>`;
+      } else {
+        deltaHtml = `<span style="font-family:var(--mono);font-size:9px;color:var(--accent);margin-left:8px;letter-spacing:.16em;text-transform:uppercase">selected</span>`;
+      }
+
+      // Captions:
+      //   - 100% tier: contractually fixed (realistic == upper bound)
+      //   - Other tiers: realistic forecast is primary; upper bound shown smaller above
+      const isFullyGuaranteed = t.pct === 100;
+      const upperBoundCaption = isFullyGuaranteed
+        ? ''
+        : `<div style="font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.04em;margin-bottom:2px">↑ £${fmt(t.total, 0)} if 100% matched</div>`;
+      const conditionalNote = isFullyGuaranteed
+        ? '<span style="font-family:var(--mono);font-size:9px;color:var(--ink-dim);letter-spacing:.14em;text-transform:uppercase;margin-top:2px">contractually fixed</span>'
+        : `<span style="font-family:var(--mono);font-size:9px;color:var(--ink-dim);letter-spacing:.14em;text-transform:uppercase;margin-top:2px">realistic · 80% match · SSP fallback</span>`;
+
+      const row = document.createElement('div');
+      row.style.cssText = `
+        display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;
+        padding:10px 12px;border-radius:6px;
+        ${isActive ? 'background:rgba(124,242,176,.06);outline:1px solid rgba(124,242,176,.18)' : ''}
+      `;
+
+      // Per-segment opacity: full when active, dimmed when not
+      const op = isActive ? 1 : 0.55;
+      // Hatched fill for the at-risk portion (matching-dependent)
+      const hatchedBg = `repeating-linear-gradient(45deg, var(--spill) 0, var(--spill) 3px, rgba(126,182,255,.18) 3px, rgba(126,182,255,.18) 6px)`;
+      const segs = `
+        <div style="height:100%;background:var(--accent);width:${pmW}%;opacity:${op}" title="PM revenue: £${fmt(t.pm,0)}"></div>
+        ${spillGuaranteedW > 0 ? `<div style="height:100%;background:var(--spill);width:${spillGuaranteedW}%;opacity:${op}" title="Spill · guaranteed at tier rate"></div>` : ''}
+        ${spillAtRiskW > 0 ? `<div style="height:100%;background-image:${hatchedBg};width:${spillAtRiskW}%;opacity:${op}" title="Spill · matching-dependent (SSP if unmatched)"></div>` : ''}
+        ${regoOn ? `<div style="height:100%;background:#5d8fd8;width:${regoW}%;opacity:${op}" title="REGO: £${fmt(t.rego,0)}"></div>` : ''}
+        <div style="height:100%;background:var(--grid);width:${p442W}%;opacity:${op}" title="P442: £${fmt(t.p442,0)}"></div>
+      `;
+
+      row.innerHTML = `
+        <div style="font-family:var(--serif);font-size:18px;${isActive ? 'color:var(--accent);font-weight:500' : 'color:var(--ink-soft)'};font-style:italic">${t.label}</div>
+        <div style="position:relative;height:30px;border-radius:4px;overflow:hidden;width:${widthPct}%;display:flex;border:1px solid ${isActive ? 'rgba(124,242,176,.4)' : 'var(--line-soft)'}">
+          ${segs}
+        </div>
+        <div style="
+          font-family:var(--mono);font-size:14px;${isActive ? 'color:var(--accent);font-weight:600' : 'color:var(--ink)'};
+          font-variant-numeric:tabular-nums;text-align:right;min-width:160px;display:flex;flex-direction:column;align-items:flex-end
+        ">
+          ${upperBoundCaption}
+          <div><span>£${fmt(t.totalRealistic, 0)}</span>${deltaHtml}</div>
+          ${conditionalNote}
+        </div>
+      `;
+      barsWrap.appendChild(row);
+    });
+  }
 }
 updateRegoStatus();
 renderGenStack();
@@ -4111,6 +4352,53 @@ function renderConsumerCost(){
     `;
     barsWrap.appendChild(row);
   });
+
+  // PER-SITE COMPARISON TABLE: private market vs grid-only
+  const cmpBody = document.getElementById('cons-compare-body');
+  const cmpFoot = document.getElementById('cons-compare-foot');
+  if(cmpBody){
+    cmpBody.innerHTML = '';
+    perSite.forEach(s => {
+      const diff = s.allIn - s.gridOnly;       // positive = premium, negative = saving
+      const pct  = (diff / s.gridOnly) * 100;
+      const isSaving = diff < 0;
+      const sign = isSaving ? '−' : '+';
+      const colour = isSaving ? 'var(--accent)' : 'var(--grid)';
+      const tag = isSaving ? 'saving' : 'premium';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="site">${s.name}</td>
+        <td class="num">£${fmt(s.allIn, 0)}</td>
+        <td class="num" style="color:var(--ink-soft)">£${fmt(s.gridOnly, 0)}</td>
+        <td class="num" style="color:${colour};font-weight:500">
+          ${sign}£${fmt(Math.abs(diff), 0)}
+          <span style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-left:6px">${tag}</span>
+        </td>
+        <td class="num" style="color:${colour}">${sign}${Math.abs(pct).toFixed(2)}%</td>
+      `;
+      cmpBody.appendChild(tr);
+    });
+  }
+  if(cmpFoot){
+    const totalDiff = totalAll - totalGridOnly;
+    const totalPct  = (totalDiff / totalGridOnly) * 100;
+    const isSaving  = totalDiff < 0;
+    const sign      = isSaving ? '−' : '+';
+    const colour    = isSaving ? 'var(--accent)' : 'var(--grid)';
+    const tag       = isSaving ? 'saving' : 'premium';
+    cmpFoot.innerHTML = `
+      <tr style="border-top:1px solid var(--line);background:rgba(124,242,176,.03)">
+        <td class="site" style="color:var(--ink);font-weight:500">All sites</td>
+        <td class="num" style="color:var(--accent);font-weight:500">£${fmt(totalAll, 0)}</td>
+        <td class="num" style="color:var(--ink)">£${fmt(totalGridOnly, 0)}</td>
+        <td class="num" style="color:${colour};font-weight:500">
+          ${sign}£${fmt(Math.abs(totalDiff), 0)}
+          <span style="font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim);margin-left:6px">${tag}</span>
+        </td>
+        <td class="num" style="color:${colour};font-weight:500">${sign}${Math.abs(totalPct).toFixed(2)}%</td>
+      </tr>
+    `;
+  }
 }
 renderConsumerCost();
 
