@@ -1712,14 +1712,14 @@
             <div style="width:3px;background:var(--accent);flex-shrink:0;border-radius:2px"></div>
             <div>
               <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">Generator PM Rate</div>
-              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Set by the generator on the platform. For this deal: <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">8.0p/kWh</em> across all three assets, fixed for year one and indicative thereafter.</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">Set by the generator on the platform — what they actually earn on every matched kWh. For this deal: <em style="color:var(--accent);font-style:normal;font-family:var(--mono)">8.0p/kWh</em> across all three assets, fixed for year one and indicative thereafter.</div>
             </div>
           </div>
           <div style="display:flex;gap:14px">
             <div style="width:3px;background:var(--accent-deep);flex-shrink:0;border-radius:2px"></div>
             <div>
               <div style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px">UC Platform Fee</div>
-              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">UrbanChain's flat <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.4p/kWh</em> for matching, settlement, and metered allocation — already baked into the rates above.</div>
+              <div style="font-family:var(--serif);font-size:15px;color:var(--ink-soft);line-height:1.55;font-weight:300">UrbanChain's flat <em style="color:var(--ink);font-family:var(--mono);font-style:normal">0.4p/kWh</em> for matching, settlement, and metered allocation — <em style="color:var(--ink);font-style:italic">added on top</em> of the NCC and generator PM rate, not deducted from the generator's share. The generator earns the full 8.0p regardless.</div>
             </div>
           </div>
           <div style="display:flex;gap:14px">
@@ -3502,13 +3502,14 @@ function fmt(n,dp=2){ return n.toLocaleString('en-GB',{minimumFractionDigits:dp,
 
 function renderStack(){
   const s = importSites[+sitePick.value];
-  // The PM rate stored already includes the 0.4p platform fee.
-  // Stack components — to make the fee visually distinct, we split the 8.0 generator PM into "generator (7.6p)" + "platform (0.4p)" if fee is on.
+  // Generator always earns the full 8.0p PM rate — platform fee sits on top of NCC + PM,
+  // not deducted from the generator's take. The consumer's stored s.pm = ncc + 8.0p
+  // (no fee included), so the platform fee is an additional layer added to that base.
   const ncc = s.ncc;
-  const genCore = feeOn ? GEN_PM - PLATFORM_FEE : GEN_PM;
+  const genFull = GEN_PM;                       // always 8.0p
   const fee = feeOn ? PLATFORM_FEE : 0;
   const comm = commOn ? COMMISSION : 0;
-  const total = ncc + genCore + fee + comm;
+  const total = ncc + genFull + fee + comm;
   const grid = s.grid;
 
   const stack = document.getElementById('price-stack');
@@ -3520,7 +3521,7 @@ function renderStack(){
     stack.appendChild(d);
   };
   addBar('sb-ncc','Non-Commodity Charges (NCC)', ncc);
-  addBar('sb-pm','Generator PM Rate'+(feeOn?' (net)':''), genCore);
+  addBar('sb-pm','Generator PM Rate', genFull);
   if(feeOn) addBar('sb-fee','UC Platform Fee', fee);
   if(commOn) addBar('sb-comm','TPI / Broker Commission', comm);
   const t = document.createElement('div');
